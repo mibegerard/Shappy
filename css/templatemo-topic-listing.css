@@ -11,15 +11,15 @@ https://templatemo.com/tm-590-topic-listing
 -----------------------------------------*/
 :root {
   --white-color:                  #ffffff;
-  --primary-color:                #13547a;
-  --secondary-color:              #80d0c7;
+  --primary-color:                #9ACF5D;
+  --secondary-color:              #E7272D;
   --section-bg-color:             #f0f8ff;
-  --custom-btn-bg-color:          #80d0c7;
-  --custom-btn-bg-hover-color:    #13547a;
+  --custom-btn-bg-color:          #E7272D;
+  --custom-btn-bg-hover-color:    #9ACF5D;
   --dark-color:                   #000000;
   --p-color:                      #717275;
   --border-color:                 #7fffd4;
-  --link-hover-color:             #13547a;
+  --link-hover-color:             #9ACF5D;
 
   --body-font-family:             'Open Sans', sans-serif;
   --title-font-family:            'Montserrat', sans-serif;
@@ -46,7 +46,7 @@ https://templatemo.com/tm-590-topic-listing
 }
 
 body {
-  background-color: var(--white-color);
+  background-color: #E7272D;
   font-family: var(--body-font-family); 
 }
 
@@ -71,6 +71,7 @@ h5,
 h6 {
   font-family: var(--title-font-family); 
   font-weight: var(--font-weight-semibold);
+  color: green;
 }
 
 h1 {
@@ -140,6 +141,7 @@ strong {
 .section-padding {
   padding-top: 100px;
   padding-bottom: 100px;
+  background-color: #ffffff;
 }
 
 .section-bg {
@@ -312,7 +314,7 @@ strong {
 
 .navbar-nav .nav-link {
   display: inline-block;
-  color: var(--white-color);
+  color: #FFE3B6;
   font-family: var(--title-font-family); 
   font-size: var(--menu-font-size);
   font-weight: var(--font-weight-medium);
@@ -486,7 +488,7 @@ strong {
   HERO        
 -----------------------------------------*/
 .hero-section {
-  background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+  background-image: linear-gradient(15deg, #385909 0%, #385909 100%);
   position: relative;
   overflow: hidden;
   padding-top: 150px;
@@ -945,7 +947,7 @@ blockquote {
 }
 
 .site-footer-title {
-  color: var(--primary-color); 
+  color: #E7272D; 
 }
 
 .site-footer .dropdown-menu {
@@ -993,10 +995,10 @@ blockquote {
 }
 
 .site-footer-link {
-  color: var(--secondary-color);
   font-size: var(--copyright-font-size);
   font-weight: var(--font-weight-medium);
   line-height: normal;
+  color: #E7272D;
 }
 
 .copyright-text {
@@ -1036,6 +1038,12 @@ blockquote {
   background: var(--primary-color);
   color: var(--white-color);
 }
+
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
+  }
 
 
 /*---------------------------------------
