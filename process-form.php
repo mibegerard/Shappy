@@ -40,7 +40,7 @@
         }
     }
 
-    // Close the database connection
+    // Close the database connectionS
     $conn->close();
 
 ?>
