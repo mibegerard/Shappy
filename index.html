@@ -422,39 +422,34 @@
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-floating">
                                             <input type="text" name="name" id="name" class="form-control" placeholder="Nom" required="">
-                                            
-                                            <label for="floatingInput">Nom</label>
+                                            <label for="name">Nom</label>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="col-lg-6 col-md-6 col-12"> 
                                         <div class="form-floating">
                                             <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Mail" required="">
-                                            
-                                            <label for="floatingInput">Adresse Mail</label>
+                                            <label for="email">Adresse Mail</label>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="col-lg-12 col-12">
-
                                         <div class="form-floating">
                                             <input type="text" name="telephone" id="telephone" class="form-control" placeholder="Téléphone" required="">
-                                            
-                                            <label for="floatingInput">Téléphone</label>
+                                            <label for="telephone">Téléphone</label>
                                         </div>
-                                        
+                                    
                                         <div class="form-floating">
-                                            <input type="text" name="subject" id="name" class="form-control" placeholder="Name" required="">
-                                            
-                                            <label for="floatingInput">Sujet</label>
+                                            <input type="text" name="subject" id="subject" class="form-control" placeholder="Sujet" required="">
+                                            <label for="subject">Sujet</label>
                                         </div>
-
+                                    
                                         <div class="form-floating">
                                             <textarea class="form-control" id="message" name="message" placeholder="Tell me about the project"></textarea>
-                                            
-                                            <label for="floatingTextarea">Nous sommes à votre écoute</label>
+                                            <label for="message">Nous sommes à votre écoute</label>
                                         </div>
                                     </div>
+                                    
 
                                     <div class="col-lg-4 col-12 ms-auto">
                                         <button type="submit" class="form-control">Envoyer</button>
@@ -547,13 +542,58 @@
         
 
         <script>
-            $(document).ready(function () {
-                $('#myCarousel').carousel({
-                    interval: 500, 
-                    wrap: true
-                });
+            document.addEventListener('DOMContentLoaded', function () {
+                var carouselImages = [
+                    'images/7.png',
+                    'images/8.png',
+                    'images/9.png',
+                    // Add more image URLs as needed
+                ];
+        
+                var carousel = document.getElementById('myCarousel');
+                var carouselInner = carousel.querySelector('.carousel-inner');
+        
+                // Remove existing carousel items
+                carouselInner.innerHTML = '';
+        
+                // Add new carousel items based on the array of image URLs
+                for (var i = 0; i < carouselImages.length; i++) {
+                    var carouselItem = document.createElement('div');
+                    carouselItem.classList.add('carousel-item');
+        
+                    // Set the first item as active
+                    if (i === 0) {
+                        carouselItem.classList.add('active');
+                    }
+        
+                    var image = document.createElement('img');
+                    image.src = carouselImages[i];
+                    image.classList.add('d-block', 'w-100');
+                    image.alt = 'Image ' + (i + 1);
+        
+                    carouselItem.appendChild(image);
+                    carouselInner.appendChild(carouselItem);
+                }
+        
+                // Update carousel indicators
+                var carouselIndicators = carousel.querySelector('.carousel-indicators');
+                carouselIndicators.innerHTML = '';
+        
+                for (var i = 0; i < carouselImages.length; i++) {
+                    var indicator = document.createElement('li');
+                    indicator.setAttribute('data-target', '#myCarousel');
+                    indicator.setAttribute('data-slide-to', i);
+        
+                    // Set the first indicator as active
+                    if (i === 0) {
+                        indicator.classList.add('active');
+                    }
+        
+                    carouselIndicators.appendChild(indicator);
+                }
             });
         </script>
+        
 
 
     </body>
