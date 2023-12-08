@@ -38,6 +38,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500&display=swap" rel="stylesheet">
 
+        <!-- The callback parameter is required, so we use console.debug as a noop -->
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZbI4hRXlvdwVgr38Wf4leiLoxKcUjgCQ&callback=console.debug&libraries=maps,marker&v=beta">
+        </script>
+
     </head>
     
     <body id="top">
@@ -413,7 +417,7 @@
                         </div>
 
                         <div class="col-lg-6 col-12">
-                            <form action="process-form.php" method="post" class="custom-form contact-form" role="form">
+                            <form action="process-form.php" method="post" class="custom-form contact-form" role="form" netlify>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-floating">
@@ -462,11 +466,13 @@
 
                         <div class="col-lg-5 col-12 mx-auto mt-5 mt-lg-0">
 
-                            <iframe class="google-map" src="https://www.google.com/maps/place/MyDigitalSchool+Paris/@48.8587346,2.3717461,17z/data=!3m1!4b1!4m6!3m5!1s0x47e66c2d53f8d0cd:0xa8fabcd7afba85d!8m2!3d48.8587311!4d2.374321!16s%2Fg%2F11dzwmx7y5?entry=ttu" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <gmp-map center="48.859683990478516,2.378408670425415" zoom="14" map-id="DEMO_MAP_ID">
+                                <gmp-advanced-marker position="48.859683990478516,2.378408670425415" title="My location">
+                                </gmp-advanced-marker>
+                            </gmp-map>
 
-                            <h5 class="mt-4 mb-2">Ou Nous Trouver ?</h5>
+                            <a href="https://www.google.com/maps/place/MyDigitalSchool+Paris/@48.8587346,2.3717461,17z/data=!3m1!4b1!4m6!3m5!1s0x47e66c2d53f8d0cd:0xa8fabcd7afba85d!8m2!3d48.8587311!4d2.374321!16s%2Fg%2F11dzwmx7y5?entry=ttu" target="_blank">Open in Google Maps</a>
 
-                            <p>75011 &amp;, Paris</p>
                         </div>
 
                     </div>
