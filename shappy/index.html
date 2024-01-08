@@ -26,12 +26,18 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+
+	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZbI4hRXlvdwVgr38Wf4leiLoxKcUjgCQ&callback=console.debug&libraries=maps,marker&v=beta">
+	</script>
+	
   </head>
   <body class="goto-here">
 		
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">	
-	      <a class="navbar-brand" href="index.html">SHAPPY</a>
+			<a class="navbar-brand" href="index.html">
+				<img src="img/images/LOGO_SHAPPY.svg" alt="Shappy Logo" width=" 80" height="80">
+			</a>  
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -51,85 +57,84 @@
 
     <section id="home-section" class="hero">
 		<div class="home-slider owl-carousel">
-		  <div class="slider-item" style="background-image: url(image/18.jpeg);">
+		  <div class="slider-item" style="background-image: url(image/64.png);">
 			<div class="overlay"></div>
 			<div class="container">
 			  <div class="row slider-text justify-content-center align-items-end" data-scrollax-parent="true">
 				<div class="col-md-12 ftco-animate text-center" style="padding-bottom: 60px;">
 				  <h2 class="subheading mb-4">La Beauté dans l'Imperfection</h2>
-				  <p><a href="#" class="btn btn-primary">Voir les détails</a></p>
+				  <p><a href="#landing" class="btn btn-primary">Voir les détails</a></p>
 				</div>
 			  </div>
 			</div>
 		  </div>
 	  
-		  <div class="slider-item" style="background-image: url(image/49.jpeg);">
+		  <div class="slider-item" style="background-image: url(image/57.png);">
 			<div class="overlay"></div>
 			<div class="container">
 			  <div class="row slider-text justify-content-center align-items-end" data-scrollax-parent="true">
 				<div class="col-sm-12 ftco-animate text-center" style="padding-bottom: 60px;">
 				  <h2 class="subheading mb-4">La Beauté dans l'Imperfection</h2>
-				  <p><a href="#" class="btn btn-primary">Voir les détails</a></p>
+				  <p><a href="#landing" class="btn btn-primary">Voir les détails</a></p>
 				</div>
 			  </div>
 			</div>
 		  </div>
 		</div>
-	  </section>
 
-	  
-	  
-
-    <section class="ftco-section">
-			<div class="container">
-				<div class="row no-gutters ftco-services">
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-shipped"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Livraison gratuite</h3>
-                <span>Pour toute commande de plus de 100 €</span>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-diet"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Toujours frais</h3>
-                <span>Produit bien emballé</span>
-              </div>
-            </div>    
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-award"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Qualité supérieure</h3>
-                <span>Produits de qualité</span>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services mb-md-0 mb-4">
-              <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-customer-service"></span>
-              </div>
-              <div class="media-body">
-                <h3 class="heading">Assistance</h3>
-                <span>24/7 Assistance</span>
-              </div>
-            </div>      
-          </div>
-        </div>
-			</div>
 	</section>
+	
+    <section class="ftco-section"  id="landing">
+		<div class="container">
+		  <div class="row no-gutters ftco-services">
+			<div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+			  <div class="media block-6 services mb-md-0 mb-4">
+				<div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
+				  <span class="flaticon-shipped"></span>
+				</div>
+				<div class="media-body">
+				  <h3 class="heading">Livraison gratuite</h3>
+				  <span>Pour toute commande de plus de 100 €</span>
+				</div>
+			  </div>      
+			</div>
+			<div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+			  <div class="media block-6 services mb-md-0 mb-4">
+				<div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
+				  <span class="flaticon-diet"></span>
+				</div>
+				<div class="media-body">
+				  <h3 class="heading">Toujours frais</h3>
+				  <span>Produit bien emballé</span>
+				</div>
+			  </div>    
+			</div>
+			<div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+			  <div class="media block-6 services mb-md-0 mb-4">
+				<div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
+				  <span class="flaticon-award"></span>
+				</div>
+				<div class="media-body">
+				  <h3 class="heading">Qualité supérieure</h3>
+				  <span>Produits de qualité</span>
+				</div>
+			  </div>      
+			</div>
+			<div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+			  <div class="media block-6 services mb-md-0 mb-4">
+				<div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
+				  <span class="flaticon-customer-service"></span>
+				</div>
+				<div class="media-body">
+				  <h3 class="heading">Assistance</h3>
+				  <span>24/7 Assistance</span>
+				</div>
+			  </div>      
+			</div>
+		  </div>
+		</div>
+	</section>
+	  
 
     <section class="ftco-section">
 		<div class="container">
@@ -145,7 +150,8 @@
 				<!-- Produit 1 -->
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+						<a href="#" class="img-prod">
+							<img class="img-fluid" src="images/product-1.jpg" alt="shappy">
 							<span class="status">30%</span>
 							<div class="overlay"></div>
 						</a>
@@ -175,7 +181,7 @@
 				<!-- Produit 2 -->
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
+						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="shappy">
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
@@ -204,7 +210,7 @@
 				<!-- Produit 3 -->
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
+						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="shappy">
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
@@ -233,7 +239,7 @@
 				<!-- Produit 4 -->
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
+						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="shappy">
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
@@ -262,7 +268,7 @@
 				<!-- Produit 5 -->
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="Colorlib Template">
+						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="shappy">
 							<span class="status">30%</span>
 							<div class="overlay"></div>
 						</a>
@@ -292,7 +298,7 @@
 				<!-- Produit 6 -->
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-6.jpg" alt="Colorlib Template">
+						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-6.jpg" alt="shappy">
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
@@ -321,7 +327,7 @@
 				<!-- Produit 7 -->
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-7.jpg" alt="Colorlib Template">
+						<a href="#" class="img-prod"><img class="img-fluid" src="images/product-7.jpg" alt="shappy">
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
@@ -350,7 +356,7 @@
 				<!-- Produit 8 -->
 				<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="#" class="img-prod"><img class="img-fluid" src="image/3.jpeg" alt="Colorlib Template">
+						<a href="#" class="img-prod"><img class="img-fluid" src="image/3.jpeg" alt="shappy">
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
@@ -496,13 +502,7 @@
 		</div>
 	</section>
 
-	
-	
-
     <hr>
-
-		
-
 
 	<section class="ftco-section contact-section bg-light">
 		<div class="container">
@@ -647,7 +647,7 @@
   <script src="js/jquery.animateNumber.min.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
   <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZbI4hRXlvdwVgr38Wf4leiLoxKcUjgCQ&callback=console.debug&libraries=maps,marker&v=beta"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
     
