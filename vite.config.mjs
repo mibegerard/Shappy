@@ -21,7 +21,7 @@ export default defineConfig({
     })
   ],
   // https://github.com/jpuri/react-draft-wysiwyg/issues/1317
-  // base: '/red-star',
+  // base: '/shappy',
   base: '/',
   define: {
     global: 'window'
