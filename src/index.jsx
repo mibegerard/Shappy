@@ -35,8 +35,7 @@ import 'swiper/css/pagination';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const container = document.getElementById('root');
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+
 import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from './store';
 // editor
@@ -44,6 +43,9 @@ import 'react-quill/dist/quill.snow.css';
 
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
+
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
 // ----------------------------------------------------------------------
 
