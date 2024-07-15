@@ -5,7 +5,11 @@ export default function componentStyleOverrides(theme) {
       styleOverrides: {
         root: {
           fontWeight: 500,
-          borderRadius: '4px'
+          borderRadius: '4px',
+          textDecoration: 'none',
+          '&:hover': {
+            textDecoration: 'none',
+          },
         }
       }
     },
@@ -77,7 +81,7 @@ export default function componentStyleOverrides(theme) {
       styleOverrides: {
         root: {
           color: theme.darkTextPrimary,
-          minWidth: '36px'
+          minWidth: '36px',
         }
       }
     },

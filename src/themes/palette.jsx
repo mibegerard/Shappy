@@ -68,6 +68,17 @@ export default function themePalette(theme) {
     background: {
       paper: theme.paper,
       default: theme.backgroundDefault
+    },
+    custom: {
+      red: '#E7272D',
+      orangee: '#FC8A1A',
+      vertClaire: '#9ACF5D',
+      vertFonce: '#385909',
+      jaune: '#FFCA0E',
+      beige: '#FFE3B6',
+      beigeClair: '#FFF4E2',
+      beige40: 'rgba(255, 227, 182, 0.4)',
+      vertFonce60: 'rgba(56, 89, 9, 0.6)'
     }
   };
 }

@@ -43,7 +43,7 @@ const AboutSection = () => {
               Les fruits et légumes sont essentiels pour une alimentation saine et équilibrée. Ils regorgent de vitamines, de minéraux et d&apos;antioxydants, qui aident à renforcer le système immunitaire et à prévenir diverses maladies. De plus, leur variété de couleurs et de textures apporte non seulement des bienfaits nutritionnels, mais aussi une esthétique attrayante dans nos assiettes. Que ce soit des fruits juteux comme les oranges et les fraises, ou des légumes croquants comme les carottes et les brocolis, chaque aliment a ses propres atouts. Consommer une gamme diversifiée de fruits et légumes est un excellent moyen d&apos;assurer un apport complet en nutriments.
             </Typography>
             <Typography variant="body1" paragraph sx={{ fontSize: '18px' }}>
-              En plus de leurs bienfaits pour la santé, les fruits et légumes jouent un rôle crucial dans la durabilité environnementale. En favorisant la consommation de produits locaux et de saison, nous soutenons les agriculteurs de notre région et réduisons notre empreinte carbone liée au transport des aliments.
+              En plus de leurs bienfaits pour la santé, les fruits et légumes jouent un rôle crucial dans la durabilité environnementale.
             </Typography>
           </Grid>
         </Grid>

@@ -4,6 +4,14 @@
 // third-party
 @import 'react-perfect-scrollbar/dist/css/styles.css';
 
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 // ==============================|| LIGHT BOX ||============================== //
 .fullscreen .react-images__blanket {
   z-index: 1200;
