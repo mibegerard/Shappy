@@ -1,5 +1,5 @@
 export default function componentStyleOverrides(theme) {
-  const bgColor = theme.colors?.grey50;
+  const bgColor = theme.colors?.primaryLight; 
   return {
     MuiButton: {
       styleOverrides: {
@@ -106,7 +106,7 @@ export default function componentStyleOverrides(theme) {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          background: bgColor,
+          background: bgColor, // Use bgColor set to #FFF4E2
           borderRadius: `${theme?.customization?.borderRadius}px`,
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.colors?.grey400
@@ -120,7 +120,7 @@ export default function componentStyleOverrides(theme) {
         },
         input: {
           fontWeight: 500,
-          background: bgColor,
+          background: bgColor, // Use bgColor set to #FFF4E2
           padding: '15.5px 14px',
           borderRadius: `${theme?.customization?.borderRadius}px`,
           '&.MuiInputBase-inputSizeSmall': {
@@ -150,14 +150,14 @@ export default function componentStyleOverrides(theme) {
           width: '4px'
         },
         valueLabel: {
-          color: theme?.colors?.primaryLight
+          color: theme.colors?.primaryLight
         }
       }
     },
     MuiDivider: {
       styleOverrides: {
         root: {
-          borderColor: theme.divider,
+          borderColor: theme.colors?.grey200,
           opacity: 1
         }
       }
@@ -174,16 +174,42 @@ export default function componentStyleOverrides(theme) {
       styleOverrides: {
         root: {
           '&.MuiChip-deletable .MuiChip-deleteIcon': {
-            color: 'inherit'
+            color: theme.colors?.grey500
           }
         }
       }
     },
-    MuiTooltip: {
+    MuiTimelineContent: {
       styleOverrides: {
-        tooltip: {
-          color: theme.paper,
-          background: theme.colors?.grey700
+        root: {
+          color: theme.textDark,
+          fontSize: '16px'
+        }
+      }
+    },
+    MuiTreeItem: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label': {
+            backgroundColor: 'transparent'
+          },
+          '&.Mui-selected:focus > .MuiTreeItem-content .MuiTreeItem-label': {
+            backgroundColor: 'transparent'
+          }
+        }
+      }
+    },
+    MuiTimelineDot: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none'
+        }
+      }
+    },
+    MuiInternalDateTimePickerTabs: {
+      styleOverrides: {
+        tabs: {
+          backgroundColor: theme.colors?.primaryLight
         }
       }
     }

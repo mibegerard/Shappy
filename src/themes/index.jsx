@@ -14,17 +14,21 @@ import themeTypography from './typography';
  */
 
 export const theme = (customization) => {
-  const color = colors;
+  const color = {
+    ...colors,
+    orangeMain: '#FC8A1A',
+    beigeclaire: '#FFF4E2'
+  };
 
   const themeOption = {
     colors: color,
-    heading: color.grey900,
+    heading: color.orangeMain, // Set default heading color to orange
     paper: color.paper,
-    backgroundDefault: color.paper,
-    background: color.primaryLight,
-    darkTextPrimary: color.grey700,
-    darkTextSecondary: color.grey500,
-    textDark: color.grey900,
+    backgroundDefault: color.beigeclaire, // Set default background to beigeclaire
+    background: color.primaryLight, // Set background to primaryLight
+    darkTextPrimary: color.orangeMain, // Set default text color to orange
+    darkTextSecondary: color.orangeMain, // Set secondary text color to orange
+    textDark: color.orangeMain, // Set dark text color to orange
     menuSelected: color.secondaryDark,
     menuSelectedBack: color.secondaryLight,
     divider: color.grey200,

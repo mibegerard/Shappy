@@ -1,10 +1,14 @@
 /**
- * Color intention that you want to used in your theme
+ * Color intention that you want to use in your theme
  * @param {JsonObject} theme Theme customization object
  */
 
 export default function themePalette(theme) {
   return {
+    background: {
+      paper: theme.paper,
+      default: theme.colors?.beigeclaire, // Set default background to beigeclaire
+    },
     mode: theme?.customization?.navType,
     common: {
       black: theme.colors?.darkPaper
@@ -60,25 +64,26 @@ export default function themePalette(theme) {
       900: theme.colors?.darkPaper
     },
     text: {
-      primary: theme.darkTextPrimary,
-      secondary: theme.darkTextSecondary,
-      dark: theme.textDark,
+      primary: theme.colors?.orangeMain, // Set primary text color to orange
+      secondary: theme.colors?.orangeMain, // Set secondary text color to orange
+      dark: theme.colors?.orangeMain, // Set dark text color to orange
       hint: theme.colors?.grey100
     },
-    background: {
-      paper: theme.paper,
-      default: theme.backgroundDefault
+    beige: {
+      main: theme.colors?.beigeMain,
+      clair: theme.colors?.beigeClair,
+      40: theme.colors?.beige40
     },
-    custom: {
-      red: '#E7272D',
-      orangee: '#FC8A1A',
-      vertClaire: '#9ACF5D',
-      vertFonce: '#385909',
-      jaune: '#FFCA0E',
-      beige: '#FFE3B6',
-      beigeClair: '#FFF4E2',
-      beige40: 'rgba(255, 227, 182, 0.4)',
-      vertFonce60: 'rgba(56, 89, 9, 0.6)'
+    vert: {
+      fonce60: theme.colors?.vertFonce60,
+      claire: theme.colors?.vertClaire,
+      fonce: theme.colors?.vertFonce
+    },
+    jaune: {
+      main: theme.colors?.jauneMain
+    },
+    red: {
+      main: theme.colors?.redMain
     }
   };
 }
