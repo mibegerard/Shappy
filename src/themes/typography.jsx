@@ -7,75 +7,77 @@ export default function themeTypography(theme) {
     fontFamily: theme?.customization?.fontFamily,
     h6: {
       fontWeight: 800,
-      fontSize: '15px', // ~0.9375rem
-      color: theme.heading,
+      fontSize: '1.125rem', // 18px
+      color: theme.colors?.orangeMain, // Updated to orange
       fontFamily: 'Poppins',
     },
     h5: {
-      fontSize: '0.875rem', // 14px
-      color: theme.heading,
+      fontSize: '1rem', // 16px
+      color: theme.colors?.orangeMain, // Updated to orange
       fontWeight: 500,
       fontFamily: 'Tanker',
     },
     h4: {
-      fontSize: '1rem', // 16px
-      color: theme.heading,
+      fontSize: '1.125rem', // 18px
+      color: theme.colors?.orangeMain, // Updated to orange
       fontWeight: 600,
       fontFamily: 'Tanker',
     },
     h3: {
-      fontSize: '1.25rem', // 20px
-      color: theme.heading,
+      fontSize: '1.375rem', // 22px
+      color: theme.colors?.orangeMain, // Updated to orange
       fontWeight: 600,
       fontFamily: 'Tanker',
     },
     h2: {
-      fontSize: '1.5rem', // 24px
-      color: theme.heading,
+      fontSize: '1.75rem', // 28px
+      color: theme.colors?.orangeMain, // Updated to orange
       fontWeight: 700,
       fontFamily: 'Tanker',
     },
     h1: {
-      fontSize: '2.125rem', // 34px
-      color: theme.heading,
+      fontSize: '2.375rem', // 38px
+      color: theme.colors?.orangeMain, // Updated to orange
       fontWeight: 700,
       fontFamily: 'Tanker',
     },
     subtitle1: {
-      fontSize: '0.875rem', // 14px
+      fontSize: '1rem', // 16px
       fontWeight: 500,
-      color: theme.textDark,
+      color: theme.colors?.orangeMain, // Updated to orange
       fontFamily: 'Poppins',
     },
     subtitle2: {
-      fontSize: '0.75rem', // 12px
+      fontSize: '0.875rem', // 14px
       fontWeight: 400,
-      color: theme.darkTextSecondary,
+      color: theme.colors?.orangeMain, // Updated to orange
       fontFamily: 'Poppins',
     },
     caption: {
-      fontSize: '0.75rem', // 12px
-      color: theme.darkTextSecondary,
+      fontSize: '0.875rem', // 14px
+      color: theme.colors?.orangeMain, // Updated to orange
       fontWeight: 400,
       fontFamily: 'Poppins',
     },
     body1: {
-      fontSize: '0.875rem', // 14px
+      fontSize: '1rem', // 16px
       fontWeight: 400,
       lineHeight: '1.334em',
+      color: theme.colors?.orangeMain, // Updated to orange
       fontFamily: 'Poppins',
     },
     body2: {
-      fontSize: '0.875rem', // 14px
+      fontSize: '1rem', // 16px
       letterSpacing: '0em',
       fontWeight: 400,
       lineHeight: '1.5em',
-      color: theme.darkTextPrimary,
+      color: theme.colors?.orangeMain, // Updated to orange
       fontFamily: 'Poppins',
     },
     button: {
       textTransform: 'capitalize',
       fontFamily: 'Poppins',
+      color: theme.colors?.beigeclaire 
     },
     customInput: {
       marginTop: 1,
@@ -84,7 +86,7 @@ export default function themeTypography(theme) {
       '& > label': {
         top: 23,
         left: 0,
-        color: theme.grey500,
+        color: theme.colors?.grey500,
         '&[data-shrink="false"]': {
           top: 5,
         },
@@ -111,19 +113,19 @@ export default function themeTypography(theme) {
       borderRadius: `${theme?.customization?.borderRadius}px`,
     },
     menuCaption: {
-      fontSize: '0.875rem', // 14px
+      fontSize: '1rem', // 16px
       fontWeight: 500,
       fontFamily: 'Poppins',
-      color: theme.heading,
+      color: theme.colors?.orangeMain, // Updated to orange
       padding: '6px',
       textTransform: 'capitalize',
       marginTop: '10px',
     },
     subMenuCaption: {
-      fontSize: '0.6875rem', // 11px
+      fontSize: '0.8125rem', // 13px
       fontWeight: 500,
       fontFamily: 'Poppins',
-      color: theme.darkTextSecondary,
+      color: theme.colors?.orangeMain, // Updated to orange
       textTransform: 'capitalize',
     },
     commonAvatar: {
@@ -133,17 +135,17 @@ export default function themeTypography(theme) {
     smallAvatar: {
       width: '22px',
       height: '22px',
-      fontSize: '1rem', // 16px
+      fontSize: '1.125rem', // 18px
     },
     mediumAvatar: {
       width: '34px',
       height: '34px',
-      fontSize: '1.2rem', // 19px
+      fontSize: '1.4rem', // 22px
     },
     largeAvatar: {
       width: '44px',
       height: '44px',
-      fontSize: '1.5rem', // 24px
+      fontSize: '1.75rem', // 28px
     },
     components: {
       MuiLink: {

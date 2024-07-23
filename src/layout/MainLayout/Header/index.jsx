@@ -16,7 +16,6 @@ import logoSrc from 'assets/images/logobelge.png';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
-import fondora from 'assets/images/fond-orange.png'; // Import the background image
 
 const menuItems = [
     { name: 'Je suis Producteur', link: '/', icon: <HomeIcon color="primary" /> }
@@ -65,7 +64,7 @@ const Header = () => {
 
     return (
         <>
-            <AppBar position="static" sx={{ backgroundImage: `url(${fondora})`, backgroundSize: 'cover' }}>
+            <AppBar position="fixed" sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
                 <Container maxWidth="lg">
                     <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>

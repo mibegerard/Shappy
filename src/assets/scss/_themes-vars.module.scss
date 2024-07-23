@@ -1,14 +1,14 @@
 // paper & background
-$paper: #ffffff;
+$paper: #FFF4E2;
 
 // primary
-$primaryLight: #eef2f6;
+$primaryLight: #FFF4E2;
 $primaryMain: #FC8A1A;
 $primaryDark: #00161f;
 $primary200: #095473;
 $primary800: #033752;
 
-// secondary
+// secondary 
 $secondaryLight: #ede7f6;
 $secondaryMain: #2b7da2;
 $secondaryDark: #206f8c;
@@ -27,9 +27,9 @@ $errorMain: #f44336;
 $errorDark: #c62828;
 
 // orange
-$orangeLight: #fbe9e7;
-$orangeMain: #ffab91;
-$orangeDark: #d84315;
+$orangeLight: #FFA726;
+$orangeMain: #FC8A1A;
+$orangeDark: #EF6C00;
 
 // warning
 $warningLight: #fff8e1;
@@ -74,6 +74,24 @@ $darkSecondary800: #6200ea;
 $darkTextTitle: #d7dcec;
 $darkTextPrimary: #bdc8f0;
 $darkTextSecondary: #8492c4;
+
+// ==============================|| NEW COLORS ||============================== //
+
+// beige
+$beigeMain: #FFE3B6;
+$beigeClair: #FFF4E2;
+$beige40: rgba(255, 227, 182, 0.4);
+
+// vert
+$vertFonce60: rgba(56, 89, 9, 0.6);
+$vertClaire: #9ACF5D;
+$vertFonce: #385909;
+
+// jaune
+$jauneMain: #FFCA0E;
+
+// red
+$redMain: #E7272D;
 
 // ==============================|| JAVASCRIPT ||============================== //
 
@@ -154,4 +172,17 @@ $darkTextSecondary: #8492c4;
   darkSecondaryDark: $darkSecondaryDark;
   darkSecondary200: $darkSecondary200;
   darkSecondary800: $darkSecondary800;
+
+  // new colors
+  beigeMain: $beigeMain;
+  beigeClair: $beigeClair;
+  beige40: $beige40;
+  
+  vertFonce60: $vertFonce60;
+  vertClaire: $vertClaire;
+  vertFonce: $vertFonce;
+  
+  jauneMain: $jauneMain;
+  
+  redMain: $redMain;
 }
