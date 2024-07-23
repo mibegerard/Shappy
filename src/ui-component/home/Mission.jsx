@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import mission from 'assets/images/mission.png';
 import chemin from 'assets/images/chemin.png';
 import processimg from 'assets/images/Process.png';
+import tomates from 'assets/images/Tomate.png';
 
 const Mission = () => {
     const theme = useTheme();
@@ -18,7 +19,8 @@ const Mission = () => {
                     backgroundColor: theme.palette.beige.main,
                     padding: '40px 0', 
                     borderRadius: '3rem', 
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    position: 'relative' // Added for absolute positioning of tomate image
                 }}
             >
                 <Container maxWidth="lg">
@@ -109,6 +111,20 @@ const Mission = () => {
                         </Grid>
                     </Grid>
                 </Container>
+
+                {/* Tomates Image */}
+                <Box
+                    component="img"
+                    src={tomates}
+                    alt="Tomates"
+                    sx={{
+                        position: 'absolute',
+                        top: '0rem',
+                        left: '35%',
+                        width: 'auto',
+                        height: isSmallScreen ? '50px' : '80px', // Adjust size as needed
+                    }}
+                />
             </Box>
 
             {/* New Section with Background Image and Additional Image */}

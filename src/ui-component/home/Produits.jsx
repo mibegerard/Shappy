@@ -60,7 +60,7 @@ const Produits = () => {
 
     return (
         <Container maxWidth="lg">
-            <Grid container justifyContent="center" sx={{marginBottom : '3rem'}}>
+            <Grid container justifyContent="center" sx={{marginBottom : '3rem', marginTop : '3rem'}}>
                 {isMediumOrSmaller ? (
                     <>
                         <Grid item xs={12} container justifyContent="center">
@@ -95,7 +95,7 @@ const Produits = () => {
                                                     transform: 'scale(1.05)',
                                                     borderRadius: '1rem'
                                                 },
-                                                borderRadius: '1rem 1rem 0 O'
+                                                borderRadius: '1rem'
                                             }}                                            
                                         />
                                     ))}
@@ -180,7 +180,7 @@ const Produits = () => {
                                                         transform: 'scale(1.05)',
                                                         borderRadius: '1rem'
                                                     },
-                                                    borderRadius: '1rem 1rem 0 O'
+                                                    borderRadius: '1rem 1rem 0 0'
                                                 }}
                                             />
                                         ))}
@@ -212,7 +212,7 @@ const Produits = () => {
                                                     transform: 'scale(1.05)',
                                                     borderRadius: '1rem'
                                                 },
-                                                borderRadius: '1rem 1rem 0 O'
+                                                borderRadius: '1rem'
                                             }}
                                             
                                         />
