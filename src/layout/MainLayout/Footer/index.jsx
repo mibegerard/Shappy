@@ -26,16 +26,16 @@ const Footer = () => {
         <Container>
           <Grid container spacing={1}>
             <Grid item md={12} sx={{ textAlign: 'left', padding: '2rem' }}>
-              <Box display={'flex'} alignItems={'center'} pt={3}>
-                <Typography color={'white'}>&copy; Shappy 2024</Typography>
+              <Box display="flex" alignItems="center" pt={3} flexWrap={{ xs: 'wrap', md: 'nowrap' }}>
+                <Typography color="white">&copy; Shappy 2024</Typography>
 
                 {/* Vertical line between copyright and menu */}
                 <Box sx={{ width: '1px', height: '20px', bgcolor: 'white', mx: 2 }} />
 
-                <Box display={'flex'} alignItems={'center'}>
+                <Box display="flex" alignItems="center" flexWrap={{ xs: 'wrap', md: 'nowrap' }}>
                   {companyMenu.map((item, index) => (
                     <React.Fragment key={item.label}>
-                      <Link href={item.path} color="white" underline="none">
+                      <Link href={item.path} color="white" underline="none" sx={{ display: 'block', mb: { xs: 1, md: 0 } }}>
                         {item.label}
                       </Link>
                       {index < companyMenu.length - 1 && <Typography color="white" mx={1}>-</Typography>}
