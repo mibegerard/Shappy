@@ -51,8 +51,8 @@ const Header = (props) => {
     const drawerContent = (
         <Box
             sx={{
-                width: '30vw', // 30% of the screen width
-                maxWidth: 300, // Maximum width
+                width: '70vw',
+                maxWidth: 300, 
             }}
             role="presentation"
             onClick={toggleDrawer(false)}
