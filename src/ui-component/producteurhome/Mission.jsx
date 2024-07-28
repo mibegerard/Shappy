@@ -24,7 +24,12 @@ const Mission = () => {
                                     Shappy est là pour vous ! Nous récupérons vos produits invendus pour les revendre à des restaurateurs en quête de produits frais et de qualité.
                                 </Typography>
                             </Box>
-                            <Box sx={{ textAlign: 'center', marginTop: '2rem' }}> 
+                            <Box
+                                sx={{
+                                    textAlign: isSmallScreen ? 'center' : 'left',
+                                    marginTop: '2rem',
+                                }}
+                            >
                                 <Button 
                                     variant="contained"
                                     sx={{ 
