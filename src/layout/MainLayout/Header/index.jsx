@@ -21,7 +21,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 
 const menuItems = [
-    { name: 'Je suis Producteur', link: '/', icon: <AgricultureIcon color="primary" /> },
+    { name: 'Je suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> },
     { name: 'Se Connecter', link: '/', icon: <HomeIcon color="primary" /> }
 ];
 
