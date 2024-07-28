@@ -11,7 +11,7 @@ const Restaurateur = () => {
 
     const getHeight = () => {
         if (isSmallScreen) return 'auto';
-        if (isMediumScreen) return '40vh';
+        if (isMediumScreen) return 'auto';
         return '100vh';
     };
 
@@ -25,7 +25,7 @@ const Restaurateur = () => {
                 sx={{ 
                     width: '100%', 
                     height: getHeight(), 
-                    objectFit: 'contain'
+                    objectFit: 'auto'
                 }}
             />
 
