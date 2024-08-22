@@ -66,7 +66,7 @@ const RegisterRestaurateur = () => {
       </Grid>
 
       {/* Authentication Card Block */}
-      <Grid item xs={12} sx={{ position: 'relative', width: '100%', mt: downMD ? '-8vh' : '-13vh' }}>
+      <Grid item xs={12} sx={{ position: 'relative', width: '100%', mt: downMD ? '-8vh' : '-17vh' }}>
         <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: downMD ? '60vh' : '50vh' }}>
           <Grid item xs={12} sm={8} md={6} lg={6} sx={{ display: 'flex', justifyContent: 'center' }}>
             <AuthCardWrapper>
