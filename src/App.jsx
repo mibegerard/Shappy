@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
-
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
 
 // routing
 import router from 'routes';
@@ -23,7 +23,9 @@ const App = () => {
       <ThemeProvider theme={themes(customization)}>
         <CssBaseline />
         <NavigationScroll>
-          <RouterProvider router={router} />
+          <AuthProvider> {/* Wrap your RouterProvider with AuthProvider */}
+            <RouterProvider router={router} />
+          </AuthProvider>
         </NavigationScroll>
       </ThemeProvider>
     </StyledEngineProvider>

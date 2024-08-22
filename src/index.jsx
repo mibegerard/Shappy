@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 // project imports
 import App from './App';
 // import reducer from './store/reducer';
+import store, { persistor } from './store';
 
 // google-fonts
 import '@fontsource/roboto/400.css';
@@ -37,7 +38,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 import { PersistGate } from 'redux-persist/integration/react';
-import store, { persistor } from './store';
 // editor
 import 'react-quill/dist/quill.snow.css';
 

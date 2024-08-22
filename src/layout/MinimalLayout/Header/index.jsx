@@ -35,13 +35,12 @@ const Header = (props) => {
       toast.error('Erreur lors de la déconnexion');
     }
   };
-  console.log(auth);
 
   const menuItems = [
     { name: 'Je suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> },
-      ...(auth.isAuthenticated
-        ? [{ name: 'Se déconnecter', onClick: handleLogout, icon: <HomeIcon color="error" /> }]
-        : [{ name: 'Se Connecter', link: '/auth/register/restaurateur', icon: <HomeIcon color="primary" /> }])
+    auth.isAuthenticated
+      ? { name: 'Se déconnecter', onClick: handleLogout, icon: <HomeIcon color="error" /> }
+      : { name: 'Se Connecter', link: '/auth/register/restaurateur', icon: <HomeIcon color="primary" /> }
   ];
 
   const HideOnScroll = (props) => {
@@ -135,7 +134,7 @@ const Header = (props) => {
                         onClick={item.onClick}
                         sx={{
                           textDecoration: 'none',
-                          backgroundColor: (item.name === 'Se Connecter' || item.name === 'Se déconnecter') ? 'transparent' : '#F5F5DC',
+                          backgroundColor: item.name === 'Se Connecter' ? 'transparent' : '#F5F5DC',
                           padding: '0.5rem 1rem',
                           marginRight: '1rem',
                           borderRadius: '10px',
@@ -144,7 +143,7 @@ const Header = (props) => {
                           cursor: item.link ? 'pointer' : 'default'
                         }}
                       >
-                        <Typography variant="h6" sx={{ color: (item.name === 'Se Connecter' || item.name === 'Se déconnecter') ? '#FFF4E2' : '#FC8A1A' }}>
+                        <Typography variant="h6" sx={{ color: item.name === 'Se Connecter' ? '#FFF4E2' : '#FC8A1A' }}>
                           {item.name}
                         </Typography>
                       </Box>

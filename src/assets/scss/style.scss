@@ -30,6 +30,23 @@ a {
   height: 100%;
 }
 
+// styles.scss
+.required-star {
+  &::after {
+    content: '*';
+    color: rgba(0, 0, 0, 0.4); // Default semi-transparent black
+    font-weight: bold;
+    margin-left: 0.2em;
+  }
+}
+
+.required-star.clicked::after {
+  color: #FC8A1A; // Color on click or focus
+}
+
+
+
+
 .swiper-slide {
   text-align: center;
   font-size: 18px;

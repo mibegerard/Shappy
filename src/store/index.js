@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import customizationReducer from './customizationReducer';
 import cartReducer from './cartSlice';
+import partnerOfferReducer from './partnerOfferSlice';
 
 const cartPersistConfig = {
   key: 'cart',
@@ -13,7 +14,8 @@ const cartPersistConfig = {
 // Root reducer combining all slices
 const rootReducer = combineReducers({
   customization: customizationReducer,
-  cart: persistReducer(cartPersistConfig, cartReducer)
+  cart: persistReducer(cartPersistConfig, cartReducer),
+  partnerOffer: partnerOfferReducer
 });
 
 const store = configureStore({
