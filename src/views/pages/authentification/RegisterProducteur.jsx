@@ -7,14 +7,15 @@ import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider'; // Import Divider component
 import headerimage from '../../../assets/images/Header_Photo fruits et légumes.png';
-import carote from 'assets/images/Carotte restauratrice.png';
+import avocat from 'assets/images/Avocat producteur.png';
 import AuthCardWrapper from '../AuthCardWrapper';
 import Logo from '../../../ui-component/Logo';
 import RestaurateurRegister from './authforms/RestaurateurRegister';
+import ProducteurRegister from './authforms/ProducteurRegister';
 
 // ===============================|| AUTH3 - REGISTER ||=============================== //
 
-const RegisterRestaurateur = () => {
+const RegisterProducteur = () => {
   const theme = useTheme();
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
   const downXS = useMediaQuery(theme.breakpoints.down('sm'));
@@ -36,15 +37,15 @@ const RegisterRestaurateur = () => {
             zIndex: 1,
           }}
         />
-        {/* Carrot Image */}
+        {/* avocat Image */}
         <Box
           component="img"
-          src={carote}
-          alt="Carrot"
+          src={avocat}
+          alt="avocat"
           sx={{
             position: 'absolute',
             bottom: 0,
-            left: '20%',
+            left: '80%',
             transform: 'translateX(-50%)',
             height: '30%',
             zIndex: 2,
@@ -59,7 +60,7 @@ const RegisterRestaurateur = () => {
             width: '100%',
             height: '100%',
             borderRadius: downMD ? '0 0 40px 40px' : '0 0 60px 60px',
-            backgroundColor: '#FC8A1A',
+            backgroundColor: '#9ACF5D',
             zIndex: 0,
           }}
         />
@@ -89,11 +90,11 @@ const RegisterRestaurateur = () => {
                       letterSpacing: '1px',
                     }}
                   >
-                    INSCRIPTION RESTAURATEUR
+                    INSCRIPTION PRODUCTEUR
                   </Typography>
                 </Box>
                 <Grid item xs={12}>
-                  <RestaurateurRegister />
+                  <ProducteurRegister />
                 </Grid>
                 {/* Alternatives */}
                 <Grid item xs={12} sx={{ mt: 3 }}>
@@ -134,7 +135,7 @@ const RegisterRestaurateur = () => {
                       </Typography>
                       <Button
                         component={Link}
-                        to="/auth/register/producteur"
+                        to="/login-producer"
                         variant="outlined"
                         sx={{
                           color: '#FC8A1A',
@@ -161,4 +162,4 @@ const RegisterRestaurateur = () => {
   );
 };
 
-export default RegisterRestaurateur;
+export default RegisterProducteur;
