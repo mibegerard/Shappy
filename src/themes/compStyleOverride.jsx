@@ -1,13 +1,18 @@
+import { borderColor } from "@mui/system";
+
 export default function componentStyleOverrides(theme) {
-  const bgColor = theme.colors?.primaryLight; 
+  const bgColor = '#ffffff';
   return {
     MuiButton: {
       styleOverrides: {
         root: {
           fontWeight: 500,
-          borderRadius: '4px',
+          borderRadius: '10px', // Set border radius to 10px
+          color: 'white', // Set text color to white
           textDecoration: 'none',
           '&:hover': {
+            backgroundColor: theme.colors?.vertFonce, // Set hover background color to vertFonce
+            color: 'white', // Ensure text color remains white on hover
             textDecoration: 'none',
           },
         }
@@ -106,13 +111,16 @@ export default function componentStyleOverrides(theme) {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          background: bgColor, // Use bgColor set to #FFF4E2
-          borderRadius: `${theme?.customization?.borderRadius}px`,
+          background: bgColor,
+          borderRadius: '10px',
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.colors?.grey400
+            borderColor: theme.colors?.primaryMain // Apply primaryMain color to border
           },
           '&:hover $notchedOutline': {
-            borderColor: theme.colors?.primaryLight
+            borderColor: theme.colors?.primaryMain // Apply primaryMain color to border on hover
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.colors?.primaryMain // Apply primaryMain color to border when focused
           },
           '&.MuiInputBase-multiline': {
             padding: 1
@@ -120,9 +128,10 @@ export default function componentStyleOverrides(theme) {
         },
         input: {
           fontWeight: 500,
-          background: bgColor, // Use bgColor set to #FFF4E2
+          background: bgColor,
+          borderColor: '#ffffff',
           padding: '15.5px 14px',
-          borderRadius: `${theme?.customization?.borderRadius}px`,
+          borderRadius: '10px',
           '&.MuiInputBase-inputSizeSmall': {
             padding: '10px 14px',
             '&.MuiInputBase-inputAdornedStart': {
@@ -134,7 +143,16 @@ export default function componentStyleOverrides(theme) {
           paddingLeft: 4
         },
         notchedOutline: {
-          borderRadius: `${theme?.customization?.borderRadius}px`
+          borderRadius: '10px'
+        }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'white', // Set label background color to white
+          padding: '0 4px', // Add some padding to the label background
+          borderRadius: '4px' // Optionally, add some border radius to match the design
         }
       }
     },
