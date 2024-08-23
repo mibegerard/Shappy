@@ -1,18 +1,19 @@
-import { borderColor } from "@mui/system";
+import { borderColor, fontWeight } from "@mui/system";
 
 export default function componentStyleOverrides(theme) {
-  const bgColor = '#ffffff';
+  const bgColor = '#ffffff'; // Background color for inputs
+
   return {
     MuiButton: {
       styleOverrides: {
         root: {
           fontWeight: 500,
-          borderRadius: '10px', // Set border radius to 10px
-          color: 'white', // Set text color to white
+          borderRadius: '10px',
+          color: 'white',
           textDecoration: 'none',
           '&:hover': {
-            backgroundColor: theme.colors?.vertFonce, // Set hover background color to vertFonce
-            color: 'white', // Ensure text color remains white on hover
+            backgroundColor: theme.colors?.vertFonce,
+            color: 'white',
             textDecoration: 'none',
           },
         }
@@ -100,7 +101,7 @@ export default function componentStyleOverrides(theme) {
     MuiInputBase: {
       styleOverrides: {
         input: {
-          color: theme.textDark,
+          color: 'grey',
           '&::placeholder': {
             color: theme.darkTextSecondary,
             fontSize: '0.875rem'
@@ -114,13 +115,13 @@ export default function componentStyleOverrides(theme) {
           background: bgColor,
           borderRadius: '10px',
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.colors?.primaryMain // Apply primaryMain color to border
+            borderColor: theme.colors?.primaryMain
           },
           '&:hover $notchedOutline': {
-            borderColor: theme.colors?.primaryMain // Apply primaryMain color to border on hover
+            borderColor: theme.colors?.primaryMain
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.colors?.primaryMain // Apply primaryMain color to border when focused
+            borderColor: theme.colors?.primaryMain
           },
           '&.MuiInputBase-multiline': {
             padding: 1
@@ -149,10 +150,9 @@ export default function componentStyleOverrides(theme) {
     },
     MuiInputLabel: {
       styleOverrides: {
-        root: {
-          backgroundColor: 'white', // Set label background color to white
-          padding: '0 4px', // Add some padding to the label background
-          borderRadius: '4px' // Optionally, add some border radius to match the design
+        root: { 
+          padding: '0 4px',
+          borderRadius: '4px'
         }
       }
     },
@@ -228,6 +228,49 @@ export default function componentStyleOverrides(theme) {
       styleOverrides: {
         tabs: {
           backgroundColor: theme.colors?.primaryLight
+        }
+      }
+    },
+
+    // Add the colors for MenuItem and Checkbox here
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: theme.darkTextPrimary,
+          '&.Mui-selected': {
+            color: theme.menuSelected,
+            backgroundColor: theme.menuSelectedBack,
+            '&:hover': {
+              backgroundColor: theme.menuSelectedBack
+            },
+          },
+          '&:hover': {
+            backgroundColor: "#FFF4E2",
+            color: theme.menuSelected,
+          }
+        }
+      }
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: theme.darkTextPrimary,
+          '&.Mui-checked': {
+            color: theme.colors?.primaryMain,
+          },
+          '&:hover': {
+            backgroundColor: 'transparent',
+          }
+        }
+      }
+    },
+
+    // Add Menu component styling to ensure background color is white when dropdown is open
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#ffffff', // Set the background color to white
+          color: 'grey',
         }
       }
     }
