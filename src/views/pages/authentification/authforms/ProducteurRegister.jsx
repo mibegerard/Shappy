@@ -263,56 +263,59 @@ const ProducteurRegister = ({ ...others }) => {
         </Grid>
 
         <FormControl fullWidth>
-  <InputLabel
-    id="product-select-label"
-    className="required-star"
-    sx={{
-      fontWeight: '300px',
-      fontSize: '14px',
-      color: 'grey',
-      textAlign: 'center',
-      paddingTop: '5px',
-    }}
-  >
-    Vos Produits
-  </InputLabel>
-  <Select
-    labelId="product-select-label"
-    id="product-select"
-    multiple
-    value={selectedProducts}
-    onChange={handleProductChange}
-    label="Vos Produits"
-    open={dropdownOpen}
-    onOpen={() => setDropdownOpen(true)}
-    onClose={() => setDropdownOpen(false)}
-    sx={{ pt: 0.7, pb: 0.7 }}
-    renderValue={(selected) => (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-        {selected.map((value) => (
-          <Typography key={value} sx={{ color: 'grey' }}>{value}</Typography>
-        ))}
-      </Box>
-    )}
-  >
-    <MenuItem value="Fruits">
-      <FormControlLabel
-        control={<Checkbox checked={selectedProducts.includes('Fruits')} sx={{ color: 'grey' }} />}
-        label="Fruits"
-        sx={{ color: 'grey' }}
-      />
-    </MenuItem>
-    <MenuItem value="Légumes">
-      <FormControlLabel
-        control={<Checkbox checked={selectedProducts.includes('Légumes')} sx={{ color: 'grey' }} />}
-        label="Légumes"
-        sx={{ color: 'grey' }}
-      />
-    </MenuItem>
-  </Select>
-</FormControl>
-
-
+          <InputLabel
+            id="product-select-label"
+            className="required-star"
+            sx={{
+              fontWeight: '300px',
+              fontSize: '14px',
+              color: 'grey',
+              textAlign: 'center',
+              paddingTop: '5px',
+            }}
+          >
+            Vos Produits
+          </InputLabel>
+          <Select
+            labelId="product-select-label"
+            id="product-select"
+            multiple
+            value={selectedProducts}
+            onChange={handleProductChange}
+            label="Vos Produits"
+            open={dropdownOpen}
+            onOpen={() => setDropdownOpen(true)}
+            onClose={() => setDropdownOpen(false)}
+            sx={{ pt: 0.7, pb: 0.7 }}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Typography key={value} sx={{ color: 'grey' }}>{value}</Typography>
+                ))}
+              </Box>
+            )}
+          >
+            <MenuItem value="Fruits">
+              <FormControlLabel
+                control={<Checkbox checked={selectedProducts.includes('Fruits')} sx={{ color: 'grey' }} />}
+                label="Fruits"
+                sx={{ color: 'grey' }}
+              />
+            </MenuItem>
+            <MenuItem value="Légumes">
+              <FormControlLabel
+                control={<Checkbox checked={selectedProducts.includes('Légumes')} sx={{ color: 'grey' }} />}
+                label="Légumes"
+                sx={{ color: 'grey' }}
+              />
+            </MenuItem>
+          </Select>
+          {errors.products && (
+            <FormHelperText error id="standard-weight-helper-text-products-register">
+              {errors.products.message}
+            </FormHelperText>
+          )}
+        </FormControl>
 
         <FormControl fullWidth error={Boolean(errors.password)} sx={{ ...theme.typography.customInput }}>
           <InputLabel
