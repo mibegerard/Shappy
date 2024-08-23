@@ -135,7 +135,7 @@ const RegisterProducteur = () => {
                       </Typography>
                       <Button
                         component={Link}
-                        to="/login-producer"
+                        to="/auth/register/restaurateur"
                         variant="outlined"
                         sx={{
                           color: '#FC8A1A',
@@ -148,7 +148,7 @@ const RegisterProducteur = () => {
                           },
                         }}
                       >
-                        Producteur
+                        Restaurateur
                       </Button>
                     </Box>
                   </Box>
