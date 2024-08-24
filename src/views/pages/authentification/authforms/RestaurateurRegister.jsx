@@ -122,6 +122,8 @@ const RestaurateurRegister = ({ ...others }) => {
       } else {
         navigate('/');
       }
+      toast.success('Inscription réussie!');
+      toast.success(`Heureux de vous savoir parmi nous, ${auth.user.firstName}!`);
     }
   }, [auth, navigate]);
   

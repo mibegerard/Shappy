@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }) => {
       throw error; // Handle errors gracefully
     }
   };
-  
+
   // Login function
   const login = async (email, password) => {
     try {
@@ -123,7 +123,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Optionally, you can send a logout request to the server
-      await axiosInstance.post('/auth/log-out');
+      await axiosInstance.post('/auth/logout');
 
       // Remove user and token from localStorage
       localStorage.removeItem('user');
