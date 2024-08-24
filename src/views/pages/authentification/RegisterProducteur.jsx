@@ -84,7 +84,7 @@ const RegisterProducteur = () => {
                   <Typography
                     variant="h2"
                     sx={{
-                      color: theme.colors?.redMain || '#E7272D',
+                      color: '#9ACF5D',
                       fontSize: '30px',
                       fontWeight: '700',
                       letterSpacing: '1px',
@@ -107,7 +107,7 @@ const RegisterProducteur = () => {
                     }}
                   >
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="body1" sx={{ fontWeight: '600', fontSize: downXS ? '10px' : '14px' }}>
+                      <Typography variant="body1" sx={{ fontWeight: '600', fontSize: downXS ? '10px' : '14px', color: '#9ACF5D', }}>
                         Déjà Inscrit ?
                       </Typography>
                       <Button
@@ -115,11 +115,11 @@ const RegisterProducteur = () => {
                         to="/auth/login"
                         variant="outlined"
                         sx={{
-                          color: '#FC8A1A',
+                          color: '#9ACF5D',
                           fontSize: downXS ? '10px' : '14px',
                           borderColor: '#FC8A1A',
                           '&:hover': {
-                            backgroundColor: '#FC8A1A',
+                            backgroundColor: '#E7272D',
                             color: '#fff',
                             borderColor: '#FC8A1A',
                           },
@@ -130,7 +130,7 @@ const RegisterProducteur = () => {
                     </Box>
                     <Divider orientation="vertical" flexItem sx={{ borderColor: '#FC8A1A' }} /> {/* Vertical Divider */}
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="body1" sx={{ fontWeight: '600', fontSize: downXS ? '10px' : '14px' }}>
+                      <Typography variant="body1" sx={{ fontWeight: '600', fontSize: downXS ? '10px' : '14px', color: '#9ACF5D', }}>
                          Se connecter en tant que
                       </Typography>
                       <Button
@@ -138,7 +138,7 @@ const RegisterProducteur = () => {
                         to="/auth/register/restaurateur"
                         variant="outlined"
                         sx={{
-                          color: '#FC8A1A',
+                          color: '#9ACF5D',
                           fontSize: downXS ? '10px' : '14px',
                           borderColor: '#FC8A1A',
                           '&:hover': {

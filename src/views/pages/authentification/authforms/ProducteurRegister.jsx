@@ -26,10 +26,13 @@ import { toast } from 'react-toastify';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
+import { useAuth } from 'context/AuthContext';
 import axiosInstance from 'api/axiosInstance';
 import { strengthColor, strengthIndicator } from '../../../../utils/password-strength';
 
 const ProducteurRegister = ({ ...others }) => {
+
+  const { auth } = useAuth();
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
@@ -106,16 +109,27 @@ const ProducteurRegister = ({ ...others }) => {
 
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-
-      navigate('/');
-
-      toast.success('Inscription réussie');
-      toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
+      if (response) {
+        // Reload the page
+        window.location.reload();
+        toast.success('Inscription réussie');
+        toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
+      }
     } catch (error) {
       toast.error('Erreur d\'inscription');
       console.log({ error });
     }
   };
+
+  useEffect(() => {
+    if (auth.isAuthenticated && auth.user) {
+      if (auth.user.role === 'producteur') {
+        navigate('/je-suis-producteur');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [auth, navigate]);
 
   return (
     <>
@@ -376,6 +390,7 @@ const ProducteurRegister = ({ ...others }) => {
               type="submit"
               variant="contained"
               color="primary"
+              sx={{ backgroundColor: '#9ACF5D' }}
               fullWidth
               disabled={isSubmitting}
               startIcon={isSubmitting && <CircularProgress size={24} color="inherit" />}

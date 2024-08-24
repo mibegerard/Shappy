@@ -41,7 +41,7 @@ const Header = (props) => {
     { name: 'Je suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> },
       ...(auth.isAuthenticated
         ? [{ name: 'Se déconnecter', onClick: handleLogout, icon: <HomeIcon color="error" /> }]
-        : [{ name: 'Se Connecter', link: '/auth/register/restaurateur', icon: <HomeIcon color="primary" /> }])
+        : [{ name: 'Se Connecter', link: '/auth/login', icon: <HomeIcon color="primary" /> }])
   ];
 
   const HideOnScroll = (props) => {

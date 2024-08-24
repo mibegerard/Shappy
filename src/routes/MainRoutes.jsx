@@ -15,7 +15,7 @@ const MainRoutes = {
       element: <Home />
     },
     {
-      path: 'je-suis-producteur',
+      path: '/je-suis-producteur',
       element: <ProducteurAccueil />
     },
   ]
