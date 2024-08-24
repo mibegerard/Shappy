@@ -30,11 +30,14 @@ const Header = (props) => {
     try {
       await logout();
       toast.info('Déconnexion avec succès');
-      window.location.href = 'http://localhost:3000/';
+      setTimeout(() => {
+        window.location.href = 'http://localhost:3000/';
+      }, 1000); // 1-second delay before redirecting
     } catch (error) {
       toast.error('Erreur lors de la déconnexion');
     }
   };
+  
 
   const menuItems = [
     { name: 'Je suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> },

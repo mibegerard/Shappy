@@ -25,7 +25,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import axiosInstance from 'api/axiosInstance';
 
 const AuthLogin = () => {
-  const { auth, login } = useAuth();
+  const { auth } = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
   const [checked, setChecked] = useState(true);
@@ -58,10 +58,7 @@ const AuthLogin = () => {
       if (response) {
         // Reload the page
         window.location.reload();
-        toast.success('Connexion réussie');
-        
       }
-      toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
     } catch (error) {
       toast.error('Vos identifiants sont incorrects.');
       console.error('Login error:', error);
@@ -75,6 +72,8 @@ const AuthLogin = () => {
       } else {
         navigate('/');
       }
+      toast.success('Connexion réussie!');
+      toast.success(`Heureux de vous savoir parmi nous, ${auth.user.firstName}!`);
     }
   }, [auth, navigate]);
 
