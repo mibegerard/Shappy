@@ -88,13 +88,11 @@ export const AuthProvider = ({ children }) => {
       throw error; // Handle errors gracefully
     }
   };
-
+  
   // Login function
-  const login = async (credentials) => {
+  const login = async (email, password) => {
     try {
-      const { email, password, role } = credentials;
-      const response = await axiosInstance.post('/auth/login', { email, password, role });
-      
+      const response = await axiosInstance.post('/auth/login', { email, password });
       const { token } = response.data;
 
       // Log the JWT token
@@ -117,7 +115,7 @@ export const AuthProvider = ({ children }) => {
       
     } catch (error) {
       console.error('Error logging in', error);
-      throw error; // You might want to handle errors more gracefully in the UI
+      throw error; // Handle errors gracefully
     }
   };
 

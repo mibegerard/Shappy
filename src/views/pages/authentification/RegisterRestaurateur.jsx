@@ -83,7 +83,7 @@ const RegisterRestaurateur = () => {
                   <Typography
                     variant="h2"
                     sx={{
-                      color: theme.colors?.redMain || '#E7272D',
+                      color: '#FC8A1A',
                       fontSize: '30px',
                       fontWeight: '700',
                       letterSpacing: '1px',
@@ -118,7 +118,7 @@ const RegisterRestaurateur = () => {
                           fontSize: downXS ? '10px' : '14px',
                           borderColor: '#FC8A1A',
                           '&:hover': {
-                            backgroundColor: '#FC8A1A',
+                            backgroundColor: '#E7272D',
                             color: '#fff',
                             borderColor: '#FC8A1A',
                           },
@@ -141,7 +141,7 @@ const RegisterRestaurateur = () => {
                           fontSize: downXS ? '10px' : '14px',
                           borderColor: '#FC8A1A',
                           '&:hover': {
-                            backgroundColor: '#FC8A1A',
+                            backgroundColor: '#9ACF5D',
                             color: '#fff',
                             borderColor: '#FC8A1A',
                           },

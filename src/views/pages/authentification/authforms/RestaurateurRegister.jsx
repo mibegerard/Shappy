@@ -26,11 +26,13 @@ import { strengthColor, strengthIndicator } from '../../../../utils/password-str
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import { useAuth } from 'context/AuthContext';
 import axiosInstance from 'api/axiosInstance';
 import { toast } from 'react-toastify';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const RestaurateurRegister = ({ ...others }) => {
+  const { auth } = useAuth();
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const [showPassword, setShowPassword] = useState(false);
@@ -100,18 +102,28 @@ const RestaurateurRegister = ({ ...others }) => {
       // Optionally, store user details in local storage
       localStorage.setItem('user', JSON.stringify(user));
   
-      // Update state or context if necessary
-      navigate('/');
-  
-      // Display success toast messages
-      toast.success('Inscription réussie');
-      toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
+      if (response) {
+        // Reload the page
+        window.location.reload();
+        toast.success('Inscription réussie');
+        toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
+      }
   
     } catch (error) {
       toast.error('Erreur d\'inscription');
       console.log({ error });
     }
   };
+
+  useEffect(() => {
+    if (auth.isAuthenticated && auth.user) {
+      if (auth.user.role === 'producteur') {
+        navigate('/je-suis-producteur');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [auth, navigate]);
   
 
   return (
