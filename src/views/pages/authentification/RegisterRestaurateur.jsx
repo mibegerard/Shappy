@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider'; // Import Divider component
-import headerimage from '../../../assets/images/Header_Photo fruits et légumes.png';
+import headerimage from 'assets/images/Header_photo_fruits_et_legumes.png';
 import carote from 'assets/images/Carotte restauratrice.png';
 import AuthCardWrapper from '../AuthCardWrapper';
 import Logo from '../../../ui-component/Logo';

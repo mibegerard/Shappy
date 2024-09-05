@@ -6,7 +6,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import headerimage from '../../../assets/images/Header_Photo fruits et légumes.png';
+import headerimage from 'assets/images/Header_photo_fruits_et_legumes.png';
 import citron from 'assets/images/Fichier 14@2x 1.png';
 import Logo from '../../../ui-component/Logo';
 import restau from 'assets/images/Restaurateur_Rouge.png';
