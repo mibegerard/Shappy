@@ -116,15 +116,19 @@ const Header = (props) => {
             <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Button component={Link} to="/" sx={{ p: 0 }}>
-                  <img
-                    src={logoSrc}
-                    alt="Logo"
-                    style={{
-                      maxHeight: '30px',
-                      width: 'auto',
-                      height: '30px'
-                    }}
-                  />
+                <img
+                  src={logoSrc}
+                  alt="Logo"
+                  style={{
+                    width: 'auto',
+                    height: window.innerWidth <= 600 
+                      ? '20px' // Small screens
+                      : window.innerWidth <= 1024
+                      ? '25px' // Medium screens
+                      : '30px' // Large screens
+                  }}
+                />
+
                 </Button>
               </Box>
               {isLargeScreen ? (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Button, Typography, Grid, useTheme, useMediaQuery, Container } from '@mui/material';
+import { Link } from 'react-router-dom';
 import missionfruit from 'assets/images/Photo fruits et légumes.png';
 
 const Mission = () => {
@@ -31,6 +32,8 @@ const Mission = () => {
                                 }}
                             >
                                 <Button 
+                                    component={Link}
+                                    to="/je-depose-mon-potager"
                                     variant="contained"
                                     sx={{ 
                                         marginTop: '2rem', 
