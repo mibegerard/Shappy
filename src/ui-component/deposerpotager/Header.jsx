@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import headerimage from 'assets/images/Avocat producteur.png';
+import headerimage from 'assets/images/Header_photo_fruits_et_legumes.png';
 import avocat from 'assets/images/Avocat producteur.png';
 
 const Header = () => {
