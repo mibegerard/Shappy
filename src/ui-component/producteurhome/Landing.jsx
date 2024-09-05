@@ -1,6 +1,7 @@
 // Landing.js
 import React from 'react';
 import { Box, Button, useMediaQuery, useTheme, Typography, Container, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 import prodheader from 'assets/images/Producteurheader.png';
 import InfoCard from '../Cards/InfoCard.jsx';
 
@@ -58,6 +59,8 @@ const Landing = () => {
                 }}
             >
                 <Button 
+                    component={Link}
+                    to="/je-depose-mon-potager"
                     variant="contained"
                     sx={{
                         backgroundColor: theme.palette.beige.clair,

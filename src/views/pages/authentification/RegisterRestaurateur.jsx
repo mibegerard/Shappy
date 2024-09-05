@@ -21,9 +21,18 @@ const RegisterRestaurateur = () => {
 
 
   return (
-    <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ minHeight: '100vh' }}>
+    <Grid 
+      container 
+      direction="column" 
+      justifyContent="center" 
+      alignItems="center" 
+      sx={{ width: '100%' }} // Removed minHeight to avoid full page height
+    >
       {/* Header Image Block */}
-      <Grid item xs={12} sx={{ position: 'relative', width: '100%', height: '40vh' }}>
+      <Grid 
+        item xs={12} 
+        sx={{ position: 'relative', width: '100%', height: '40vh' }}
+      >
         <Box
           component="img"
           src={headerimage}
@@ -66,7 +75,7 @@ const RegisterRestaurateur = () => {
       </Grid>
 
       {/* Authentication Card Block */}
-      <Grid item xs={12} sx={{ position: 'relative', width: '100%', mt: downMD ? '-8vh' : '-17vh' }}>
+      <Grid item xs={12} sx={{ position: 'relative', width: '100%', mt: downMD ? '-8vh' : '-35vh' }}>
         <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: downMD ? '60vh' : '50vh' }}>
           <Grid item xs={12} sm={8} md={6} lg={6} sx={{ display: 'flex', justifyContent: 'center' }}>
             <AuthCardWrapper>
