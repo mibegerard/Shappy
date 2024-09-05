@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography, Grid, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import headerimage from 'assets/images/Header_Photo fruits et légumes.png';
-import avocat from 'assets/images/producteur1.png';
+import headerimage from 'assets/images/Avocat producteur.png';
+import avocat from 'assets/images/Avocat producteur.png';
 
 const Header = () => {
     const theme = useTheme();
