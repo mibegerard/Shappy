@@ -19,7 +19,7 @@ import NavigationScroll from 'layout/NavigationScroll';
 const App = () => {
   const customization = useSelector((state) => state.customization);
 
-  console.log("vite app end point", import.meta.env.VITE_APP_END_POINT);
+  console.log("vite app end point is : ", import.meta.env.VITE_APP_END_POINT);
 
   return (
     <StyledEngineProvider injectFirst>
