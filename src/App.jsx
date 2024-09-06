@@ -13,10 +13,13 @@ import themes from 'themes';
 // project imports
 import NavigationScroll from 'layout/NavigationScroll';
 
+
 // ==============================|| APP ||============================== //
 
 const App = () => {
   const customization = useSelector((state) => state.customization);
+
+  console.log("vite app end point is : ", import.meta.env.VITE_APP_END_POINT);
 
   return (
     <StyledEngineProvider injectFirst>
