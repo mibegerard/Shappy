@@ -41,7 +41,7 @@ const ProducteurDescription = () => {
                 </Typography>
                 <Typography 
                     variant="body1" 
-                    sx={{ color: '#FFF4E2', margin: 'auto', maxWidth: isSmallScreen ? '100%' : '600px', padding: isSmallScreen ? '0 10px' : '0' }}
+                    sx={{ color: '#FFFFFF', margin: 'auto', maxWidth: isSmallScreen ? '100%' : '600px', padding: isSmallScreen ? '0 10px' : '0', fontWeight:'bold' }}
                 >
                     Présentez vos produits « moches » sur Shappy pour les vendre à des restaurateurs en quête d’ingrédients de saison.
                 </Typography>
@@ -49,10 +49,11 @@ const ProducteurDescription = () => {
                     variant="contained" 
                     sx={{ 
                         backgroundColor: '#385909',
-                        color: '#FFF4E2',
+                        color: '#FFFFFF',
                         borderRadius: '10px',
                         padding: isSmallScreen ? '5px 10px' : '10px 20px',
-                        marginBottom: '4rem'
+                        marginBottom: '4rem',
+                        fontWeight:'bold'
                     }}
                 >
                     Je dépose mon potager

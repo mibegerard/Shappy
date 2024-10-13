@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Grid, Container, Button, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Carousel from 'react-material-ui-carousel';
-import ProductCard from '../Cards/ProductCard'; 
+import ProductsCard from '../Cards/ProductsCard'; 
 import Prod1 from 'assets/images/Cerises.png';
 import Prod2 from 'assets/images/carottes.png';
 import Prod3 from 'assets/images/pdt.png';
@@ -15,17 +15,20 @@ const carouselItems = [
         src: Prod1,
         alt: "Product 1",
         localText: "Local",
-        name: "Carottes de Mathieu",
-        price: "2,75€",
-        weight: "500g",
+        name: "Carottes",
+        producteur: 'Claude',
+        stock: 120,
+        price: "2,75€/kg",
         pricePerKg: "5,50 €/kg"
     },
     {
         src: Prod2,
         alt: "Product 2",
         localText: "Local",
-        name: "Pommes de Pierre",
-        price: "3,00€",
+        name: "Pommes",
+        producteur: "Martin",
+        stock: 12,
+        price: "3,00€/à la pièce",
         weight: "1kg",
         pricePerKg: "3,00 €/kg"
     },
@@ -33,8 +36,10 @@ const carouselItems = [
         src: Prod3,
         alt: "Product 3",
         localText: "Local",
+        producteur: "Mathieu",
         name: "Pommes de Terre",
-        price: "1,50€",
+        stock: 1200,
+        price: "1,50€/à la pièce",
         weight: "1kg",
         pricePerKg: "1,50 €/kg"
     },
@@ -42,8 +47,10 @@ const carouselItems = [
         src: Prod4,
         alt: "Product 4",
         localText: "Local",
-        name: "Pêches du Verger",
-        price: "4,00€",
+        producteur: "Jean-Yves",
+        stock: 1200,
+        name: "Pêches",
+        price: "4,00€/ à la pièce",
         weight: "1kg",
         pricePerKg: "4,00 €/kg"
     }
@@ -100,7 +107,7 @@ const Produits = () => {
                                         />
                                     ))}
                                 </Carousel>
-                                <ProductCard item={carouselItems[activeIndex]} />
+                                <ProductsCard item={carouselItems[activeIndex]} />
                             </Box>
                         </Grid>
                         <Grid item xs={12} container direction="column" justifyContent="center" alignItems="center" sx={{ textAlign: 'center', mt: 4 }}>
@@ -185,7 +192,7 @@ const Produits = () => {
                                             />
                                         ))}
                                     </Carousel>
-                                    <ProductCard item={carouselItems[activeIndex]} />
+                                    <ProductsCard item={carouselItems[activeIndex]} />
                                 </Box>
                             </Grid>
                             <Grid item xs={7}>
