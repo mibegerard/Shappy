@@ -89,19 +89,21 @@ const Restaurateur = () => {
                     </Typography>
                 </Box>
 
-                <a href="/mon-marche" style={{ textDecoration: 'none' }}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        sx={{
-                            borderRadius: '10px',
-                            color: 'white',
-                            marginTop: isSmallScreen ? '10px' : '0',
-                        }}
-                    >
-                        Je commence mon marché
-                    </Button>
-                </a>
+                <Button
+                    component="a"
+                    href="/mon-marche"
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        borderRadius: '10px',
+                        color: 'white',
+                        marginTop: isSmallScreen ? '10px' : '0',
+                        textDecoration: 'none', // Optional if you want to ensure no underline
+                    }}
+                >
+                    Je commence mon marché
+                </Button>
+
 
             </Box>
         </Box>
