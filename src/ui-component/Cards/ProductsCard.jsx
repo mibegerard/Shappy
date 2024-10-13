@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useTheme } from '@mui/material/styles';
 import 'flag-icons/css/flag-icons.min.css';
 
-const ProductCard = ({ item, onAddToCart }) => {
+const ProductCard = ({ item }) => {
     const theme = useTheme();
     const vertFonce = theme.palette.vert?.fonce;
     const beigeClair = theme.palette.beige?.clair;
@@ -13,30 +13,14 @@ const ProductCard = ({ item, onAddToCart }) => {
     return (
         <Box
             sx={{
-                backgroundColor: 'transparent',
+                backgroundColor: 'white',
                 padding: '1rem',
+                marginTop: '-5px',
+                textAlign: 'left',
                 borderRadius: '0 0 1rem 1rem',
-                width: '100%',
-                boxShadow: 1, // Adding a subtle shadow for depth
+                width: '100%'
             }}
         >
-            {/* Image Box */}
-            <Box
-                component="img"
-                src={item.src}
-                alt={item.alt}
-                sx={{
-                    width: '100%',
-                    transition: 'transform 0.3s ease-in-out',
-                    '&:hover': {
-                        transform: 'scale(1.05)',
-                        borderRadius: '1rem'
-                    },
-                    borderRadius: '0.5rem',
-                    objectFit: 'cover',
-                    marginBottom: '1rem'
-                }}
-            />
 
             <Box
                 sx={{
@@ -99,27 +83,15 @@ const ProductCard = ({ item, onAddToCart }) => {
                                     variant="body1"
                                     sx={{ color: vertFonce }}
                                 >
-                                    En stock: {item.stock} {item.unit} 
+                                    En stock: {item.stock}
                                 </Typography>
 
-                                <Button onClick={() => onAddToCart(item)}
+                                <AddCircleIcon
                                     sx={{
-                                        '&:hover': {
-                                            transform: 'scale(1.5)', // Slightly increase size on hover
-                                            transition: 'transform 0.2s ease-in-out', // Smooth transition
-                                            backgroundColor: 'transparent'
-                                        }
+                                        fontSize: 40,
+                                        color: vertFonce,
                                     }}
-                                >
-                                    <AddCircleIcon
-                                        className="add-circle-icon"
-                                        sx={{
-                                            fontSize: 40,
-                                            color: vertFonce,
-                                        }}
-                                    />
-                                </Button>
-
+                                />
                             </Box>
                         </Grid>
                     </Grid>
@@ -143,8 +115,9 @@ ProductCard.propTypes = {
         producteur: PropTypes.string.isRequired,
         price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // Allow both string and number
         stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // Allow both string and number
-        unit: PropTypes.string.isRequired,
     }).isRequired
 };
+
+
 
 export default ProductCard;

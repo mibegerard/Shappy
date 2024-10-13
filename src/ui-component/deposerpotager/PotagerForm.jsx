@@ -37,7 +37,7 @@ const PotagerForm = () => {
 
     const productValidationSchema = yup.object().shape({
         name: yup.string().required('Le nom est obligatoire'),
-        description: yup.string().required('La description est requise'),
+        description: yup.string().required('La description est obligatoire'),
         price: yup.number().required('Le prix est obligatoire').positive('Le prix doit être positif').typeError('Le prix doit être un nombre'),
         category: yup.string().required('La catégorie est obligatoire'),
         quantity: yup.number().required("La quantité est obligatoire").min(1, "La quantité ne peut pas être négative"),
@@ -66,22 +66,23 @@ const PotagerForm = () => {
         data.price = parseFloat(data.price).toFixed(2);
         navigate('/product-review', { state: { formData: data } });
     };
+    
 
     const handleQuantityIncrease = () => {
         setQuantity(prevQuantity => {
             const newQuantity = Math.min(prevQuantity + 1, 50);
-            console.log('Increased quantity to:', newQuantity);
+            setValue('quantity', newQuantity);  // Update the form value
             return newQuantity;
         });
     };
-
+    
     const handleQuantityDecrease = () => {
         setQuantity(prevQuantity => {
             const newQuantity = Math.max(prevQuantity - 1, 1);
-            console.log('Decreased quantity to:', newQuantity);
+            setValue('quantity', newQuantity);  // Update the form value
             return newQuantity;
         });
-    };
+    };    
 
     const handlePriceIncrease = () => {
         const newPrice = parseFloat((parseFloat(price) + 0.01).toFixed(2));
@@ -283,8 +284,8 @@ const PotagerForm = () => {
                             sx={{ borderBottom: '1px solid #385909', pt: 0.7, pb: 0.7, width: '100%' }}
                         >
                             <option value="">Sélectionnez une unité</option>
-                            <option value="KG">KG</option>
-                            <option value="À la pièce">À la pièce</option>
+                            <option value="KG">kg</option>
+                            <option value="pièce">À la pièce</option>
                         </NativeSelect>
                         {errors.unit && <Typography color="error">{errors.unit.message}</Typography>}
                     </Box>
