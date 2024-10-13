@@ -29,12 +29,17 @@ const ProductReview = () => {
             toast.error('No form data available');
             return;
         }
-
+    
+        // Append the "€" symbol to the price
         const data = new FormData();
         for (const key in formData) {
-            data.append(key, formData[key]);
+            if (key === 'price') {
+                data.append(key, `${formData[key]} €`); // Append "€" to the price
+            } else {
+                data.append(key, formData[key]);
+            }
         }
-
+    
         setIsSubmitting(true); // Start submitting
         try {
             const response = await axiosInstance.post('/product/create', data, {
@@ -48,7 +53,7 @@ const ProductReview = () => {
         } finally {
             setIsSubmitting(false); // Stop submitting
         }
-    };
+    };    
 
     return (
         <Container maxWidth="md" sx={{ mt: 8, mb: 8 }}>
