@@ -1,5 +1,4 @@
-// src/layout/MainLayout/Header/index.jsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -17,7 +16,7 @@ import logoSrc from 'assets/images/logobelge.png';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Updated import
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 import { useAuth } from '../../../context/AuthContext'; // Ensure this path is correct
@@ -25,19 +24,60 @@ import { toast } from 'react-toastify';
 
 const Header = (props) => {
   const { logout, auth } = useAuth(); // Ensure this is used correctly
+  const navigate = useNavigate(); // Use navigate hook for redirection
+
+  // Timer reference to hold setTimeout
+  const logoutTimer = useRef(null);
 
   const handleLogout = async () => {
     try {
       await logout();
       toast.info('Déconnexion avec succès');
       setTimeout(() => {
-        window.location.href = 'http://localhost:3000/';
+        console.log("Redirecting to login at:", new Date().toLocaleTimeString()); // Log time of redirection
+        navigate('/auth/login'); // Use navigate for redirection
       }, 1000); // 1-second delay before redirecting
     } catch (error) {
       toast.error('Erreur lors de la déconnexion');
     }
   };
   
+  // Reset the logout timer on user interaction
+  const resetLogoutTimer = () => {
+    if (logoutTimer.current) {
+      clearTimeout(logoutTimer.current);
+    }
+
+    // Log the current time when the timer is reset
+    console.log("Logout timer reset at:", new Date().toLocaleTimeString());
+
+    logoutTimer.current = setTimeout(() => {
+      console.log("Logging out at:", new Date().toLocaleTimeString()); // Log time of automatic logout
+      handleLogout(); // Automatically log out after 1 hour
+    }, 3600 * 1000); // 1 hour in milliseconds
+  };
+
+  // Attach event listeners to reset timer on activity
+  useEffect(() => {
+    resetLogoutTimer(); // Start the timer when the component mounts
+
+    const events = ['click', 'keypress'];
+    
+    events.forEach((event) => {
+      window.addEventListener(event, resetLogoutTimer);
+    });
+
+    return () => {
+      // Cleanup event listeners and timer on component unmount
+      events.forEach((event) => {
+        window.removeEventListener(event, resetLogoutTimer);
+      });
+      if (logoutTimer.current) {
+        clearTimeout(logoutTimer.current);
+      }
+    };
+  }, []);
+
   console.log(auth);
 
   const menuItems = [
@@ -115,21 +155,30 @@ const Header = (props) => {
           <Container maxWidth="lg">
             <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button component={Link} to="/" sx={{ p: 0 }}>
-                <img
-                  src={logoSrc}
-                  alt="Logo"
-                  style={{
-                    width: 'auto',
-                    height: window.innerWidth <= 600 
-                      ? '20px' // Small screens
-                      : window.innerWidth <= 1024
-                      ? '25px' // Medium screens
-                      : '30px' // Large screens
+                <Button 
+                  component={Link} 
+                  to="/" 
+                  sx={{ 
+                    p: 0, 
+                    '&:hover': { 
+                      backgroundColor: 'transparent' 
+                    } 
                   }}
-                />
-
+                >
+                  <img
+                    src={logoSrc}
+                    alt="Logo"
+                    style={{
+                      width: 'auto',
+                      height: window.innerWidth <= 600 
+                        ? '20px'  // Small screens
+                        : window.innerWidth <= 1024
+                        ? '25px'  // Medium screens
+                        : '30px'  // Large screens
+                    }}
+                  />
                 </Button>
+
               </Box>
               {isLargeScreen ? (
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
