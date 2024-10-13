@@ -18,7 +18,7 @@ const Description = () => {
                     </Typography>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={6} sm={4} md={3}>
-                            <img src={group1} alt="Group 2" style={{ width: 'auto', height: 'auto'}} />
+                            <img src={group1} alt="Group 2" style={{ width: 'auto', height: 'auto', marginTop: '-1.5rem'}} />
                         </Grid>
                         <Grid item xs={6} sm={4} md={3}>
                             <img src={group2} alt="Group 2" style={{ width: 'auto', height: 'auto'}} />
