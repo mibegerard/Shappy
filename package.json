@@ -28,6 +28,7 @@
     "apexcharts": "^3.46.2",
     "axios": "^1.7.2",
     "env-cmd": "^10.1.0",
+    "flag-icons": "^7.2.3",
     "formik": "^2.4.5",
     "framer-motion": "^11.0.6",
     "highlight.js": "^11.9.0",
@@ -80,6 +81,7 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "https://shappyapi-production.up.railway.app",
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@babel/eslint-parser": "^7.23.10",
