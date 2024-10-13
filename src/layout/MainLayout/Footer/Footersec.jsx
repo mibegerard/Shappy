@@ -17,9 +17,19 @@ const Footersec = () => {
           <Grid container spacing={10}>
             <Grid item xs={12} md={3}>
                 <Box display="flex" flexDirection="column" justifyContent="center" height="100%">
-                    <Button component={Link} to="/" sx={{ p: 0 }}>
-                        <img src={logorange} alt="Logo" style={{ height: 'auto' }} />
-                    </Button>
+                <Button 
+                  component={Link} 
+                  to="/" 
+                  sx={{ 
+                    p: 0, 
+                    '&:hover': { 
+                      backgroundColor: 'transparent' 
+                    } 
+                  }}
+                >
+                  <img src={logorange} alt="Logo" style={{ height: 'auto' }} />
+                </Button>
+
                 </Box>
             </Grid>
             <Grid item xs={12} md={9}>
