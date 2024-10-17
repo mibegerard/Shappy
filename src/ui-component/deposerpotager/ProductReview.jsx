@@ -30,11 +30,11 @@ const ProductReview = () => {
             return;
         }
     
-        // Append the "€" symbol to the price
+        // Prepare FormData for submission
         const data = new FormData();
         for (const key in formData) {
             if (key === 'price') {
-                data.append(key, `${formData[key]} €`); // Append "€" to the price
+                data.append(key, parseFloat(formData[key]).toString());
             } else {
                 data.append(key, formData[key]);
             }
@@ -53,7 +53,7 @@ const ProductReview = () => {
         } finally {
             setIsSubmitting(false); // Stop submitting
         }
-    };    
+    };      
 
     return (
         <Container maxWidth="md" sx={{ mt: 8, mb: 8 }}>
