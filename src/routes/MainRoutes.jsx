@@ -7,6 +7,7 @@ const DeposerPotager = Loadable(lazy(() => import('views/pages/DeposerPotager'))
 const PreviewProduct = Loadable(lazy(() => import('views/pages/preview')));
 const MonMarche = Loadable(lazy(() => import('views/pages/monMarche')));
 const ProductDetail = Loadable(lazy(() => import('ui-component/marche/ProductDetail')));
+const VerifyEmail = Loadable(lazy(() => import('views/pages/authentification/authforms/VerifyEmail')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -37,6 +38,10 @@ const MainRoutes = {
     {
       path: '/product/:productId',
       element: <ProductDetail />
+    },
+    {
+      path: '/auth/verify-email',
+      element: <VerifyEmail />
     },
   ]
 };

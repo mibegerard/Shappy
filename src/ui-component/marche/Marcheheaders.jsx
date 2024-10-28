@@ -12,6 +12,7 @@ const marcheheader = () => {
     const getHeight = () => {
         if (isSmallScreen) return 'auto';
         if (isMediumScreen) return 'auto';
+        return '400px';  // Add a default height for larger screens
     };
 
     return (
@@ -24,7 +25,7 @@ const marcheheader = () => {
                 sx={{ 
                     width: '100%', 
                     height: getHeight(), 
-                    objectFit: 'auto'
+                    objectFit: 'cover' // Set to cover for better image scaling
                 }}
             />
 
@@ -41,32 +42,31 @@ const marcheheader = () => {
                     justifyContent: 'center',
                     zIndex: 1,
                 }}
-            >
-
-                
-            </Box>
+            />
 
             {/* Overlay Box */}
             <Box
                 sx={{
-                    position: isSmallScreen ? 'static' : 'absolute',
-                    bottom: isSmallScreen ? '0' : isMediumScreen ? '2rem' :'3rem',
-                    left: isSmallScreen ? '0' : isMediumScreen ? '1rem' : '5.5rem',
-                    bgcolor: isSmallScreen ? '#F5F5DC' : '#F5F5DC', 
+                    position: 'absolute',
+                    bottom: isSmallScreen ? '1rem' : isMediumScreen ? '2rem' :'3rem',
+                    left: isSmallScreen ? '50%' : isMediumScreen ? '1rem' : '5.5rem',
+                    transform: isSmallScreen ? 'translateX(-50%)' : 'none',
+                    bgcolor: '#F5F5DC',
                     padding: '10px',
                     display: 'flex',
                     flexDirection: isSmallScreen ? 'column' : 'row',
                     alignItems: 'center',
                     justifyContent: isSmallScreen ? 'center' : 'flex-start', 
                     zIndex: 1,
-                    borderRadius: isSmallScreen ? '20px' : '15px',
-                    width: isSmallScreen ? '70%' : isMediumScreen ? '80%' :'auto',
+                    borderRadius: '15px',
+                    width: isSmallScreen ? '90%' : 'auto',
                     maxWidth: '600px', 
-                    margin: isSmallScreen ? '0 auto' : '0'
+                    textAlign: isSmallScreen ? 'center' : 'left', // Center text on small screens
+                    margin: '0 auto'
                 }}
             >
                 {/* Search Box */}
-                <Box sx={{ display: 'flex', alignItems: 'center', marginRight: '16px' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', marginRight: isSmallScreen ? '0' : '16px', marginBottom: isSmallScreen ? '10px' : '0' }}>
                     <SearchIcon color="primary" />
                     <Typography variant="body1" sx={{ marginLeft: '8px' }}>
                         Fruits et Légumes
@@ -78,8 +78,8 @@ const marcheheader = () => {
                     sx={{ 
                         display: 'flex', 
                         alignItems: 'center', 
-                        marginRight: '16px',
-                        marginTop: isSmallScreen ? '10px' : '0', 
+                        marginRight: isSmallScreen ? '0' : '16px',
+                        marginBottom: isSmallScreen ? '10px' : '0', 
                     }}
                 >
                     <LocationOnIcon color="primary" />
@@ -95,6 +95,7 @@ const marcheheader = () => {
                     sx={{
                         borderRadius: '10px',
                         color: 'white',
+                        width: isSmallScreen ? '100%' : 'auto',  // Full-width on small screens
                         marginTop: isSmallScreen ? '10px' : '0', 
                     }}
                 >
@@ -106,4 +107,3 @@ const marcheheader = () => {
 };
 
 export default marcheheader;
-                                   

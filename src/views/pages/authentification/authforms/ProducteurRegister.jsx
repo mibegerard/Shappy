@@ -31,7 +31,6 @@ import axiosInstance from 'api/axiosInstance';
 import { strengthColor, strengthIndicator } from '../../../../utils/password-strength';
 
 const ProducteurRegister = ({ ...others }) => {
-
   const { auth } = useAuth();
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -52,7 +51,12 @@ const ProducteurRegister = ({ ...others }) => {
     telephone: Yup.string().max(15).required('Le numéro de téléphone est requis'),
     commune: Yup.string().max(255).required('La ville est requise'),
     postalCode: Yup.string().max(10).required('Le code postal est requis'),
-    password: Yup.string().max(255).required('Le mot de passe est requis'),
+    password: Yup.string()
+      .max(255)
+      .required('Le mot de passe est requis')
+      .test('password-strength', 'Le mot de passe doit comporter au moins 6 caractères, inclure des chiffres, des majuscules, des minuscules et des caractères spéciaux.', (value) => {
+        return strengthIndicator(value) >= 5;
+      }),
     products: Yup.array().min(1, 'Au moins un produit doit être sélectionné')
   });
 
@@ -104,20 +108,34 @@ const ProducteurRegister = ({ ...others }) => {
 
   const onSubmit = async (data) => {
     try {
+      console.log("Submitting data:", data); // Log the submitted data
       const response = await axiosInstance.post('/auth/register/producteur', { ...data, role: 'producteur' });
+      console.log('Registration response:', response.data); // Log the server response
       const { token, user } = response.data;
 
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-      if (response) {
-        // Reload the page
-        window.location.reload();
-        toast.success('Inscription réussie');
-        toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
-      }
+      
+      // Navigate to the email verification page
+      navigate('/auth/verify-email');
+      toast.success('Inscription réussie');
+      toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
+      toast.success('Veuillez consulter vos mails');
+      
     } catch (error) {
-      toast.error('Erreur d\'inscription');
+      console.error('Registration error:', error); // Log the error object
+      toast.error('Erreur d\'inscription : cet email est déjà utilisé. Veuillez essayer un autre.');
       console.log({ error });
+    }
+    if (error.response) {
+      // If the server responded with an error
+      console.error('Server response error data:', error.response.data); // Log the server error response
+    } else if (error.request) {
+      // If the request was made but no response was received
+      console.error('No response received:', error.request); // Log the request details
+    } else {
+      // Something happened in setting up the request
+      console.error('Error setting up request:', error.message); // Log the error message
     }
   };
 
@@ -161,7 +179,7 @@ const ProducteurRegister = ({ ...others }) => {
                 </FormHelperText>
               )}
             </FormControl>
-
+  
             <FormControl fullWidth error={Boolean(errors.email)} sx={{ ...theme.typography.customInput }}>
               <InputLabel
                 htmlFor="outlined-adornment-email-register"
@@ -183,7 +201,7 @@ const ProducteurRegister = ({ ...others }) => {
                 </FormHelperText>
               )}
             </FormControl>
-
+  
             <FormControl fullWidth error={Boolean(errors.commune)} sx={{ ...theme.typography.customInput }}>
               <InputLabel
                 htmlFor="outlined-adornment-commune-register"
@@ -206,7 +224,7 @@ const ProducteurRegister = ({ ...others }) => {
               )}
             </FormControl>
           </Grid>
-
+  
           {/* Right Side */}
           <Grid item xs={12} sm={6}>
             {/* Fields for Last Name, Telephone, and Postal Code */}
@@ -231,7 +249,7 @@ const ProducteurRegister = ({ ...others }) => {
                 </FormHelperText>
               )}
             </FormControl>
-
+  
             <FormControl fullWidth error={Boolean(errors.telephone)} sx={{ ...theme.typography.customInput }}>
               <InputLabel
                 htmlFor="outlined-adornment-telephone-register"
@@ -253,20 +271,20 @@ const ProducteurRegister = ({ ...others }) => {
                 </FormHelperText>
               )}
             </FormControl>
-
+  
             <FormControl fullWidth error={Boolean(errors.postalCode)} sx={{ ...theme.typography.customInput }}>
               <InputLabel
                 htmlFor="outlined-adornment-postalCode-register"
                 className="required-star"
                 sx={{ fontSize: '13px' }}
               >
-                Code Postale
+                Code Postal
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-postalCode-register"
                 type="text"
                 {...register('postalCode')}
-                label="Code Postale"
+                label="Code Postal"
                 inputProps={{}}
               />
               {errors.postalCode && (
@@ -276,134 +294,136 @@ const ProducteurRegister = ({ ...others }) => {
               )}
             </FormControl>
           </Grid>
-        </Grid>
+  
+          {/* Password and Product Selection */}
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel
+                id="product-select-label"
+                className="required-star"
+                sx={{
+                  fontWeight: '300px',
+                  fontSize: '14px',
+                  color: 'grey',
+                  textAlign: 'center',
+                  paddingTop: '5px',
+                }}
+              >
+                Vos Produits
+              </InputLabel>
+              <Select
+                labelId="product-select-label"
+                id="product-select"
+                multiple
+                value={selectedProducts}
+                onChange={handleProductChange}
+                label="Vos Produits"
+                open={dropdownOpen}
+                onOpen={() => setDropdownOpen(true)}
+                onClose={() => setDropdownOpen(false)}
+                sx={{ pt: 0.7, pb: 0.7 }}
+                renderValue={(selected) => (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Typography key={value} sx={{ color: 'grey' }}>{value}</Typography>
+                    ))}
+                  </Box>
+                )}
+              >
+                <MenuItem value="Fruits">
+                  <FormControlLabel
+                    control={<Checkbox checked={selectedProducts.includes('Fruits')} sx={{ color: 'grey' }} />}
+                    label="Fruits"
+                    sx={{ color: 'grey' }}
+                  />
+                </MenuItem>
+                <MenuItem value="Légumes">
+                  <FormControlLabel
+                    control={<Checkbox checked={selectedProducts.includes('Légumes')} sx={{ color: 'grey' }} />}
+                    label="Légumes"
+                    sx={{ color: 'grey' }}
+                  />
+                </MenuItem>
+              </Select>
+              {errors.products && (
+                <FormHelperText error id="standard-weight-helper-text-products-register">
+                  {errors.products.message}
+                </FormHelperText>
+              )}
+            </FormControl>
+  
+            <FormControl fullWidth error={Boolean(errors.password)} sx={{ ...theme.typography.customInput }}>
+              <InputLabel
+                htmlFor="outlined-adornment-password-register"
+                className="required-star"
+                sx={{ fontSize: '13px' }}
+              >
+                Mot de passe
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password-register"
+                type={showPassword ? 'text' : 'password'}
+                {...register('password', { onChange: (e) => changePassword(e.target.value) })}
+                label="Mot de passe"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                inputProps={{}}
+              />
+              {errors.password && (
+                <FormHelperText error id="standard-weight-helper-text-password-register">
+                  {errors.password.message}
+                </FormHelperText>
+              )}
+            </FormControl>
 
-        <FormControl fullWidth>
-          <InputLabel
-            id="product-select-label"
-            className="required-star"
-            sx={{
-              fontWeight: '300px',
-              fontSize: '14px',
-              color: 'grey',
-              textAlign: 'center',
-              paddingTop: '5px',
-            }}
-          >
-            Vos Produits
-          </InputLabel>
-          <Select
-            labelId="product-select-label"
-            id="product-select"
-            multiple
-            value={selectedProducts}
-            onChange={handleProductChange}
-            label="Vos Produits"
-            open={dropdownOpen}
-            onOpen={() => setDropdownOpen(true)}
-            onClose={() => setDropdownOpen(false)}
-            sx={{ pt: 0.7, pb: 0.7 }}
-            renderValue={(selected) => (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Typography key={value} sx={{ color: 'grey' }}>{value}</Typography>
-                ))}
-              </Box>
+            {/* Strength Indicator */}
+            {strength !== 0 && (
+              <FormControl fullWidth>
+                <Box sx={{ my: 2 }}>
+                  <Grid container spacing={2} alignItems="center">
+                    <Grid item>
+                      <Box style={{ backgroundColor: level?.color }} sx={{ width: 85, height: 8, borderRadius: '7px' }} />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="subtitle1" fontSize="0.75rem">
+                        {level?.label}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </FormControl>
             )}
-          >
-            <MenuItem value="Fruits">
-              <FormControlLabel
-                control={<Checkbox checked={selectedProducts.includes('Fruits')} sx={{ color: 'grey' }} />}
-                label="Fruits"
-                sx={{ color: 'grey' }}
-              />
-            </MenuItem>
-            <MenuItem value="Légumes">
-              <FormControlLabel
-                control={<Checkbox checked={selectedProducts.includes('Légumes')} sx={{ color: 'grey' }} />}
-                label="Légumes"
-                sx={{ color: 'grey' }}
-              />
-            </MenuItem>
-          </Select>
-          {errors.products && (
-            <FormHelperText error id="standard-weight-helper-text-products-register">
-              {errors.products.message}
-            </FormHelperText>
-          )}
-        </FormControl>
-
-        <FormControl fullWidth error={Boolean(errors.password)} sx={{ ...theme.typography.customInput }}>
-          <InputLabel
-            htmlFor="outlined-adornment-password-register"
-            className="required-star"
-            sx={{ fontSize: '13px' }}
-          >
-            Mot de passe
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password-register"
-            type={showPassword ? 'text' : 'password'}
-            {...register('password')}
-            label="Mot de passe"
-            onChange={(e) => changePassword(e.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                  size="large"
+  
+            <Box sx={{ mt: 2 }}>
+              <AnimateButton>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ backgroundColor: '#9ACF5D' }}
+                  fullWidth
+                  disabled={isSubmitting}
+                  startIcon={isSubmitting && <CircularProgress size={24} color="inherit" />}
                 >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            inputProps={{}}
-          />
-          {errors.password && (
-            <FormHelperText error id="standard-weight-helper-text-password-register">
-              {errors.password.message}
-            </FormHelperText>
-          )}
-        </FormControl>
-
-        {strength !== 0 && (
-          <FormControl fullWidth>
-            <Box sx={{ my: 2 }}>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item>
-                  <Box style={{ backgroundColor: level?.color }} sx={{ width: 85, height: 8, borderRadius: '7px' }} />
-                </Grid>
-                <Grid item>
-                  <Typography variant="subtitle1" fontSize="0.75rem">
-                    {level?.label}
-                  </Typography>
-                </Grid>
-              </Grid>
+                  {isSubmitting ? 'Loading...' : 'S\'inscrire'}
+                </Button>
+              </AnimateButton>
             </Box>
-          </FormControl>
-        )}
-
-        <Box sx={{ mt: 2 }}>
-          <AnimateButton>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{ backgroundColor: '#9ACF5D' }}
-              fullWidth
-              disabled={isSubmitting}
-              startIcon={isSubmitting && <CircularProgress size={24} color="inherit" />}
-            >
-              {isSubmitting ? 'Loading...' : 'S\'inscrire'}
-            </Button>
-          </AnimateButton>
-        </Box>
+          </Grid>
+        </Grid>
       </form>
     </>
   );
-};
-
-export default ProducteurRegister;
+  };
+  
+  export default ProducteurRegister;  

@@ -1,6 +1,16 @@
 // paper & background
 $paper: #FFF4E2;
 
+// red
+$redLights: #ff6f6f;
+$redMains: #E7272D;
+$redDarks: #b00020;
+
+// green
+$vertFonceLights: #6ca76c;
+$vertFonces: #385909;
+$vertFonceDarks: #2c3d02;
+
 // primary
 $primaryLight: #FFF4E2;
 $primaryMain: #FC8A1A;
@@ -10,7 +20,7 @@ $primary800: #033752;
 
 // secondary 
 $secondaryLight: #ede7f6;
-$secondaryMain: #2b7da2;
+$secondaryMain: #9ACF5D;
 $secondaryDark: #206f8c;
 $secondary200: #67c2f1;
 $secondary800: #0c4762;
@@ -185,4 +195,15 @@ $redMain: #E7272D;
   jauneMain: $jauneMain;
   
   redMain: $redMain;
+
+  // red
+  redLights: $redLights;
+  redMains: $redMains;
+  redDarks: $redDarks;
+  
+  // green
+  vertFonceLights: $vertFonceLights;
+  vertFonces: $vertFonces;
+  vertFonceDarks: $vertFonceDarks;
+
 }
