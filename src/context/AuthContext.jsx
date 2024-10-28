@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axiosInstance from '../api/axiosInstance'; // Assuming this is set up to handle API calls
+import axiosInstance from 'api/axiosInstance';
 
 // Create AuthContext
 const AuthContext = createContext();
@@ -8,10 +8,9 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     isAuthenticated: false,
-    user: null
+    user: null,
   });
 
-  // Load user and token from localStorage on initial load
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const storedToken = localStorage.getItem('token');
@@ -19,8 +18,14 @@ export const AuthProvider = ({ children }) => {
     if (storedUser && storedToken) {
       try {
         const user = JSON.parse(storedUser);
-        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
-        setAuth({ isAuthenticated: true, user });
+        if (user.isVerified) {
+          axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+          setAuth({ isAuthenticated: true, user });
+        } else {
+          console.warn('User is not verified');
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+        }
       } catch (error) {
         console.error('Failed to parse user from localStorage', error);
         localStorage.removeItem('user');
@@ -28,6 +33,46 @@ export const AuthProvider = ({ children }) => {
       }
     }
   }, []);
+
+  // New login function for token-based login
+  const loginWithToken = async (token) => {
+    try {
+      const userResponse = await axiosInstance.get('/auth/me', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log('Full userResponse:', userResponse);
+
+      const user = userResponse?.data?.data;
+  
+      // Log the fetched user details
+      console.log('Fetched User:', user);
+
+      if (!user) {
+        console.error('User data not found in response');
+        throw new Error('User data not found');
+      }
+
+      // Debugging output
+      console.log('Fetched User:', user);
+      console.log('User Verification Status:', user.isVerified);
+  
+      if (user.isVerified) {
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        setAuth({ isAuthenticated: true, user });
+      } else {
+        console.warn('User is not verified');
+        throw new Error('Please verify your email before logging in.');
+      }
+    } catch (error) {
+      console.log(token);
+      console.error('Error logging in with token', error);
+      throw error; // Consider re-throwing with additional context or using toast notifications here
+    }
+  };
+  
 
   // Register function for Restaurateurs
   const registerRestaurateur = async (data) => {
@@ -37,25 +82,30 @@ export const AuthProvider = ({ children }) => {
 
       // Log the JWT token
       console.log('JWT Token:', token);
-      
+
       // Get user info after successful registration
       const userResponse = await axiosInstance.get('/auth/me', {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
-      
+
       const user = userResponse.data.data;
-      
-      // Store user and token in localStorage
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('token', token);
-      
-      // Set authentication state
-      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      setAuth({ isAuthenticated: true, user });
-      
+
+      // Check if the user is verified
+      if (user.isVerified) {
+        // Store user and token in localStorage
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+
+        // Set authentication state
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        setAuth({ isAuthenticated: true, user });
+      } else {
+        console.warn('User is registered but not verified');
+        throw new Error('Please verify your email before logging in.');
+      }
     } catch (error) {
       console.error('Error registering restaurateur', error);
-      throw error; // You might want to handle errors more gracefully in the UI
+      throw error;
     }
   };
 
@@ -67,25 +117,30 @@ export const AuthProvider = ({ children }) => {
 
       // Log the JWT token
       console.log('JWT Token:', token);
-      
+
       // Get user info after successful registration
       const userResponse = await axiosInstance.get('/auth/me', {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
-      
+
       const user = userResponse.data.data;
-      
-      // Store user and token in localStorage
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('token', token);
-      
-      // Set authentication state
-      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      setAuth({ isAuthenticated: true, user });
-      
+
+      // Check if the user is verified
+      if (user.isVerified) {
+        // Store user and token in localStorage
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+
+        // Set authentication state
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        setAuth({ isAuthenticated: true, user });
+      } else {
+        console.warn('User is registered but not verified');
+        throw new Error('Please verify your email before logging in.');
+      }
     } catch (error) {
       console.error('Error registering producteur', error);
-      throw error; // Handle errors gracefully
+      throw error;
     }
   };
 
@@ -97,25 +152,30 @@ export const AuthProvider = ({ children }) => {
 
       // Log the JWT token
       console.log('JWT Token:', token);
-      
+
       // Get user info after successful login
       const userResponse = await axiosInstance.get('/auth/me', {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       });
-      
+
       const user = userResponse.data.data;
-      
-      // Store user and token in localStorage
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('token', token);
-      
-      // Set authentication state
-      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      setAuth({ isAuthenticated: true, user });
-      
+
+      // Check if the user is verified
+      if (user.isVerified) {
+        // Store user and token in localStorage
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+
+        // Set authentication state
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        setAuth({ isAuthenticated: true, user });
+      } else {
+        console.warn('User is not verified');
+        throw new Error('Please verify your email before logging in.');
+      }
     } catch (error) {
       console.error('Error logging in', error);
-      throw error; // Handle errors gracefully
+      throw error;
     }
   };
 
@@ -132,15 +192,14 @@ export const AuthProvider = ({ children }) => {
       // Clear authentication state
       setAuth({ isAuthenticated: false, user: null });
       delete axiosInstance.defaults.headers.common['Authorization'];
-      
     } catch (error) {
       console.error('Error logging out', error);
-      throw error; // Handle errors gracefully
+      throw error;
     }
   };
 
   return (
-    <AuthContext.Provider value={{ auth, registerRestaurateur, registerProducteur, login, logout }}>
+    <AuthContext.Provider value={{ auth, registerRestaurateur, registerProducteur, loginWithToken, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

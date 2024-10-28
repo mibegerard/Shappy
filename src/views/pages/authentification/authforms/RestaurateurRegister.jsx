@@ -51,7 +51,12 @@ const RestaurateurRegister = ({ ...others }) => {
     restaurantAddress: Yup.string().max(255).required('L\'adresse du restaurant est requise'),
     postalCode: Yup.string().max(10).required('Le code postal est requis'),
     city: Yup.string().max(255).required('La ville est requise'),
-    password: Yup.string().max(255).required('Le mot de passe est requis')
+    password: Yup.string()
+      .max(255)
+      .required('Le mot de passe est requis')
+      .test('password-strength', 'Le mot de passe doit comporter au moins 6 caractères, inclure des chiffres, des majuscules, des minuscules et des caractères spéciaux.', (value) => {
+        return strengthIndicator(value) >= 5;
+      }),
   });
 
   const {
@@ -94,24 +99,38 @@ const RestaurateurRegister = ({ ...others }) => {
 
   const onSubmit = async (data) => {
     try {
+      console.log("Submitting data:", data);
       const response = await axiosInstance.post('/auth/register/restaurateur', { ...data, role: 'restaurateur' });
+      console.log('Registration response:', response.data); 
       const { token, user } = response.data;
-      
-      // Store the token in local storage or session storage
+
+      console.log('User email before saving to localStorage:', user.email);
       localStorage.setItem('token', token);
-      // Optionally, store user details in local storage
+      localStorage.setItem('email', user.email);
       localStorage.setItem('user', JSON.stringify(user));
-  
-      if (response) {
-        // Reload the page
-        window.location.reload();
-        toast.success('Inscription réussie');
-        toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
-      }
-  
+      console.log('Email stored in localStorage:', localStorage.getItem('email'));
+
+      
+      // Navigate to the email verification page
+      navigate('/auth/verify-email');
+      toast.success('Inscription réussie');
+      toast.success(`Heureux de vous savoir parmi nous, ${user.firstName}!`);
+      toast.success('Veuillez consulter vos mails');
+      
     } catch (error) {
-      toast.error('Erreur d\'inscription');
+      console.error('Registration error:', error); // Log the error object
+      toast.error('Erreur d\'inscription : cet email est déjà utilisé. Veuillez essayer un autre.');
       console.log({ error });
+    }
+    if (error.response) {
+      // If the server responded with an error
+      console.error('Données d\'erreur de réponse du serveur :', error.response.data); // Log the server error response
+    } else if (error.request) {
+      // If the request was made but no response was received
+      console.error('Aucune réponse reçue:', error.request); // Log the request details
+    } else {
+      // Something happened in setting up the request
+      console.error('Erreur lors de la configuration de la requête', error.message); // Log the error message
     }
   };
 
@@ -326,7 +345,7 @@ const RestaurateurRegister = ({ ...others }) => {
           <OutlinedInput
             id="outlined-adornment-password-register"
             type={showPassword ? 'text' : 'password'}
-            {...register('password')}
+            {...register('password', { onChange: (e) => changePassword(e.target.value) })}
             label="Mot de passe"
             onChange={(e) => changePassword(e.target.value)}
             endAdornment={
