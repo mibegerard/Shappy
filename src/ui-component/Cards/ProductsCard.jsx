@@ -113,8 +113,8 @@ ProductCard.propTypes = {
         localText: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         producteur: PropTypes.string.isRequired,
-        price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // Allow both string and number
-        stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // Allow both string and number
+        price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, 
+        stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, 
     }).isRequired
 };
 

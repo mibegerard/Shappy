@@ -19,12 +19,17 @@ import AgricultureIcon from '@mui/icons-material/Agriculture';
 import { Link, useNavigate } from 'react-router-dom'; // Updated import
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
-import { useAuth } from '../../../context/AuthContext'; // Ensure this path is correct
+import { useAuth } from '../../../context/AuthContext'; 
 import { toast } from 'react-toastify';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt'; 
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'; 
+import Menu from '@mui/material/Menu';  
+import MenuItem from '@mui/material/MenuItem';
+
 
 const Header = (props) => {
-  const { logout, auth } = useAuth(); // Ensure this is used correctly
-  const navigate = useNavigate(); // Use navigate hook for redirection
+  const { logout, auth } = useAuth(); 
+  const navigate = useNavigate();
 
   // Timer reference to hold setTimeout
   const logoutTimer = useRef(null);
@@ -34,9 +39,9 @@ const Header = (props) => {
       await logout();
       toast.info('Déconnexion avec succès');
       setTimeout(() => {
-        console.log("Redirecting to login at:", new Date().toLocaleTimeString()); // Log time of redirection
-        navigate('/auth/login'); // Use navigate for redirection
-      }, 1000); // 1-second delay before redirecting
+        console.log("Redirecting to login at:", new Date().toLocaleTimeString()); 
+        navigate('/auth/login'); 
+      }, 1000); 
     } catch (error) {
       toast.error('Erreur lors de la déconnexion');
     }
@@ -52,14 +57,14 @@ const Header = (props) => {
     console.log("Logout timer reset at:", new Date().toLocaleTimeString());
 
     logoutTimer.current = setTimeout(() => {
-      console.log("Logging out at:", new Date().toLocaleTimeString()); // Log time of automatic logout
-      handleLogout(); // Automatically log out after 1 hour
-    }, 3600 * 1000); // 1 hour in milliseconds
+      console.log("Logging out at:", new Date().toLocaleTimeString()); 
+      handleLogout(); 
+    }, 3600 * 1000); 
   };
 
-  // Attach event listeners to reset timer on activity
+
   useEffect(() => {
-    resetLogoutTimer(); // Start the timer when the component mounts
+    resetLogoutTimer(); 
 
     const events = ['click', 'keypress'];
     
@@ -68,7 +73,7 @@ const Header = (props) => {
     });
 
     return () => {
-      // Cleanup event listeners and timer on component unmount
+      
       events.forEach((event) => {
         window.removeEventListener(event, resetLogoutTimer);
       });
@@ -81,11 +86,27 @@ const Header = (props) => {
   console.log(auth);
 
   const menuItems = [
-    { name: 'Je suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> },
+    // Role-based menu item
+    ...(auth.user?.role === 'restaurateur'
+      ? [{ name: 'Je Suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> }]
+      : auth.user?.role === 'producteur'
+      ? [{ name: 'Je Suis Restaurateur', link: '/', icon: <AgricultureIcon color="primary" /> }]
+      : []),
+  
+    // Authentication-based menu item
+    ...(auth.isAuthenticated
+      ? [{ name: 'Se déconnecter', onClick: handleLogout, icon: <HomeIcon color="error" /> }]
+      : [{ name: 'Je Suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> }, { name: 'Se Connecter', link: '/auth/login', icon: <HomeIcon color="primary" /> }]),
+
       ...(auth.isAuthenticated
-        ? [{ name: 'Se déconnecter', onClick: handleLogout, icon: <HomeIcon color="error" /> }]
-        : [{ name: 'Se Connecter', link: '/auth/login', icon: <HomeIcon color="primary" /> }])
+        ? [{ 
+          icon: <SentimentSatisfiedAltIcon color="secondary" />,
+          dropdown: true 
+        }] 
+        : []),
+      
   ];
+  
 
   const HideOnScroll = (props) => {
     const { children } = props;
@@ -116,23 +137,95 @@ const Header = (props) => {
         maxWidth: 300,
       }}
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
+      onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the drawer
+      onKeyDown={(e) => e.stopPropagation()} // Prevent closing when keydown event is triggered inside the drawer
     >
       <List>
         {menuItems.map((item, index) => (
           <ListItem button key={item.name + index} onClick={item.onClick}>
             <ListItemText>
               {item.link ? (
-                <Link
-                  to={item.link}
-                  style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}
-                >
+                <Link to={item.link} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
                   {item.icon}
                   <Typography variant="h6" sx={{ marginLeft: '10px', color: '#FC8A1A' }}>
                     {item.name}
                   </Typography>
                 </Link>
+              ) : item.dropdown ? (
+                <PopupState variant="popover" popupId="sentiment-dropdown">
+                  {(popupState) => (
+                    <React.Fragment>
+                      <IconButton {...bindTrigger(popupState)}>
+                        <SentimentSatisfiedAltIcon color="secondary" />
+                      </IconButton>
+                      <Menu
+                        {...bindMenu(popupState)}
+                        onClose={popupState.close} // Close the dropdown when clicking outside or on a menu item
+                      >
+                        {auth.user?.role === 'restaurateur' ? (
+                          <>
+                            <MenuItem
+                              onClick={() => {
+                                navigate('/cart');
+                                popupState.close(); // Close the menu after selecting an item
+                              }}
+                            >
+                              Mon Panier
+                            </MenuItem>
+                            <MenuItem
+                              onClick={() => {
+                                navigate('/mes-commandes');
+                                popupState.close();
+                              }}
+                            >
+                              Mes Commandes
+                            </MenuItem>
+                            <MenuItem
+                              onClick={() => {
+                                navigate('/mon-compte');
+                                popupState.close();
+                              }}
+                            >
+                              Mon Compte
+                            </MenuItem>
+                          </>
+                        ) : auth.user?.role === 'producteur' ? (
+                          <>
+                            <MenuItem
+                              onClick={() => {
+                                navigate('/je-depose-mon-potager');
+                                popupState.close(); // Close the menu after selecting an item
+                              }}
+                            >
+                              Ajouter un produit
+                            </MenuItem>
+                            <MenuItem
+                              onClick={() => {
+                                navigate('/mes-produits');
+                                popupState.close();
+                              }}
+                            >
+                              Mes Produits
+                            </MenuItem>
+                            <MenuItem
+                              onClick={() => {
+                                navigate('/mon-compte');
+                                popupState.close();
+                              }}
+                            >
+                              Mon Compte
+                            </MenuItem>
+                          </>
+                        ) : (
+                          // Default case if the role is not restaurateur or producteur
+                          <MenuItem onClick={handleLogout}>
+                            Se déconnecter
+                          </MenuItem>
+                        )}
+                      </Menu>
+                    </React.Fragment>
+                  )}
+                </PopupState>
               ) : (
                 <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                   {item.icon}
@@ -147,6 +240,7 @@ const Header = (props) => {
       </List>
     </Box>
   );
+  
 
   return (
     <>
@@ -157,7 +251,22 @@ const Header = (props) => {
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Button 
                   component={Link} 
-                  to="/" 
+                  to={(() => {
+                    if (!auth.isAuthenticated) {
+                      console.log("User is not authenticated. Redirecting to '/'");
+                      return "/";
+                    }
+                    if (auth.user?.role === "restaurateur") {
+                      console.log("User is authenticated as 'restaurateur'. Redirecting to '/'");
+                      return "/";
+                    }
+                    if (auth.user?.role === "producteur") {
+                      console.log("User is authenticated as 'producteur'. Redirecting to '/je-suis-producteur'");
+                      return "/je-suis-producteur";
+                    }
+                    console.log("Fallback condition met. Redirecting to '/'");
+                    return "/";
+                  })()}
                   sx={{ 
                     p: 0, 
                     '&:hover': { 
@@ -191,8 +300,8 @@ const Header = (props) => {
                         onClick={item.onClick}
                         sx={{
                           textDecoration: 'none',
-                          backgroundColor: (item.name === 'Se Connecter' || item.name === 'Se déconnecter') ? 'transparent' : '#F5F5DC',
-                          padding: '0.5rem 1rem',
+                          backgroundColor: (item.icon.type === SentimentSatisfiedAltIcon) ? 'transparent' : (item.name === 'Se Connecter' || item.name === 'Se déconnecter') ? 'transparent' : '#F5F5DC',
+                          padding: '0.1rem 1rem',
                           marginRight: '1rem',
                           borderRadius: '10px',
                           display: 'flex',
@@ -200,6 +309,82 @@ const Header = (props) => {
                           cursor: item.link ? 'pointer' : 'default'
                         }}
                       >
+                        {/* Apply transparent background only for SentimentSatisfiedAltIcon */}
+                        {item.icon.type === SentimentSatisfiedAltIcon ? (
+                          <Box sx={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                            <PopupState variant="popover" popupId="sentiment-dropdown">
+                              {(popupState) => (
+                                <React.Fragment>
+                                  <IconButton {...bindTrigger(popupState)}>
+                                    <SentimentSatisfiedAltIcon color="secondary" />
+                                  </IconButton>
+                                  <Menu {...bindMenu(popupState)} onClose={popupState.close}>
+                                    {auth.user?.role === 'restaurateur' ? (
+                                      <>
+                                        <MenuItem
+                                          onClick={() => {
+                                            navigate('/cart');
+                                            popupState.close(); // Close the menu after selecting an item
+                                          }}
+                                        >
+                                          Mon Panier
+                                        </MenuItem>
+                                        <MenuItem
+                                          onClick={() => {
+                                            navigate('/mes-commandes');
+                                            popupState.close();
+                                          }}
+                                        >
+                                          Mes Commandes
+                                        </MenuItem>
+                                        <MenuItem
+                                          onClick={() => {
+                                            navigate('/mon-compte');
+                                            popupState.close();
+                                          }}
+                                        >
+                                          Mon Compte
+                                        </MenuItem>
+                                      </>
+                                    ) : auth.user?.role === 'producteur' ? (
+                                      <>
+                                        <MenuItem
+                                          onClick={() => {
+                                            navigate('/je-depose-mon-potager');
+                                            popupState.close(); // Close the menu after selecting an item
+                                          }}
+                                        >
+                                          Ajouter un produit
+                                        </MenuItem>
+                                        <MenuItem
+                                          onClick={() => {
+                                            navigate('/mes-produits');
+                                            popupState.close();
+                                          }}
+                                        >
+                                          Mes Produits
+                                        </MenuItem>
+                                        <MenuItem
+                                          onClick={() => {
+                                            navigate('/mon-compte');
+                                            popupState.close();
+                                          }}
+                                        >
+                                          Mon Compte
+                                        </MenuItem>
+                                      </>
+                                    ) : (
+                                      // Default case if the role is not restaurateur or producteur
+                                      <MenuItem onClick={handleLogout}>
+                                        Se déconnecter
+                                      </MenuItem>
+                                    )}
+                                  </Menu>
+                                </React.Fragment>
+                              )}
+                            </PopupState>
+                          </Box>
+                        ) : null} {/* No icon for other cases */}
                         <Typography variant="h6" sx={{ color: (item.name === 'Se Connecter' || item.name === 'Se déconnecter') ? '#FFF4E2' : '#FC8A1A' }}>
                           {item.name}
                         </Typography>

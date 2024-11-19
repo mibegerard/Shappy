@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, Button, useMediaQuery, useTheme } from '@mui/material';
+import { Link } from 'react-router-dom';
 import producteur from 'assets/images/Photo producteur.png';
 import avocat from 'assets/images/Avocat producteur.png';
 
@@ -34,26 +35,41 @@ const ProducteurDescription = () => {
                 }}
             >
                 <Typography 
-                    variant={isSmallScreen ? "h1" : isMediumScreen ? "h1" : "h1"} 
-                    sx={{ color: '#FFF4E2', fontWeight: 'bold', marginTop: '3rem' }}
+                    variant={isSmallScreen ? "h2" : isMediumScreen ? "h1" : "h1"} 
+                    sx={{ 
+                        color: '#FFF', // Bright white text
+                        fontWeight: 'bold', 
+                        marginTop: '3rem',
+                        textShadow: '2px 2px 6px rgba(0, 0, 0, 0.7)' // Add shadow for contrast
+                    }}
                 >
                     Je suis producteur
                 </Typography>
                 <Typography 
                     variant="body1" 
-                    sx={{ color: '#FFFFFF', margin: 'auto', maxWidth: isSmallScreen ? '100%' : '600px', padding: isSmallScreen ? '0 10px' : '0', fontWeight:'bold' }}
+                    sx={{ 
+                        color: '#FFF', // Bright white text
+                        margin: 'auto', 
+                        maxWidth: isSmallScreen ? '100%' : '600px', 
+                        padding: isSmallScreen ? '0 10px' : '0', 
+                        fontWeight: 'bold',
+                        textShadow: '1px 1px 4px rgba(0, 0, 0, 0.6)' // Add shadow for contrast
+                    }}
                 >
                     Présentez vos produits « moches » sur Shappy pour les vendre à des restaurateurs en quête d’ingrédients de saison.
                 </Typography>
                 <Button 
                     variant="contained" 
+                    component={Link}
+                    to="/je-depose-mon-potager" 
                     sx={{ 
                         backgroundColor: '#385909',
-                        color: '#FFFFFF',
+                        color: '#FFF',
                         borderRadius: '10px',
                         padding: isSmallScreen ? '5px 10px' : '10px 20px',
                         marginBottom: '4rem',
-                        fontWeight:'bold'
+                        fontWeight: 'bold',
+                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)' // Button shadow for better appearance
                     }}
                 >
                     Je dépose mon potager
