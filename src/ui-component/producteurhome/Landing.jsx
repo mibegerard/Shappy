@@ -1,14 +1,24 @@
-// Landing.js
 import React from 'react';
 import { Box, Button, useMediaQuery, useTheme, Typography, Container, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useAuth } from 'context/AuthContext'; 
 import prodheader from 'assets/images/Producteurheader.png';
 import InfoCard from '../Cards/InfoCard.jsx';
+import { toast } from 'react-toastify'; 
 
 const Landing = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+
+    const { auth } = useAuth(); // Access auth state
+
+    const handleButtonClick = () => {
+        if (auth.isAuthenticated && auth.user?.role === 'producteur') {
+        } else {
+            toast.warn("Accès réservé aux utilisateurs authentifiés avec le rôle de producteur.");
+        }
+    };
 
     const getHeight = () => {
         if (isSmallScreen) return 'auto';
@@ -59,9 +69,10 @@ const Landing = () => {
                 }}
             >
                 <Button 
-                    component={Link}
-                    to="/je-depose-mon-potager"
                     variant="contained"
+                    onClick={handleButtonClick}
+                    component={auth.isAuthenticated && auth.user?.role === 'producteur' ? Link : 'button'}
+                    to={auth.isAuthenticated && auth.user?.role === 'producteur' ? "/je-depose-mon-potager" : undefined}
                     sx={{
                         backgroundColor: theme.palette.beige.clair,
                         borderRadius: '12px',

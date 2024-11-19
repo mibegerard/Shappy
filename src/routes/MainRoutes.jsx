@@ -5,6 +5,7 @@ const Home = Loadable(lazy(() => import('views/pages/home')));
 const ProducteurAccueil = Loadable(lazy(() => import('views/pages/ProducteurAccueil')));
 const DeposerPotager = Loadable(lazy(() => import('views/pages/DeposerPotager')));
 const PreviewProduct = Loadable(lazy(() => import('views/pages/preview')));
+const Cart = Loadable(lazy(() => import('views/pages/cart')));
 const MonMarche = Loadable(lazy(() => import('views/pages/monMarche')));
 const ProductDetail = Loadable(lazy(() => import('ui-component/marche/ProductDetail')));
 const VerifyEmail = Loadable(lazy(() => import('views/pages/authentification/authforms/VerifyEmail')));
@@ -43,6 +44,10 @@ const MainRoutes = {
       path: '/auth/verify-email',
       element: <VerifyEmail />
     },
+    {
+      path: '/cart',
+      element: <Cart />
+    }
   ]
 };
 

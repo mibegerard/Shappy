@@ -5,7 +5,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useTheme } from '@mui/material/styles';
 import 'flag-icons/css/flag-icons.min.css';
 
-const ProductCard = ({ item, onAddToCart }) => {
+const ProductCard = ({ item, onAddToCart, onProductClick }) => {
     const theme = useTheme();
     const vertFonce = theme.palette.vert?.fonce;
     const beigeClair = theme.palette.beige?.clair;
@@ -17,7 +17,7 @@ const ProductCard = ({ item, onAddToCart }) => {
                 padding: '1rem',
                 borderRadius: '0 0 1rem 1rem',
                 width: '100%',
-                boxShadow: 1, // Adding a subtle shadow for depth
+                boxShadow: 1, // Subtle shadow for depth
             }}
         >
             {/* Image Box */}
@@ -25,6 +25,7 @@ const ProductCard = ({ item, onAddToCart }) => {
                 component="img"
                 src={item.src}
                 alt={item.alt}
+                onClick={onProductClick}
                 sx={{
                     width: '100%',
                     transition: 'transform 0.3s ease-in-out',
@@ -82,7 +83,7 @@ const ProductCard = ({ item, onAddToCart }) => {
                         variant="h6"
                         sx={{ color: vertFonce }}
                     >
-                        {item.price}
+                        {typeof item.price === 'number' ? `${item.price.toFixed(2)} €` : item.price}
                     </Typography>
                     <Grid container alignItems="center" justifyContent="space-between">
                         <Grid item xs={12}>
@@ -102,24 +103,26 @@ const ProductCard = ({ item, onAddToCart }) => {
                                     En stock: {item.stock} {item.unit} 
                                 </Typography>
 
-                                <Button onClick={() => onAddToCart(item)}
+                                <Button
+                                    onClick={onAddToCart}
+                                    disabled={item.stock === 0}
                                     sx={{
                                         '&:hover': {
-                                            transform: 'scale(1.5)', // Slightly increase size on hover
+                                            transform: 'scale(1.1)', // Slightly increase size on hover
                                             transition: 'transform 0.2s ease-in-out', // Smooth transition
                                             backgroundColor: 'transparent'
-                                        }
+                                        },
+                                        color: vertFonce,
                                     }}
                                 >
                                     <AddCircleIcon
                                         className="add-circle-icon"
                                         sx={{
                                             fontSize: 40,
-                                            color: vertFonce,
+                                            color: item.stock > 0 ? vertFonce : 'grey', // Grey out if out of stock
                                         }}
                                     />
                                 </Button>
-
                             </Box>
                         </Grid>
                     </Grid>
@@ -141,10 +144,12 @@ ProductCard.propTypes = {
         localText: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         producteur: PropTypes.string.isRequired,
-        price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // Allow both string and number
-        stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // Allow both string and number
+        price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, 
+        stock: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         unit: PropTypes.string.isRequired,
-    }).isRequired
+    }).isRequired,
+    onAddToCart: PropTypes.func.isRequired,
+    onProductClick: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

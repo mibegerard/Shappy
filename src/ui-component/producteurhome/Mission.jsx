@@ -1,11 +1,23 @@
 import React from 'react';
 import { Box, Button, Typography, Grid, useTheme, useMediaQuery, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify'; 
+import { useAuth } from 'context/AuthContext'; 
 import missionfruit from 'assets/images/Photo fruits et légumes.png';
 
 const Mission = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const { auth } = useAuth(); 
+
+    // Helper to check if the user is an authenticated producteur
+    const isProducteur = auth.isAuthenticated && auth.user?.role === 'producteur';
+
+    const handleButtonClick = () => {
+        if (!isProducteur) {
+            toast.warn("Seuls les producteurs authentifiés peuvent déposer leur potager.");
+        }
+    };
 
     return (
         <Container>
@@ -32,14 +44,19 @@ const Mission = () => {
                                 }}
                             >
                                 <Button 
-                                    component={Link}
-                                    to="/je-depose-mon-potager"
+                                    component={isProducteur ? Link : 'button'}
+                                    to={isProducteur ? "/je-depose-mon-potager" : undefined}
+                                    onClick={handleButtonClick}
                                     variant="contained"
                                     sx={{ 
                                         marginTop: '2rem', 
                                         backgroundColor: theme.palette.vert.fonce, 
                                         color: theme.palette.beige.clair, 
-                                        borderRadius: '12px' 
+                                        borderRadius: '12px',
+                                        '&:hover': {
+                                            backgroundColor: theme.palette.vert.fonce,
+                                            opacity: 0.9,
+                                        },
                                     }}
                                 >
                                     Je dépose mon potager

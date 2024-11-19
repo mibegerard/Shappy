@@ -19,6 +19,7 @@ const InfoCard = ({ percentage, text, highlight }) => {
             boxShadow: 3,
             textAlign: 'center',
             width: isSmallScreen ? '70%' : isMediumScreen ? '80%' : 'auto',
+            height: isSmallScreen ? '150px' : isMediumScreen ? '200px' : '250px',
         },
         percentageText: {
             fontSize: isSmallScreen ? '2rem' : isMediumScreen ? '3rem' : '4rem',

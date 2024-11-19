@@ -5,11 +5,13 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import StarIcon from '@mui/icons-material/Star';
 import axiosInstance from 'api/axiosInstance';
+import { useAuth } from 'context/AuthContext';
 import ProductCard from 'ui-component/Cards/ProductCard';
 import { Skeleton } from '@mui/material';
 
 
 const ProductDetail = () => {
+    const { auth } = useAuth(); 
     const theme = useTheme();
     const vertFonce = theme.palette.vert?.fonce;
     const beigeClair = theme.palette.beige?.clair;
@@ -21,7 +23,7 @@ const ProductDetail = () => {
     const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(0);
     const [relatedProducts, setRelatedProducts] = useState([]);
-    const [relatedLoading, setRelatedLoading] = useState(true); // New state for related products loading
+    const [relatedLoading, setRelatedLoading] = useState(true); 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
 
     useEffect(() => {
@@ -29,10 +31,28 @@ const ProductDetail = () => {
             try {
                 const response = await axiosInstance.get(`/product/${productId}`);
                 setProduct(response.data.data);
-                
+    
                 // Fetch related products
                 const relatedResponse = await axiosInstance.get(`/products?category=${response.data.data.category}`);
                 setRelatedProducts(relatedResponse.data.data);
+    
+                // Check if the product already exists in the cart
+                const userId = auth?.user?._id;
+                if (userId) {
+                    try {
+                        const cartResponse = await axiosInstance.get(`/cart/${userId}/product/${productId}`);
+                        const productInCart = cartResponse.data;
+                        if (productInCart) {
+                            setQuantity(productInCart.quantity);  // Set quantity from cart if product is already there
+                        } else {
+                            setQuantity(0);  // Set to 0 if the product is not in the cart
+                        }
+                    } catch (cartError) {
+                        // If the product is not found in the cart, treat quantity as 0
+                        console.warn('Product not found in the cart:', cartError);
+                        setQuantity(0);
+                    }
+                }
             } catch (err) {
                 setError('Error fetching product details. Please try again later.');
                 console.error('Error fetching product details:', err);
@@ -41,9 +61,10 @@ const ProductDetail = () => {
                 setRelatedLoading(false); // Stop loading for related products
             }
         };
-
+    
         fetchProductDetails();
-    }, [productId]);
+    }, [productId, auth?.user?._id]);
+    
 
     // Handle Snackbar close
     const handleSnackbarClose = () => setSnackbarOpen(false);
@@ -65,11 +86,49 @@ const ProductDetail = () => {
         );
     }
 
-    const handleQuantityIncrease = () => {
-        if (quantity < product.quantity) {
-            setQuantity(prevQuantity => prevQuantity + 1);
+    const handleQuantityIncrease = async () => {
+        try {
+            const userId = auth?.user?._id; // Replace this with the correct user ID variable
+            if (!userId) {
+                console.error('User ID is not defined.');
+                alert('You must be logged in to add products to the cart.');
+                return;
+            }
+    
+            console.log('Fetching product in cart for user:', userId, 'and product:', productId);
+    
+            // Fetch the product in the cart
+            const response = await axiosInstance.get(`/cart/${userId}/product/${productId}`);
+            const productInCart = response.data; // Adjust this based on your API response structure
+            console.log('Product in cart response:', productInCart);
+    
+            // Extract the quantity from the correct structure
+            const quantityInCart = productInCart?.quantity || 0; // Default to 0 if undefined
+            console.log('Current quantity in cart for this product:', quantityInCart);
+    
+            // Ensure the total quantity doesn't exceed the stock
+            if (quantity  < product.quantity) {
+                setQuantity((prevQuantity) => prevQuantity + 1);
+            } else {
+                alert('You cannot add more items than available in stock.');
+            }
+        } catch (error) {
+            if (error.response?.status === 404) {
+                console.warn('Product not found in the cart:', error.response.data);
+    
+                // No product in the cart; treat quantityInCart as 0
+                if (quantity < product.quantity) {
+                    setQuantity((prevQuantity) => prevQuantity + 1);
+                } else {
+                    alert('You cannot add more items than available in stock.');
+                }
+            } else {
+                console.error('Error checking product in cart:', error);
+                alert('An error occurred. Please try again.');
+            }
         }
     };
+    
 
     const handleQuantityDecrease = () => {
         if (quantity > 0) setQuantity(prevQuantity => prevQuantity - 1);

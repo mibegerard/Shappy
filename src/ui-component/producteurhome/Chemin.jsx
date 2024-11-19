@@ -1,11 +1,24 @@
 import React from 'react';
 import { Box, Grid, Typography, useTheme, useMediaQuery, Container, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useAuth } from 'context/AuthContext'; 
 import mac from 'assets/images/MacBook Air (2022).png';
 import cheminimage from 'assets/images/CheminProducteur.jpeg';
 
 const Chemin = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const { auth } = useAuth(); 
+
+    // Helper to check if the user is an authenticated producteur
+    const isProducteur = auth.isAuthenticated && auth.user?.role === 'producteur';
+
+    const handleButtonClick = () => {
+        if (!isProducteur) {
+            toast.warn("Accès réservé aux utilisateurs authentifiés avec le rôle de producteur.");
+        }
+    };
 
     return (
         <Container>
@@ -24,7 +37,7 @@ const Chemin = () => {
                             alt="Left image"
                             sx={{ 
                                 width: '100%', 
-                                height: 'auto'
+                                height: 'auto',
                             }}
                         />
                     </Grid>
@@ -36,17 +49,24 @@ const Chemin = () => {
                             alt="Right image"
                             sx={{ 
                                 width: '100%', 
-                                height: 'auto'
+                                height: 'auto',
                             }}
                         />
                     </Grid>
                 </Grid>
                 <Box sx={{ textAlign: 'center', marginTop: '2rem' }}>
-                    <Button 
+                    <Button
                         variant="contained"
+                        onClick={handleButtonClick}
+                        component={isProducteur ? Link : 'button'}
+                        to={isProducteur ? "/mon-potager" : undefined}
                         sx={{
                             backgroundColor: theme.palette.vert?.fonce,
                             borderRadius: '12px',
+                            '&:hover': {
+                                backgroundColor: theme.palette.vert?.fonce,
+                                opacity: 0.9,
+                            },
                         }}
                     >
                         <Typography variant="button" sx={{ color: theme.palette.beige?.clair }}>
