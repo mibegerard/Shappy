@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Container, Box, Typography, IconButton, Grid } from '@mui/material';
 import ProductCartCard from '../Cards/ProductCartCard';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'context/AuthContext';
 import axiosInstance from 'api/axiosInstance';
 
 const Products = () => {
     const { auth } = useAuth(); 
+    const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -35,7 +37,6 @@ const Products = () => {
                 setLoading(false);
             } catch (err) {
                 console.error("Failed to fetch cart details:", err);
-                setError('Failed to fetch cart details');
                 setLoading(false);
             }
         }
@@ -121,7 +122,7 @@ const Products = () => {
                     textDecoration: 'underline',
                     margin: '30px 0',
                 }}
-                onClick={() => window.location.href = '/shop'} // Redirect to shop page
+                onClick={() => navigate('/mon-marche')}
             >
                 Retour à la boutique
             </Typography>

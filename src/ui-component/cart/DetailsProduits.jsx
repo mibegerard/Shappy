@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Box, Typography, Button, CircularProgress, Alert } from '@mui/material';
+import { Container, Grid, Box, Typography, Button, CircularProgress, Modal } from '@mui/material';
 import CartDetailCard from 'ui-component/Cards/CartDetailCard'; 
 import axiosInstance from 'api/axiosInstance'; 
 import { useAuth } from 'context/AuthContext'; 
@@ -8,6 +8,7 @@ const DetailsProduits = () => {
     const { auth } = useAuth(); 
     const [cartProducts, setCartProducts] = useState([]); 
     const [loading, setLoading] = useState(true); 
+    const [modalOpen, setModalOpen] = useState(false);
     const [error, setError] = useState(null);
     const deliveryFee = 5.00; 
 
@@ -25,8 +26,8 @@ const DetailsProduits = () => {
                 setLoading(false);
             } catch (err) {
                 console.error('Failed to fetch cart details:', err);
-                setError('Failed to fetch cart details');
                 setLoading(false);
+                setModalOpen(true); // Show modal if API call fails
             }
         } else {
             console.warn('User not authenticated or not a restaurateur.');
@@ -98,6 +99,11 @@ const DetailsProduits = () => {
 
     return (
         <Container maxWidth="lg" sx={{ justifyContent: 'center', padding: '20px 0' }}>
+            {cartProducts.length === 0 && (
+                <Typography variant="h6" sx={{ margin: '20px 0', textAlign: 'center' }}>
+                    Votre panier est vide.
+                </Typography>
+            )}
             <Box sx={{ backgroundColor: '#fff', padding: 3, borderRadius: 2, boxShadow: 3, width: '100%' }}>
                 <Typography variant="h6" sx={{ margin: '40px 0', textAlign: 'center' }}>
                     Récapitulatif de votre commande
