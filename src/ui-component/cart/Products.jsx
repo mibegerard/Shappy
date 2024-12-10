@@ -13,11 +13,18 @@ const Products = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const getUserId = () => auth.user?._id || auth.user?.id;
+
     // Fetch cart details based on the logged-in restaurateur
     const fetchCart = async () => {
         if (auth.isAuthenticated && auth.user?.role === 'restaurateur') {
+            const userId = getUserId();
+            if (!userId) {
+                console.error("User ID is missing. Cannot fetch cart.");
+                return;
+            }
             try {
-                const response = await axiosInstance.get(`/cart/${auth.user._id}`);
+                const response = await axiosInstance.get(`/cart/${userId}`);
                 const fetchedCart = response.data.products || [];
                 
                 // Log the fetched cart data for debugging
@@ -48,12 +55,17 @@ const Products = () => {
 
     // Handle quantity change (called from child component)
     const handleQuantityChange = async (productId, newQuantity) => {
+        const userId = getUserId();
+        if (!userId) {
+            console.error("User ID is missing. Cannot fetch cart.");
+            return;
+        }
         if (newQuantity < 1) {
             console.warn(`Invalid quantity: ${newQuantity}. Quantity must be at least 1.`);
             return;
         }
 
-        const url = `/cart/${auth.user._id}/product`;
+        const url = `/cart/${userId}/product`;
         const data = { productId, quantity: newQuantity };
         try {
             await axiosInstance.put(url, data);
@@ -65,9 +77,14 @@ const Products = () => {
     };
 
     const handleDelete = async (productId) => {
+        const userId = getUserId();
+        if (!userId) {
+            console.error("User ID is missing. Cannot fetch cart.");
+            return;
+        }
         try {
             console.log(`Sending delete request for product ID: ${productId}`);
-            await axiosInstance.delete(`/cart/${auth.user._id}/product/${productId}`);
+            await axiosInstance.delete(`/cart/${userId}/product/${productId}`);
             console.log(`Product ID: ${productId} successfully removed from the cart`);
             
             // Re-fetch cart after deletion to ensure the UI is updated
@@ -81,6 +98,11 @@ const Products = () => {
 
     // Function to handle clearing the cart
     const handleClearCart = async () => {
+        const userId = getUserId();
+            if (!userId) {
+                console.error("User ID is missing. Cannot fetch cart.");
+                return;
+            }
         try {
             // Optional: Add a confirmation prompt
             const confirmClear = window.confirm("Are you sure you want to clear all items from your cart?");
@@ -89,10 +111,10 @@ const Products = () => {
                 return;
             }
 
-            console.log(`Attempting to clear cart for user ID: ${auth.user._id}`);
+            console.log(`Attempting to clear cart for user ID: ${userId}`);
             
             // Send request to clear the cart
-            const response = await axiosInstance.delete(`/cart/${auth.user._id}`);
+            const response = await axiosInstance.delete(`/cart/${userId}`);
             
             console.log("Cart cleared successfully:", response.data);
             
@@ -102,7 +124,7 @@ const Products = () => {
             // Optional: Provide user feedback
             alert("Your cart has been cleared successfully.");
         } catch (error) {
-            console.error(`Error clearing cart for user ID: ${auth.user._id}`, error);
+            console.error(`Error clearing cart for user ID: ${userId}`, error);
             
             // Optional: Notify user about the error
             alert("An error occurred while trying to clear the cart. Please try again.");
