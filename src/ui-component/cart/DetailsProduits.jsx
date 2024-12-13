@@ -11,14 +11,20 @@ const DetailsProduits = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [error, setError] = useState(null);
     const deliveryFee = 5.00; 
+    const getUserId = () => auth.user?._id || auth.user?.id;
 
     // Fetch the cart data for the logged-in restaurateur
     const fetchCart = async () => {
         console.log('Fetching cart for user:', auth.user?._id); // Log user ID for debugging
         if (auth.isAuthenticated && auth.user?.role === 'restaurateur') {
+            const userId = getUserId();
+            if (!userId) {
+                console.error("User ID is missing. Cannot fetch cart.");
+                return;
+            }
             try {
                 console.log('Making API request to fetch cart data');
-                const response = await axiosInstance.get(`/cart/${auth.user._id}`);
+                const response = await axiosInstance.get(`/cart/${userId}`);
                 console.log('Fetched cart data:', response.data); // Log the entire response to inspect it
                 const fetchedCart = response.data.products || [];
                 console.log('Fetched products:', fetchedCart); // Log the products in the cart
@@ -64,9 +70,14 @@ const DetailsProduits = () => {
     // Handle removing a product from the cart
     const handleRemoveProduct = async (productId) => {
         console.log(`Removing product with ID: ${productId}`); // Log the product being removed
+        const userId = getUserId();
+        if (!userId) {
+            console.error("User ID is missing. Cannot fetch cart.");
+            return;
+        }
         try {
             console.log(`Making API request to remove product with ID: ${productId}`);
-            await axiosInstance.delete(`/cart/${auth.user._id}/product/${productId}`);
+            await axiosInstance.delete(`/cart/${userId}/product/${productId}`);
             console.log(`Successfully removed product with ID: ${productId}`);
             setCartProducts((prev) => prev.filter((product) => product.product._id !== productId));
         } catch (err) {

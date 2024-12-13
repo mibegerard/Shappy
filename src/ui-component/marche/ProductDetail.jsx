@@ -85,10 +85,11 @@ const ProductDetail = () => {
             </Alert>
         );
     }
-
     const handleQuantityIncrease = async () => {
         try {
-            const userId = auth?.user?._id; // Replace this with the correct user ID variable
+            const userId = auth?.user?._id || auth?.user?.id;
+            console.log("User ID is:", userId);
+    
             if (!userId) {
                 console.error('User ID is not defined.');
                 alert('You must be logged in to add products to the cart.');
@@ -99,15 +100,15 @@ const ProductDetail = () => {
     
             // Fetch the product in the cart
             const response = await axiosInstance.get(`/cart/${userId}/product/${productId}`);
-            const productInCart = response.data; // Adjust this based on your API response structure
+            const productInCart = response.data; 
             console.log('Product in cart response:', productInCart);
     
-            // Extract the quantity from the correct structure
+            // Extract the quantity from the response
             const quantityInCart = productInCart?.quantity || 0; // Default to 0 if undefined
             console.log('Current quantity in cart for this product:', quantityInCart);
     
             // Ensure the total quantity doesn't exceed the stock
-            if (quantity  < product.quantity) {
+            if (quantity < product.quantity) {
                 setQuantity((prevQuantity) => prevQuantity + 1);
             } else {
                 alert('You cannot add more items than available in stock.');
@@ -127,12 +128,54 @@ const ProductDetail = () => {
                 alert('An error occurred. Please try again.');
             }
         }
-    };
+    };    
     
 
-    const handleQuantityDecrease = () => {
-        if (quantity > 0) setQuantity(prevQuantity => prevQuantity - 1);
-    };
+    const handleQuantityDecrease = async () => {
+        try {
+            // Get the user ID, handling possible inconsistencies between `id` and `_id`
+            const userId = auth?.user?._id || auth?.user?.id;
+            console.log("User ID is:", userId);
+    
+            if (!userId) {
+                console.error('User ID is not defined.');
+                alert('You must be logged in to update the cart.');
+                return;
+            }
+    
+            console.log('Fetching product in cart for user:', userId, 'and product:', productId);
+    
+            // Fetch the product in the cart
+            const response = await axiosInstance.get(`/cart/${userId}/product/${productId}`);
+            const productInCart = response.data; 
+            console.log('Product in cart response:', productInCart);
+    
+            // Extract the quantity from the response
+            const quantityInCart = productInCart?.quantity || 0; // Default to 0 if undefined
+            console.log('Current quantity in cart for this product:', quantityInCart);
+    
+            // Ensure the quantity doesn't drop below 0
+            if (quantity > 0) {
+                setQuantity((prevQuantity) => prevQuantity - 1);
+            } else {
+                alert('You cannot have less than 0 items in the cart.');
+            }
+        } catch (error) {
+            if (error.response?.status === 404) {
+                console.warn('Product not found in the cart:', error.response.data);
+    
+                // No product in the cart; ensure quantity stays at 0
+                if (quantity > 0) {
+                    setQuantity((prevQuantity) => prevQuantity - 1);
+                } else {
+                    alert('You cannot have less than 0 items in the cart.');
+                }
+            } else {
+                console.error('Error checking product in cart:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+    };    
 
     const handleAddToCart = () => {
         if (quantity > 0 && quantity <= product.quantity) {
