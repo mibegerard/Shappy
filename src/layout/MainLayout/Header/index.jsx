@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -16,19 +16,18 @@ import logoSrc from 'assets/images/logobelge.png';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
-import { Link, useNavigate } from 'react-router-dom'; // Updated import
+import { Link, useNavigate } from 'react-router-dom';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
-import { useAuth } from '../../../context/AuthContext'; 
+import { useAuth } from '../../../context/AuthContext';
 import { toast } from 'react-toastify';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt'; 
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'; 
-import Menu from '@mui/material/Menu';  
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-
 const Header = (props) => {
-  const { logout, auth } = useAuth(); 
+  const { logout, auth } = useAuth();
   const navigate = useNavigate();
 
   // Timer reference to hold setTimeout
@@ -39,14 +38,14 @@ const Header = (props) => {
       await logout();
       toast.info('Déconnexion avec succès');
       setTimeout(() => {
-        console.log("Redirecting to login at:", new Date().toLocaleTimeString()); 
-        navigate('/auth/login'); 
-      }, 1000); 
+        console.log("Redirecting to login at:", new Date().toLocaleTimeString());
+        navigate('/auth/login');
+      }, 1000);
     } catch (error) {
       toast.error('Erreur lors de la déconnexion');
     }
   };
-  
+
   // Reset the logout timer on user interaction
   const resetLogoutTimer = () => {
     if (logoutTimer.current) {
@@ -57,23 +56,21 @@ const Header = (props) => {
     console.log("Logout timer reset at:", new Date().toLocaleTimeString());
 
     logoutTimer.current = setTimeout(() => {
-      console.log("Logging out at:", new Date().toLocaleTimeString()); 
-      handleLogout(); 
-    }, 3600 * 1000); 
+      console.log("Logging out at:", new Date().toLocaleTimeString());
+      handleLogout();
+    }, 3600 * 1000);
   };
 
-
   useEffect(() => {
-    resetLogoutTimer(); 
+    resetLogoutTimer();
 
     const events = ['click', 'keypress'];
-    
+
     events.forEach((event) => {
       window.addEventListener(event, resetLogoutTimer);
     });
 
     return () => {
-      
       events.forEach((event) => {
         window.removeEventListener(event, resetLogoutTimer);
       });
@@ -85,28 +82,32 @@ const Header = (props) => {
 
   console.log(auth);
 
+  const [role, setRole] = useState(auth.user?.role);
+
+  const toggleRole = () => {
+    setRole((prevRole) => (prevRole === 'restaurateur' ? 'producteur' : 'restaurateur'));
+  };
+
   const menuItems = [
     // Role-based menu item
-    ...(auth.user?.role === 'restaurateur'
-      ? [{ name: 'Je Suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> }]
-      : auth.user?.role === 'producteur'
-      ? [{ name: 'Je Suis Restaurateur', link: '/', icon: <AgricultureIcon color="primary" /> }]
+    ...(role === 'restaurateur'
+      ? [{ name: 'Je Suis Producteur', link: '/je-suis-producteur', onClick: toggleRole, icon: <AgricultureIcon color="primary" /> }]
+      : role === 'producteur'
+      ? [{ name: 'Je Suis Restaurateur', link: '/', onClick: toggleRole, icon: <AgricultureIcon color="primary" /> }]
       : []),
-  
+
     // Authentication-based menu item
     ...(auth.isAuthenticated
       ? [{ name: 'Se déconnecter', onClick: handleLogout, icon: <HomeIcon color="error" /> }]
       : [{ name: 'Je Suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> }, { name: 'Se Connecter', link: '/auth/login', icon: <HomeIcon color="primary" /> }]),
 
-      ...(auth.isAuthenticated
-        ? [{ 
-          icon: <SentimentSatisfiedAltIcon color="secondary" />,
-          dropdown: true 
-        }] 
-        : []),
-      
+    ...(auth.isAuthenticated
+      ? [{
+        icon: <SentimentSatisfiedAltIcon color="secondary" />,
+        dropdown: true
+      }]
+      : []),
   ];
-  
 
   const HideOnScroll = (props) => {
     const { children } = props;
@@ -121,7 +122,7 @@ const Header = (props) => {
 
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -240,7 +241,6 @@ const Header = (props) => {
       </List>
     </Box>
   );
-  
 
   return (
     <>
@@ -249,8 +249,8 @@ const Header = (props) => {
           <Container maxWidth="lg">
             <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button 
-                  component={Link} 
+                <Button
+                  component={Link}
                   to={(() => {
                     if (!auth.isAuthenticated) {
                       console.log("User is not authenticated. Redirecting to '/'");
@@ -267,11 +267,11 @@ const Header = (props) => {
                     console.log("Fallback condition met. Redirecting to '/'");
                     return "/";
                   })()}
-                  sx={{ 
-                    p: 0, 
-                    '&:hover': { 
-                      backgroundColor: 'transparent' 
-                    } 
+                  sx={{
+                    p: 0,
+                    '&:hover': {
+                      backgroundColor: 'transparent'
+                    }
                   }}
                 >
                   <img
@@ -279,11 +279,11 @@ const Header = (props) => {
                     alt="Logo"
                     style={{
                       width: 'auto',
-                      height: window.innerWidth <= 600 
+                      height: window.innerWidth <= 600
                         ? '20px'  // Small screens
                         : window.innerWidth <= 1024
-                        ? '25px'  // Medium screens
-                        : '30px'  // Large screens
+                          ? '25px'  // Medium screens
+                          : '30px'  // Large screens
                     }}
                   />
                 </Button>
