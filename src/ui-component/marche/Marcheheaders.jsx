@@ -12,7 +12,7 @@ const marcheheader = () => {
     const getHeight = () => {
         if (isSmallScreen) return 'auto';
         if (isMediumScreen) return 'auto';
-        return '400px';  // Add a default height for larger screens
+        return '500px';  // Add a default height for larger screens
     };
 
     return (
@@ -24,8 +24,8 @@ const marcheheader = () => {
                 alt="Header background"
                 sx={{ 
                     width: '100%', 
-                    height: getHeight(), 
-                    objectFit: 'cover' // Set to cover for better image scaling
+                    height: getHeight, 
+                    objectFit: 'auto' 
                 }}
             />
 

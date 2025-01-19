@@ -48,8 +48,8 @@ const ProducteurRegister = ({ ...others }) => {
     firstName: Yup.string().max(255).required('Le prénom est requis'),
     lastName: Yup.string().max(255).required('Le nom est requis'),
     email: Yup.string().email('Doit être un email valide').max(255).required('L\'email est requis'),
-    telephone: Yup.string().max(15).required('Le numéro de téléphone est requis'),
-    commune: Yup.string().max(255).required('La ville est requise'),
+    phoneNumber: Yup.string().max(15).required('Le numéro de téléphone est requis'),
+    city: Yup.string().max(255).required('La ville est requise'),
     postalCode: Yup.string().max(10).required('Le code postal est requis'),
     password: Yup.string()
       .max(255)
@@ -73,8 +73,8 @@ const ProducteurRegister = ({ ...others }) => {
       email: '',
       firstName: '',
       lastName: '',
-      telephone: '',
-      commune: '',
+      phoneNumber: '',
+      city: '',
       postalCode: '',
       password: '',
       products: []
@@ -127,15 +127,15 @@ const ProducteurRegister = ({ ...others }) => {
       toast.error('Erreur d\'inscription : cet email est déjà utilisé. Veuillez essayer un autre.');
       console.log({ error });
     }
-    if (error.response) {
+    if (errors.response) {
       // If the server responded with an error
-      console.error('Server response error data:', error.response.data); // Log the server error response
-    } else if (error.request) {
+      console.error('Server response error data:', errors.response.data); // Log the server error response
+    } else if (errors.request) {
       // If the request was made but no response was received
-      console.error('No response received:', error.request); // Log the request details
+      console.error('No response received:', errors.request); // Log the request details
     } else {
       // Something happened in setting up the request
-      console.error('Error setting up request:', error.message); // Log the error message
+      console.error('Error setting up request:', errors.message); // Log the error message
     }
   };
 
@@ -202,24 +202,24 @@ const ProducteurRegister = ({ ...others }) => {
               )}
             </FormControl>
   
-            <FormControl fullWidth error={Boolean(errors.commune)} sx={{ ...theme.typography.customInput }}>
+            <FormControl fullWidth error={Boolean(errors.city)} sx={{ ...theme.typography.customInput }}>
               <InputLabel
-                htmlFor="outlined-adornment-commune-register"
+                htmlFor="outlined-adornment-city-register"
                 className="required-star"
                 sx={{ fontSize: '13px' }}
               >
                 Ville
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-commune-register"
+                id="outlined-adornment-city-register"
                 type="text"
-                {...register('commune')}
+                {...register('city')}
                 label="Ville du Restaurant"
                 inputProps={{}}
               />
-              {errors.commune && (
-                <FormHelperText error id="standard-weight-helper-text-commune-register">
-                  {errors.commune.message}
+              {errors.city && (
+                <FormHelperText error id="standard-weight-helper-text-city-register">
+                  {errors.city.message}
                 </FormHelperText>
               )}
             </FormControl>
@@ -250,24 +250,24 @@ const ProducteurRegister = ({ ...others }) => {
               )}
             </FormControl>
   
-            <FormControl fullWidth error={Boolean(errors.telephone)} sx={{ ...theme.typography.customInput }}>
+            <FormControl fullWidth error={Boolean(errors.phoneNumber)} sx={{ ...theme.typography.customInput }}>
               <InputLabel
-                htmlFor="outlined-adornment-telephone-register"
+                htmlFor="outlined-adornment-phoneNumber-register"
                 className="required-star"
                 sx={{ fontSize: '13px' }}
               >
                 Numéro de téléphone
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-telephone-register"
+                id="outlined-adornment-phoneNumber-register"
                 type="text"
-                {...register('telephone')}
+                {...register('phoneNumber')}
                 label="Numéro de téléphone"
                 inputProps={{}}
               />
-              {errors.telephone && (
-                <FormHelperText error id="standard-weight-helper-text-telephone-register">
-                  {errors.telephone.message}
+              {errors.phoneNumber && (
+                <FormHelperText error id="standard-weight-helper-text-phoneNumber-register">
+                  {errors.phoneNumber.message}
                 </FormHelperText>
               )}
             </FormControl>

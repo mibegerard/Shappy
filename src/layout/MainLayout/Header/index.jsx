@@ -21,7 +21,9 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 import { useAuth } from '../../../context/AuthContext';
 import { toast } from 'react-toastify';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import Avatar from '@mui/material/Avatar';
+import avocat from 'assets/images/Avocat producteur.png';
+import carottes from 'assets/images/Carotte restauratrice1.png';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -29,6 +31,30 @@ import MenuItem from '@mui/material/MenuItem';
 const Header = (props) => {
   const { logout, auth } = useAuth();
   const navigate = useNavigate();
+  const [isProducteur, setIsProducteur] = useState(true);
+
+  const handleProducteurClick = () => {
+    // Toggle between Producteur and Restaurateur
+    setIsProducteur(!isProducteur);
+  };
+
+  console.log("Auth context is:", auth.user);
+
+  const getUserAvatar = (auth) => {
+    if (auth.user?.profilePicture) {
+      return auth.user.profilePicture; // Use profile picture if available
+    }
+  
+    // Use default images based on role
+    if (auth.user?.role === 'producteur') {
+      return avocat;
+    } else if (auth.user?.role === 'restaurateur') {
+      return carottes;
+    }
+  
+    return null; // Fallback (optional)
+  };
+  
 
   // Timer reference to hold setTimeout
   const logoutTimer = useRef(null);
@@ -99,13 +125,19 @@ const Header = (props) => {
     // Authentication-based menu item
     ...(auth.isAuthenticated
       ? [{ name: 'Se déconnecter', onClick: handleLogout, icon: <HomeIcon color="error" /> }]
-      : [{ name: 'Je Suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> }, { name: 'Se Connecter', link: '/auth/login', icon: <HomeIcon color="primary" /> }]),
+      : [{
+        name: isProducteur ? 'Je Suis Producteur' : 'Je Suis Restaurateur',
+        link: isProducteur ? '/je-suis-producteur' : '/',
+        onClick: handleProducteurClick,  // Toggle the button state on click
+        icon: <AgricultureIcon color="primary" />
+      },
+      { name: 'Se Connecter', link: '/auth/login', icon: <HomeIcon color="black" /> }]),
 
     ...(auth.isAuthenticated
       ? [{
-        icon: <SentimentSatisfiedAltIcon color="secondary" />,
-        dropdown: true
-      }]
+          icon: <Avatar src={getUserAvatar(auth)} alt="User Avatar" />,
+          dropdown: true
+        }]
       : []),
   ];
 
@@ -157,7 +189,7 @@ const Header = (props) => {
                   {(popupState) => (
                     <React.Fragment>
                       <IconButton {...bindTrigger(popupState)}>
-                        <SentimentSatisfiedAltIcon color="secondary" />
+                        <Avatar src={getUserAvatar(auth)} alt="User Avatar" />
                       </IconButton>
                       <Menu
                         {...bindMenu(popupState)}
@@ -183,7 +215,7 @@ const Header = (props) => {
                             </MenuItem>
                             <MenuItem
                               onClick={() => {
-                                navigate('/mon-compte');
+                                navigate('/account');
                                 popupState.close();
                               }}
                             >
@@ -202,7 +234,7 @@ const Header = (props) => {
                             </MenuItem>
                             <MenuItem
                               onClick={() => {
-                                navigate('/mes-produits');
+                                navigate('/producteur/products');
                                 popupState.close();
                               }}
                             >
@@ -210,7 +242,7 @@ const Header = (props) => {
                             </MenuItem>
                             <MenuItem
                               onClick={() => {
-                                navigate('/mon-compte');
+                                navigate('/account');
                                 popupState.close();
                               }}
                             >
@@ -300,7 +332,7 @@ const Header = (props) => {
                         onClick={item.onClick}
                         sx={{
                           textDecoration: 'none',
-                          backgroundColor: (item.icon.type === SentimentSatisfiedAltIcon) ? 'transparent' : (item.name === 'Se Connecter' || item.name === 'Se déconnecter') ? 'transparent' : '#F5F5DC',
+                          backgroundColor: (item.icon.type === Avatar) ? 'transparent' : (item.name === 'Se Connecter' || item.name === 'Se déconnecter') ? 'transparent' : '#F5F5DC',
                           padding: '0.1rem 1rem',
                           marginRight: '1rem',
                           borderRadius: '10px',
@@ -309,14 +341,14 @@ const Header = (props) => {
                           cursor: item.link ? 'pointer' : 'default'
                         }}
                       >
-                        {/* Apply transparent background only for SentimentSatisfiedAltIcon */}
-                        {item.icon.type === SentimentSatisfiedAltIcon ? (
+                        {/* Apply transparent background only for Avatar */}
+                        {item.icon.type === Avatar ? (
                           <Box sx={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
                             <PopupState variant="popover" popupId="sentiment-dropdown">
                               {(popupState) => (
                                 <React.Fragment>
                                   <IconButton {...bindTrigger(popupState)}>
-                                    <SentimentSatisfiedAltIcon color="secondary" />
+                                    <Avatar src={getUserAvatar(auth)} alt="User Avatar" />
                                   </IconButton>
                                   <Menu {...bindMenu(popupState)} onClose={popupState.close}>
                                     {auth.user?.role === 'restaurateur' ? (
@@ -339,7 +371,7 @@ const Header = (props) => {
                                         </MenuItem>
                                         <MenuItem
                                           onClick={() => {
-                                            navigate('/mon-compte');
+                                            navigate('/account');
                                             popupState.close();
                                           }}
                                         >
@@ -358,7 +390,7 @@ const Header = (props) => {
                                         </MenuItem>
                                         <MenuItem
                                           onClick={() => {
-                                            navigate('/mes-produits');
+                                            navigate('/producteur/products');
                                             popupState.close();
                                           }}
                                         >
@@ -366,7 +398,7 @@ const Header = (props) => {
                                         </MenuItem>
                                         <MenuItem
                                           onClick={() => {
-                                            navigate('/mon-compte');
+                                            navigate('/account');
                                             popupState.close();
                                           }}
                                         >
@@ -384,10 +416,17 @@ const Header = (props) => {
                               )}
                             </PopupState>
                           </Box>
-                        ) : null} {/* No icon for other cases */}
-                        <Typography variant="h6" sx={{ color: (item.name === 'Se Connecter' || item.name === 'Se déconnecter') ? '#FFF4E2' : '#FC8A1A' }}>
-                          {item.name}
-                        </Typography>
+                        ) : (
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              marginLeft: '10px',
+                              color: item.name === 'Je Suis Producteur' || item.name === 'Je Suis Restaurateur' ? '#FC8A1A' : '#FFE3B6',
+                            }}
+                          >
+                            {item.name}
+                          </Typography>
+                        )}
                       </Box>
                     ))}
                   </Box>
