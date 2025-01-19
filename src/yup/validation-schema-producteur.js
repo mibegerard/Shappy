@@ -5,7 +5,7 @@ const producteurValidationSchema = yup.object().shape({
   lastName: yup.string().required('Le nom est requis'),
   phoneNumber: yup.string().required('Le numéro de téléphone est requis'),
   postalCode: yup.string().required('Le code postal est requis'),
-  commune: yup.string().required('La ville est requise'),
+  city: yup.string().required('La ville est requise'),
   products: Yup.array().min(1, 'Au moins un aliment doit être sélectionné')
 });
 

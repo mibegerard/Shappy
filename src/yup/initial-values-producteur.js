@@ -3,8 +3,8 @@ const producteurInitialValues = {
     email: '',
     firstName: '',
     lastName: '',
-    telephone: '',
-    commune: '',
+    phoneNumber: '',
+    city: '',
     postalCode: '',
     password: '',
     products: []

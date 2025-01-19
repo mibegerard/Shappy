@@ -124,27 +124,76 @@ const PotagerForm = () => {
                     sx={{
                         width: '100%',
                         margin: 'auto',
-                        height: {
-                            xs: '40vh',  // 40% of the viewport height for small screens
-                            md: '70vh',  // 70% of the viewport height for medium and larger screens
-                        },
-                        mt: 8,
-                        mb: 8,
+                        height: imagePreview
+                            ? { xs: '40vh', md: '50vh' } 
+                            : '30vh', 
+                        mt: 5,
+                        mb: 5,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        borderRadius: '16px',
-                        border: '1px solid #385909',
-                        padding: 2,
+                        borderRadius: '10px',
                         position: 'relative',
                         overflow: 'hidden',
+                        backgroundColor: 'transparent',
+                        backgroundImage: imagePreview ? `url(${imagePreview})` : 'none',
+                        backgroundSize: 'cover', 
+                        backgroundPosition: 'center', 
+                        backgroundRepeat: 'no-repeat', 
+                         border: `1px solid #385909`
                     }}
                 >
+                    {imagePreview && (
+                        <img
+                            src={imagePreview}
+                            alt="Selected preview"
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                maxWidth: '100%',
+                                maxHeight: '100%',
+                                objectFit: 'contain',
+                            }}
+                        />
+                    )}
+                    {!imagePreview && ( // Conditionally render the button if no image is selected
+                        <Button
+                            variant="contained"
+                            startIcon={<CameraAltIcon />}
+                            component="label"
+                            sx={{ position: 'absolute', zIndex: 10, backgroundColor: '#385909' }}
+                        >
+                            Je prends une photo
+                            <input
+                                type="file"
+                                hidden
+                                onChange={handleImageChange}
+                            />
+                        </Button>
+                    )}
+                    {errors.image && (
+                        <Typography color="error" sx={{ position: 'absolute', bottom: 0 }}>
+                            {errors.image.message}
+                        </Typography>
+                    )}
+                </Box>
+                {imagePreview && (
+                    // Conditionally render the button if no image is selected
                     <Button
                         variant="contained"
                         startIcon={<CameraAltIcon />}
                         component="label"
-                        sx={{ position: 'absolute', zIndex: 10, backgroundColor: '#385909' }}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            margin: '20px auto', // Top and bottom margin of 20px, horizontally centered
+                            backgroundColor: '#385909',
+                            zIndex: 10,
+                            position: 'relative', // Adjust positioning for centering
+                        }}
                     >
                         Je prends une photo
                         <input
@@ -153,23 +202,12 @@ const PotagerForm = () => {
                             onChange={handleImageChange}
                         />
                     </Button>
-                    {imagePreview && (
-                        <Box
-                            sx={{
-                                width: '100%',
-                                height: '100%',
-                                backgroundImage: `url(${imagePreview})`,
-                                backgroundSize: 'contain',
-                                backgroundRepeat: 'no-repeat',
-                                backgroundPosition: 'center',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
-                        />
-                    )}
-                    {errors.image && <Typography color="error" sx={{ position: 'absolute', bottom: 0 }}>{errors.image.message}</Typography>}
-                </Box>
+                )}
+                {errors.image && (
+                    <Typography color="error" sx={{ position: 'absolute', bottom: 0 }}>
+                        {errors.image.message}
+                    </Typography>
+                )}
 
                 <Box
                     sx={{
@@ -178,7 +216,7 @@ const PotagerForm = () => {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        borderRadius: '16px',
+                        borderRadius: '10px',
                         border: '1px solid #385909',
                         padding: { xs: 1, sm: 1, md: 1, lg: 4, xl: 4 }
                     }}
@@ -217,7 +255,7 @@ const PotagerForm = () => {
                         alignItems: 'center',
                         mt: 8,
                         mb: 8,
-                        borderRadius: '16px',
+                        borderRadius: '10px',
                         border: '1px solid #385909',
                         padding: 2
                     }}

@@ -49,11 +49,14 @@ const AuthLogin = () => {
   });
 
   const onSubmit = async (data) => {
+    const token = localStorage.getItem('token'); 
+    console.log('Login request payload:', data); 
+    console.log('Token:', token);
     try {
-      const response = await axiosInstance.post('/auth/login', { ...data});
-      const { token, user } = response.data;
+      const response = await axiosInstance.post('/auth/login', { ...data, token});
+      const { token: newToken, user } = response.data;
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('token', newToken);
       localStorage.setItem('user', JSON.stringify(user));
       if (response) {
         // Reload the page
