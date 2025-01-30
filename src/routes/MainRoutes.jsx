@@ -3,6 +3,7 @@ import Loadable from 'ui-component/Loadable';
 import MainLayout from '../layout/MainLayout';
 const Home = Loadable(lazy(() => import('views/pages/home')));
 const ProducteurAccueil = Loadable(lazy(() => import('views/pages/ProducteurAccueil')));
+const RestaurateurAccueil = Loadable(lazy(() => import('views/pages/restaurateurAccueil')));
 const DeposerPotager = Loadable(lazy(() => import('views/pages/DeposerPotager')));
 const PreviewProduct = Loadable(lazy(() => import('views/pages/preview')));
 const Cart = Loadable(lazy(() => import('views/pages/cart')));
@@ -28,6 +29,10 @@ const MainRoutes = {
     {
       path: '/je-suis-producteur',
       element: <ProducteurAccueil />
+    },
+    {
+      path: '/restaurateur',
+      element: <RestaurateurAccueil />
     },
     {
       path: '/je-depose-mon-potager',

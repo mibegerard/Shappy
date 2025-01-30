@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Restaurateur from 'ui-component/home/Restaurateur';
-import Description from 'ui-component/home/Description';
+import Restaurateur from 'ui-component/home/Header';
+import Description from 'ui-component/home/Icones';
 import Mission from 'ui-component/home/Mission';
 import Produits from 'ui-component/home/Produits';
 import ProducteurDescription from 'ui-component/home/ProducteurDescription';
