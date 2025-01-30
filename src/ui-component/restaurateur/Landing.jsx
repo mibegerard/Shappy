@@ -1,8 +1,10 @@
 import React from 'react';
 import { Box, Button, useMediaQuery, useTheme, Typography, Container, Grid } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link } from 'react-router-dom';
 import { useAuth } from 'context/AuthContext'; 
-import prodheader from 'assets/images/Producteurheader.png';
+import restaurateurimage from 'assets/images/restaurateurimage.png';
 import InfoCard from '../Cards/InfoCard.jsx';
 import { toast } from 'react-toastify'; 
 
@@ -49,7 +51,7 @@ const Landing = () => {
             {/* Header Image */}
             <Box
                 component="img"
-                src={prodheader}
+                src={restaurateurimage}
                 alt="Header background"
                 sx={{ 
                     width: '100%', 
@@ -57,32 +59,82 @@ const Landing = () => {
                     objectFit: 'auto'
                 }}
             />
-            {/* Button */}
-            <Box
-                position={isSmallScreen ? 'static' : isMediumScreen ? 'relative' : 'absolute'}
-                bottom={isSmallScreen ? 'initial' : isMediumScreen ? '8rem' : '10rem'}
-                left={isSmallScreen ? 'initial' : isMediumScreen ? '2rem' : '5rem'}
-                sx={{ 
-                    mt: isSmallScreen ? '1rem' : '0',
-                    display: 'flex',
-                    justifyContent: isSmallScreen ? 'center' : 'flex-start'
+
+             <Typography
+                variant="h1"
+                sx={{
+                    position: 'absolute',
+                    top: '41%',
+                    left: '6%',
+                    letterSpacing: '1px',
+                    fontSize: '4rem'
                 }}
             >
-                <Button 
-                    variant="contained"
-                    onClick={handleButtonClick}
-                    component={auth.isAuthenticated && auth.user?.role === 'producteur' ? Link : 'button'}
-                    to={auth.isAuthenticated && auth.user?.role === 'producteur' ? "/je-depose-mon-potager" : undefined}
-                    sx={{
-                        backgroundColor: theme.palette.beige.clair,
-                        borderRadius: '12px',
+                <span style={{ color: '#FFCA0E' }}>La plateforme qui met en lien</span>
+                <br />
+                <span style={{ color: '#FFF4E2' }}>producteurs & restaurateurs</span>
+            </Typography>
+
+            {/* Overlay Box */}
+            <Box
+                sx={{
+                    position: isSmallScreen ? 'static' : 'absolute',
+                    bottom: isSmallScreen ? '0' : isMediumScreen ? '7rem' :'10rem',
+                    left: isSmallScreen ? '0' : isMediumScreen ? '1rem' : '5.5rem',
+                    bgcolor: isSmallScreen ? '#FFF4E2' : '#FFF4E2', 
+                    padding: '10px',
+                    display: 'flex',
+                    flexDirection: isSmallScreen ? 'column' : 'row',
+                    alignItems: 'center',
+                    justifyContent: isSmallScreen ? 'center' : 'flex-start', 
+                    zIndex: 1,
+                    borderRadius: isSmallScreen ? '20px' : '15px',
+                    width: isSmallScreen ? '70%' : isMediumScreen ? '80%' :'auto',
+                    maxWidth: '600px', 
+                    margin: isSmallScreen ? '0 auto' : '0'
+                }}
+            >
+                {/* Search Box */}
+                <Box sx={{ display: 'flex', alignItems: 'center', marginRight: '16px' }}>
+                    <SearchIcon sx={{ color: '#353F47' }} />
+                    <Typography variant="body1" sx={{ marginLeft: '8px', color: '#353F47' }}>
+                        Fruits et Légumes
+                    </Typography>
+                </Box>
+
+                {/* Location Box */}
+                <Box 
+                    sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        marginRight: '16px',
+                        marginTop: isSmallScreen ? '10px' : '0', 
                     }}
                 >
-                    <Typography variant="button" sx={{ color: theme.palette.vert.claire }}>
-                        Je dépose mon potager
+                    <LocationOnIcon sx={{ color: '#353F47' }} />
+                    <Typography variant="body1" sx={{ marginLeft: '8px', color: '#353F47' }}>
+                        Localisation
                     </Typography>
+                </Box>
+
+                <Button
+                    component="a"
+                    href="/mon-marche"
+                    variant="contained"
+                    sx={{
+                        backgroundColor: '#FC8A1A',
+                        borderRadius: '10px',
+                        color: 'white',
+                        marginTop: isSmallScreen ? '10px' : '0',
+                        textDecoration: 'none', // Optional if you want to ensure no underline
+                    }}
+                >
+                    Je commence mon marché
                 </Button>
+
+
             </Box>
+            
             {/* Cards Container */}
             <Container
                 sx={{

@@ -114,24 +114,47 @@ const Header = (props) => {
     setRole((prevRole) => (prevRole === 'restaurateur' ? 'producteur' : 'restaurateur'));
   };
 
+  /**
+   * Defines the menu items for the header based on user role and authentication status.
+   * 
+   * The menu items are conditionally rendered based on the following criteria:
+   * 
+   * - Role-based menu item:
+   *   - If the user role is 'restaurateur', a menu item for switching to 'producteur' is added.
+   *   - If the user role is 'producteur', a menu item for switching to 'restaurateur' is added.
+   * 
+   * - Authentication-based menu item:
+   *   - If the user is authenticated:
+   *     - A menu item for logging out is added.
+   *     - A menu item with the user's avatar and a dropdown is added.
+   *   - If the user is not authenticated:
+   *     - Menu items for both 'Je Suis Producteur' and 'Je Suis Restaurateur' are added.
+   *     - A menu item for logging in is added.
+   * 
+   * @constant
+   * @type {Array<Object>}
+   * @property {string} name - The name of the menu item.
+   * @property {string} [link] - The link the menu item points to (optional).
+   * @property {function} [onClick] - The function to call when the menu item is clicked (optional).
+   * @property {JSX.Element} icon - The icon to display for the menu item.
+   * @property {boolean} [dropdown] - Indicates if the menu item has a dropdown (optional).
+   */
   const menuItems = [
     // Role-based menu item
     ...(role === 'restaurateur'
       ? [{ name: 'Je Suis Producteur', link: '/je-suis-producteur', onClick: toggleRole, icon: <AgricultureIcon color="primary" /> }]
       : role === 'producteur'
-      ? [{ name: 'Je Suis Restaurateur', link: '/', onClick: toggleRole, icon: <AgricultureIcon color="primary" /> }]
+      ? [{ name: 'Je Suis Restaurateur', link: '/restaurateur', onClick: toggleRole, icon: <AgricultureIcon color="primary" /> }]
       : []),
 
     // Authentication-based menu item
     ...(auth.isAuthenticated
       ? [{ name: 'Se déconnecter', onClick: handleLogout, icon: <HomeIcon color="error" /> }]
-      : [{
-        name: isProducteur ? 'Je Suis Producteur' : 'Je Suis Restaurateur',
-        link: isProducteur ? '/je-suis-producteur' : '/',
-        onClick: handleProducteurClick,  // Toggle the button state on click
-        icon: <AgricultureIcon color="primary" />
-      },
-      { name: 'Se Connecter', link: '/auth/login', icon: <HomeIcon color="black" /> }]),
+      : [
+        { name: 'Je Suis Producteur', link: '/je-suis-producteur', icon: <AgricultureIcon color="primary" /> },
+        { name: 'Je Suis Restaurateur', link: '/restaurateur', icon: <AgricultureIcon color="primary" /> },
+        { name: 'Se Connecter', link: '/auth/login', icon: <HomeIcon color="black" /> }
+      ]),
 
     ...(auth.isAuthenticated
       ? [{
@@ -140,6 +163,7 @@ const Header = (props) => {
         }]
       : []),
   ];
+  
 
   const HideOnScroll = (props) => {
     const { children } = props;

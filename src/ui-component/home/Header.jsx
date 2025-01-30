@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, Button, useMediaQuery, useTheme } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import restheader from 'assets/images/Restaurateurheader.png';
+import restheader from 'assets/images/homeimage.png';
 
 const Restaurateur = () => {
     const theme = useTheme();
@@ -12,7 +12,7 @@ const Restaurateur = () => {
     const getHeight = () => {
         if (isSmallScreen) return 'auto';
         if (isMediumScreen) return 'auto';
-        return '100vh';
+        return 'auto';
     };
 
     return (
@@ -29,23 +29,20 @@ const Restaurateur = () => {
                 }}
             />
 
-            {/* Centering Container */}
-            <Box
+            <Typography
+                variant="h1"
                 sx={{
                     position: 'absolute',
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1,
+                    top: '41%',
+                    left: '6%',
+                    letterSpacing: '1px',
+                    fontSize: '4rem'
                 }}
             >
-
-                
-            </Box>
+                <span style={{ color: '#FFF4E2' }}>La plateforme qui met en lien</span>
+                <br />
+                <span style={{ color: '#FFE3B6' }}>producteurs & restaurateurs</span>
+            </Typography>
 
             {/* Overlay Box */}
             <Box
@@ -53,7 +50,7 @@ const Restaurateur = () => {
                     position: isSmallScreen ? 'static' : 'absolute',
                     bottom: isSmallScreen ? '0' : isMediumScreen ? '7rem' :'10rem',
                     left: isSmallScreen ? '0' : isMediumScreen ? '1rem' : '5.5rem',
-                    bgcolor: isSmallScreen ? '#F5F5DC' : '#F5F5DC', 
+                    bgcolor: isSmallScreen ? '#FFF4E2' : '#FFF4E2', 
                     padding: '10px',
                     display: 'flex',
                     flexDirection: isSmallScreen ? 'column' : 'row',
@@ -68,8 +65,8 @@ const Restaurateur = () => {
             >
                 {/* Search Box */}
                 <Box sx={{ display: 'flex', alignItems: 'center', marginRight: '16px' }}>
-                    <SearchIcon color="primary" />
-                    <Typography variant="body1" sx={{ marginLeft: '8px' }}>
+                    <SearchIcon sx={{ color: '#353F47' }} />
+                    <Typography variant="body1" sx={{ marginLeft: '8px', color: '#353F47' }}>
                         Fruits et Légumes
                     </Typography>
                 </Box>
@@ -83,8 +80,8 @@ const Restaurateur = () => {
                         marginTop: isSmallScreen ? '10px' : '0', 
                     }}
                 >
-                    <LocationOnIcon color="primary" />
-                    <Typography variant="body1" sx={{ marginLeft: '8px' }}>
+                    <LocationOnIcon sx={{ color: '#353F47' }} />
+                    <Typography variant="body1" sx={{ marginLeft: '8px', color: '#353F47' }}>
                         Localisation
                     </Typography>
                 </Box>
@@ -93,8 +90,8 @@ const Restaurateur = () => {
                     component="a"
                     href="/mon-marche"
                     variant="contained"
-                    color="primary"
                     sx={{
+                        backgroundColor: '#E7272D',
                         borderRadius: '10px',
                         color: 'white',
                         marginTop: isSmallScreen ? '10px' : '0',

@@ -4,10 +4,10 @@ import { Box, Typography, Grid, Container, Button, useMediaQuery } from '@mui/ma
 import { useTheme } from '@mui/material/styles';
 import Carousel from 'react-material-ui-carousel';
 import ProductsCard from '../Cards/ProductsCard'; 
-import Prod1 from 'assets/images/Cerises.png';
-import Prod2 from 'assets/images/carottes.png';
-import Prod3 from 'assets/images/pdt.png';
-import Prod4 from 'assets/images/pommes.png';
+import Prod1 from 'assets/images/tomate.webp';
+import Prod2 from 'assets/images/aubergines.webp';
+import Prod3 from 'assets/images/carottes.webp';
+import Prod4 from 'assets/images/aubergine.webp';
 import carotte from 'assets/images/Carotte restauratrice.png';
 
 const carouselItems = [
@@ -15,7 +15,7 @@ const carouselItems = [
         src: Prod1,
         alt: "Product 1",
         localText: "Local",
-        name: "Carottes",
+        name: "Tomates",
         producteur: 'Claude',
         stock: 120,
         price: "2,75€/kg",
@@ -25,7 +25,7 @@ const carouselItems = [
         src: Prod2,
         alt: "Product 2",
         localText: "Local",
-        name: "Pommes",
+        name: "Aubergines",
         producteur: "Martin",
         stock: 12,
         price: "3,00€/à la pièce",
@@ -37,7 +37,7 @@ const carouselItems = [
         alt: "Product 3",
         localText: "Local",
         producteur: "Mathieu",
-        name: "Pommes de Terre",
+        name: "Carottes",
         stock: 1200,
         price: "1,50€/à la pièce",
         weight: "1kg",
@@ -49,7 +49,7 @@ const carouselItems = [
         localText: "Local",
         producteur: "Jean-Yves",
         stock: 1200,
-        name: "Pêches",
+        name: "Aubergines",
         price: "4,00€/ à la pièce",
         weight: "1kg",
         pricePerKg: "4,00 €/kg"
@@ -97,7 +97,7 @@ const Produits = () => {
                                             sx={{
                                                 width: '100%',
                                                 height: 'auto',
-                                                transition: 'transform 0.3s ease-in-out',
+                                                transition: 'transform 0.1s ease-in-out',
                                                 '&:hover': {
                                                     transform: 'scale(1.05)',
                                                     borderRadius: '1rem'
@@ -182,7 +182,7 @@ const Produits = () => {
                                                 sx={{
                                                     width: '100%',
                                                     height: 'auto',
-                                                    transition: 'transform 0.3s ease-in-out',
+                                                    transition: 'transform 0.1s ease-in-out',
                                                     '&:hover': {
                                                         transform: 'scale(1.05)',
                                                         borderRadius: '1rem'
@@ -214,7 +214,7 @@ const Produits = () => {
                                             sx={{
                                                 width: '100%',
                                                 height: 'auto',
-                                                transition: 'transform 0.3s ease-in-out',
+                                                transition: 'transform 0.1s ease-in-out',
                                                 '&:hover': {
                                                     transform: 'scale(1.05)',
                                                     borderRadius: '1rem'
