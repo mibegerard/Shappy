@@ -121,16 +121,17 @@ const RestaurateurRegister = ({ ...others }) => {
       console.error('Registration error:', error); // Log the error object
       toast.error('Erreur d\'inscription : cet email est déjà utilisé. Veuillez essayer un autre.');
       console.log({ error });
-    }
-    if (error.response) {
-      // If the server responded with an error
-      console.error('Données d\'erreur de réponse du serveur :', error.response.data); // Log the server error response
-    } else if (error.request) {
-      // If the request was made but no response was received
-      console.error('Aucune réponse reçue:', error.request); // Log the request details
-    } else {
-      // Something happened in setting up the request
-      console.error('Erreur lors de la configuration de la requête', error.message); // Log the error message
+
+      if (error.response) {
+        // If the server responded with an error
+        console.error('Données d\'erreur de réponse du serveur :', error.response.data); // Log the server error response
+      } else if (error.request) {
+        // If the request was made but no response was received
+        console.error('Aucune réponse reçue:', error.request); // Log the request details
+      } else {
+        // Something happened in setting up the request
+        console.error('Erreur lors de la configuration de la requête', error.message); // Log the error message
+      }
     }
   };
 
@@ -139,7 +140,7 @@ const RestaurateurRegister = ({ ...others }) => {
       if (auth.user.role === 'producteur') {
         navigate('/je-suis-producteur');
       } else {
-        navigate('/');
+        navigate('/restaurateur');
       }
       toast.success('Inscription réussie!');
       toast.success(`Heureux de vous savoir parmi nous, ${auth.user.firstName}!`);

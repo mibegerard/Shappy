@@ -144,7 +144,7 @@ const ProducteurRegister = ({ ...others }) => {
       if (auth.user.role === 'producteur') {
         navigate('/je-suis-producteur');
       } else {
-        navigate('/');
+        navigate('/restaurateur');
       }
       toast.success('Inscription réussie!');
       toast.success(`Heureux de vous savoir parmi nous, ${auth.user.firstName}!`);
