@@ -73,7 +73,7 @@ const AuthLogin = () => {
       if (auth.user.role === 'producteur') {
         navigate('/je-suis-producteur');
       } else {
-        navigate('/');
+        navigate('/restaurateur');
       }
       toast.success('Connexion réussie!');
       toast.success(`Heureux de vous savoir parmi nous, ${auth.user.firstName}!`);
