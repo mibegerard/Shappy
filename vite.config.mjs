@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import jsconfigPaths from 'vite-jsconfig-paths';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import fs from 'fs';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +43,11 @@ export default defineConfig({
     // this ensures that the browser opens upon server start
     open: true,
     // this sets a default port to 3000
-    port: 3000
+    port: 3000,
+    https: {
+      key: fs.readFileSync('./localhost-key.pem'), // Clé privée générée par mkcert
+      cert: fs.readFileSync('./localhost.pem') // Certificat généré par mkcert
+    }
   },
   preview: {
     // this ensures that the browser opens upon preview start
