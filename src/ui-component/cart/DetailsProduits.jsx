@@ -3,9 +3,12 @@ import { Container, Grid, Box, Typography, Button, CircularProgress, Modal } fro
 import CartDetailCard from 'ui-component/Cards/CartDetailCard'; 
 import axiosInstance from 'api/axiosInstance'; 
 import { useAuth } from 'context/AuthContext'; 
+import { useNavigate } from 'react-router-dom';
+
 
 const DetailsProduits = () => {
     const { auth } = useAuth(); 
+    const navigate = useNavigate();
     const [cartProducts, setCartProducts] = useState([]); 
     const [loading, setLoading] = useState(true); 
     const [modalOpen, setModalOpen] = useState(false);
@@ -87,7 +90,7 @@ const DetailsProduits = () => {
 
     // Proceed to payment
     const handleProceedToPayment = () => {
-        console.log('Proceeding to payment');
+        navigate('/checkout');
     };
 
     // Fetch the cart when the component is mounted or user authentication changes
