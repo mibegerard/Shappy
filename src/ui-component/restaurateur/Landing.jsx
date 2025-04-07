@@ -47,39 +47,40 @@ const Landing = () => {
     ];
 
     return (
-        <Box position="relative" sx={{ mb: isSmallScreen ? '3rem' : isMediumScreen ? '3rem' : '12rem' }}>
+        <Box sx={{ position: 'relative', width: '100%' }}>
             {/* Header Image */}
             <Box
                 component="img"
                 src={restaurateurimage}
                 alt="Header background"
-                sx={{ 
-                    width: '100%', 
-                    height: getHeight(), 
+                sx={{
+                    width: '100%',
+                    height: getHeight(),
                     objectFit: 'auto'
                 }}
             />
 
-             <Typography
+            <Typography
                 variant="h1"
                 sx={{
                     position: 'absolute',
-                    top: '41%',
-                    left: '6%',
+                    top: isSmallScreen ? '10%' : isMediumScreen ? '20%' : '41%',
+                    left: isSmallScreen ? '5%' : isMediumScreen ? '6%' : '6%',
                     letterSpacing: '1px',
-                    fontSize: '4rem'
+                    fontSize: isSmallScreen ? '1rem' : isMediumScreen ? '2.5rem' : '4rem',
+                    textAlign: isSmallScreen ? 'center' : 'left',
                 }}
             >
-                <span style={{ color: '#FFCA0E' }}>La plateforme qui met en lien</span>
+                <span style={{ color: '#FFF4E2' }}>La plateforme qui met en lien</span>
                 <br />
-                <span style={{ color: '#FFF4E2' }}>producteurs & restaurateurs</span>
+                <span style={{ color: '#FFE3B6' }}>producteurs & restaurateurs</span>
             </Typography>
 
             {/* Overlay Box */}
             <Box
                 sx={{
                     position: isSmallScreen ? 'static' : 'absolute',
-                    bottom: isSmallScreen ? '0' : isMediumScreen ? '7rem' :'10rem',
+                    bottom: isSmallScreen ? '0' : isMediumScreen ? '33rem' :'10rem',
                     left: isSmallScreen ? '0' : isMediumScreen ? '1rem' : '5.5rem',
                     bgcolor: isSmallScreen ? '#FFF4E2' : '#FFF4E2', 
                     padding: '10px',
