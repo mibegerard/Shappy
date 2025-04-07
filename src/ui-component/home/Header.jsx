@@ -25,7 +25,7 @@ const Restaurateur = () => {
                 sx={{ 
                     width: '100%', 
                     height: getHeight(), 
-                    objectFit: 'auto'
+                    objectFit: 'auto' 
                 }}
             />
 
@@ -33,10 +33,11 @@ const Restaurateur = () => {
                 variant="h1"
                 sx={{
                     position: 'absolute',
-                    top: '41%',
-                    left: '6%',
+                    top: isSmallScreen ? '30%' : isMediumScreen ? '35%' : '41%',
+                    left: isSmallScreen ? '5%' : isMediumScreen ? '6%' : '6%',
                     letterSpacing: '1px',
-                    fontSize: '4rem'
+                    fontSize: isSmallScreen ? '1rem' : isMediumScreen ? '2.5rem' : '4rem',
+                    textAlign: isSmallScreen ? 'center' : 'left',
                 }}
             >
                 <span style={{ color: '#FFF4E2' }}>La plateforme qui met en lien</span>
