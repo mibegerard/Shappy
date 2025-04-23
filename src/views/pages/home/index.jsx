@@ -7,6 +7,7 @@ import ProducteurDescription from 'ui-component/home/ProducteurDescription';
 import Producteur from 'ui-component/home/Producteur';
 import Abonnement from 'ui-component/home/Abonnements';
 import Comments from 'ui-component/home/Comments';
+import Article from 'ui-component/home/Article';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'context/AuthContext';
 import axiosInstance from 'api/axiosInstance';
@@ -40,8 +41,8 @@ const Home = () => {
       <Mission />
       <Produits />
       <ProducteurDescription />
-      <Producteur />
       <Abonnement />
+      <Article />
       <Comments />
     </>
   );
