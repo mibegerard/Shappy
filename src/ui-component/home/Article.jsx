@@ -2,13 +2,16 @@ import React from 'react';
 import { Grid, Container, Typography } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 import ArticleCard from '../Cards/ArticleCard';
+import firstImage from 'assets/images/16.png';
+import secondImage from 'assets/images/imagesd.png';
+import thirdImage from 'assets/images/Compost.png';
 
 const Article = () => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const articles = [
     {
-      imageUrl: 'src/assets/images/16 1.png',
+      imageUrl: firstImage,
       title: 'Les fruits & légumes de saison',
       date: 'Aout 2023',
       description: 'Lorem ipsum dolor sit amet. Aut eius exercitationem qui voluptatem voluptas et molestiae sunt nam vitae animi!Duis aute irure dolor in reprehenderit occaecat cupidatat.',
@@ -17,7 +20,7 @@ const Article = () => {
       onButtonClick: () => alert('Article 1 clicked'),
     },
     {
-      imageUrl: 'src/assets/images/image 4.png',
+      imageUrl: secondImage,
       title: 'Les JO de Paris commencent',
       date: 'Juin 2023',
       description: 'Lorem ipsum dolor sit amet. Aut eius exercitationem qui voluptatem voluptas et molestiae sunt nam vitae animi!Duis aute irure dolor in reprehenderit occaecat cupidatat.',
@@ -26,7 +29,7 @@ const Article = () => {
       onButtonClick: () => alert('Article 2 clicked'),
     },
     {
-      imageUrl: 'src/assets/images/Compost 1.png',
+      imageUrl: thirdImage,
       title: 'Comment bien composter ?',
       date: 'Mai 2023',
       description: 'Lorem ipsum dolor sit amet. Aut eius exercitationem qui voluptatem voluptas et molestiae sunt nam vitae animi!Duis aute irure dolor in reprehenderit occaecat cupidatat.',
