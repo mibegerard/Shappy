@@ -1,5 +1,5 @@
 import React from 'react';
-import Abonnement from 'ui-component/producteurhome/Abonnements';
+import Abonnement from 'ui-component/home/Abonnements';
 import Chemin from 'ui-component/producteurhome/Chemin';
 import Comments from 'ui-component/producteurhome/Comments';
 import Landing from 'ui-component/producteurhome/Landing';

@@ -11,12 +11,12 @@ const Chemin = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const { auth } = useAuth(); 
 
-    // Helper to check if the user is an authenticated producteur
-    const isProducteur = auth.isAuthenticated && auth.user?.role === 'producteur';
+    // Helper to check if the user is an authenticated restaurateur
+    const isRestaurateur = auth.isAuthenticated && auth.user?.role === 'restaurateur';
 
     const handleButtonClick = () => {
-        if (!isProducteur) {
-            toast.warn("Accès réservé aux utilisateurs authentifiés avec le rôle de producteur.");
+        if (!isRestaurateur) {
+            toast.warn("Accès réservé aux utilisateurs authentifiés avec le rôle de restaurateur.");
         }
     };
 
@@ -58,10 +58,10 @@ const Chemin = () => {
                     <Button
                         variant="contained"
                         onClick={handleButtonClick}
-                        component={isProducteur ? Link : 'button'}
-                        to={isProducteur ? "/mon-potager" : undefined}
+                        component={isRestaurateur ? Link : 'button'}
+                        to={isRestaurateur ? "/mon-potager" : "/mon-marche"}
                         sx={{
-                            backgroundColor: theme.palette.vert?.fonce,
+                            backgroundColor: "#FC8A1A",
                             borderRadius: '12px',
                             '&:hover': {
                                 backgroundColor: theme.palette.vert?.fonce,
@@ -70,7 +70,7 @@ const Chemin = () => {
                         }}
                     >
                         <Typography variant="button" sx={{ color: theme.palette.beige?.clair }}>
-                            Accéder à mon potager
+                            Je commence mon marché
                         </Typography>
                     </Button>
                 </Box>

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useAuth } from '../../../context/AuthContext';
 import { Grid, Box, Typography, Link as MuiLink } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import EmailIcon from '@mui/icons-material/Email';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import fruitsfooter from 'assets/images/fruitsfooter.png';
@@ -29,16 +30,35 @@ const Aide = [
 ];
 
 const NavigationItem = ({ label, path }) => {
-  const theme = useTheme();
-  const orangeMain = theme.palette.orange?.main || '#FC8A1A'; // Ensure fallback value
 
+  const { auth } = useAuth();
+  const location = useLocation();
+  const theme = useTheme();
+  console.log('FooterSectionTitle Auth:', auth);
+  console.log('FooterSectionTitle Auth:', auth);
+
+  // Déterminer la couleur de fond en fonction de la page et du statut d'authentification
+  let color = '#FC8A1A'; // Default color
+
+  if (!auth || !auth.isAuthenticated) {
+    if (location.pathname === '/') {
+      color = '#E7272D';
+    } else if (location.pathname === '/je-suis-producteur') {
+      color = '#9ACF5D';
+    } else if (location.pathname === '/restaurateur') {
+      color = '#FC8A1A';
+    }
+  } else {
+    color = auth.user?.role === 'restaurateur' ? theme.palette.primary.main : '#9ACF5D';
+    console.log('Auth role:', auth.user?.role);
+  }
   return (
     <Link to={path} passHref>
       <MuiLink
         sx={{
           display: 'block',
           mb: 1,
-          color: orangeMain,
+          color: color,
           textDecoration: 'none'
         }}
       >
@@ -55,6 +75,26 @@ NavigationItem.propTypes = {
 
 const FooterNavigation = () => {
   const theme = useTheme();
+  const { auth } = useAuth();
+  const location = useLocation();
+  console.log('FooterSectionTitle Auth:', auth);
+  console.log('FooterSectionTitle Auth:', auth);
+
+  // Déterminer la couleur de fond en fonction de la page et du statut d'authentification
+  let color = '#FC8A1A'; // Default color
+
+  if (!auth || !auth.isAuthenticated) {
+    if (location.pathname === '/') {
+      color = '#E7272D';
+    } else if (location.pathname === '/je-suis-producteur') {
+      color = '#9ACF5D';
+    } else if (location.pathname === '/restaurateur') {
+      color = '#FC8A1A';
+    }
+  } else {
+    color = auth.user?.role === 'restaurateur' ? theme.palette.primary.main : '#9ACF5D';
+    console.log('Auth role:', auth.user?.role);
+  }
   const orangeMain = theme.palette.orange?.main || '#FC8A1A';
   const beigeClair = theme.palette.beige?.clair || '#FFF4E2';
 
@@ -87,10 +127,10 @@ const FooterNavigation = () => {
           <Box display="flex" justifyContent="center" alignItems="center">
             <img src={fruitsfooter} alt="Logo" style={{ height: '130px' }} />
           </Box>
-          <Typography variant="h2" sx={{ textAlign: 'left', mb: 2, color: orangeMain, fontSize: '1.6rem' }}>
-            ABBONEZ-VOUS À NOTRE NEWS FRUITÉ
+          <Typography variant="h2" sx={{ textAlign: 'left', mb: 2, color: color, fontSize: '1.6rem' }}>
+            ABONEZ-VOUS À NOTRE NEWS FRUITÉ
           </Typography>
-          <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ padding: '0.5rem', backgroundColor: orangeMain, borderRadius: '0.5rem' }}>
+          <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ padding: '0.5rem', backgroundColor: color, borderRadius: '0.5rem' }}>
             <EmailIcon />
             <MuiLink 
               href="mailto:shappy.pro@gmail.com" 
