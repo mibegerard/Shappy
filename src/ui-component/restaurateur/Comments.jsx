@@ -7,21 +7,21 @@ import CommentCard from '../Cards/CommentCard';
 
 const commentData = [
     {
-        name: 'John Doe',
-        role: 'Producteur',
-        rankingNumber: 4,
+        name: 'Sophie Dubois',
+        role: 'Restauratrice',
+        rankingNumber: 5,
         comment: 'Shappy est une révolution pour moi ! C’est un gain de temps énorme et les produits sont de très bonne qualité !',
     },
     {
-        name: 'Jane Smith',
-        role: 'Restaurateur',
-        rankingNumber: 1,
-        comment: 'Shappy est une révolution pour moi ! C’est un gain de temps énorme et les produits sont de très bonne qualité !',
+        name: 'Martin Matin',
+        role: 'Producteur',
+        rankingNumber: 5,
+        comment: 'Je suis ravi de pouvoir mettre mes produits invendus sur ce site ! La plateforme est pratique et intuitive je recommande !',
     },
     {
         name: 'Elisabeth Mirro',
         role: 'Restauratrice',
-        rankingNumber: 2,
+        rankingNumber: 4,
         comment: 'Shappy est une révolution pour moi ! C’est un gain de temps énorme et les produits sont de très bonne qualité !',
     },
 ];
