@@ -26,44 +26,44 @@ const ProductDetail = () => {
     const [relatedLoading, setRelatedLoading] = useState(true); 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-    useEffect(() => {
-        const fetchProductDetails = async () => {
-            try {
-                const response = await axiosInstance.get(`/product/${productId}`);
-                setProduct(response.data.data);
-    
-                // Fetch related products
-                const relatedResponse = await axiosInstance.get(`/products?category=${response.data.data.category}`);
-                setRelatedProducts(relatedResponse.data.data);
-    
-                // Check if the product already exists in the cart
-                const userId = auth?.user?._id;
-                if (userId) {
-                    try {
-                        const cartResponse = await axiosInstance.get(`/cart/${userId}/product/${productId}`);
-                        const productInCart = cartResponse.data;
-                        if (productInCart) {
-                            setQuantity(productInCart.quantity);  // Set quantity from cart if product is already there
-                        } else {
-                            setQuantity(0);  // Set to 0 if the product is not in the cart
-                        }
-                    } catch (cartError) {
-                        // If the product is not found in the cart, treat quantity as 0
-                        console.warn('Product not found in the cart:', cartError);
-                        setQuantity(0);
+    const fetchProductDetails = React.useCallback(async () => {
+        try {
+            const response = await axiosInstance.get(`/product/${productId}`);
+            setProduct(response.data.data);
+
+            // Fetch related products
+            const relatedResponse = await axiosInstance.get(`/products?category=${response.data.data.category}`);
+            setRelatedProducts(relatedResponse.data.data);
+
+            // Check if the product already exists in the cart
+            const userId = auth?.user?._id;
+            if (userId) {
+                try {
+                    const cartResponse = await axiosInstance.get(`/cart/${userId}/product/${productId}`);
+                    const productInCart = cartResponse.data;
+                    if (productInCart) {
+                        setQuantity(productInCart.quantity);  // Set quantity from cart if product is already there
+                    } else {
+                        setQuantity(0);  // Set to 0 if the product is not in the cart
                     }
+                } catch (cartError) {
+                    // If the product is not found in the cart, treat quantity as 0
+                    console.warn('Product not found in the cart:', cartError);
+                    setQuantity(0);
                 }
-            } catch (err) {
-                setError('Error fetching product details. Please try again later.');
-                console.error('Error fetching product details:', err);
-            } finally {
-                setLoading(false);
-                setRelatedLoading(false); // Stop loading for related products
             }
-        };
-    
-        fetchProductDetails();
+        } catch (err) {
+            setError('Error fetching product details. Please try again later.');
+            console.error('Error fetching product details:', err);
+        } finally {
+            setLoading(false);
+            setRelatedLoading(false); // Stop loading for related products
+        }
     }, [productId, auth?.user?._id]);
+
+    useEffect(() => {
+        fetchProductDetails();
+    }, [productId, auth?.user?._id, fetchProductDetails]);
     
 
     // Handle Snackbar close
@@ -105,11 +105,13 @@ const ProductDetail = () => {
     
             // Extract the quantity from the response
             const quantityInCart = productInCart?.quantity || 0; // Default to 0 if undefined
+            console.log('Product quantity:', product.quantity);
             console.log('Current quantity in cart for this product:', quantityInCart);
-    
+
             // Ensure the total quantity doesn't exceed the stock
             if (quantity < product.quantity) {
                 setQuantity((prevQuantity) => prevQuantity + 1);
+                console.log('Quantity increased to:', quantity + 1);
             } else {
                 alert('You cannot add more items than available in stock.');
             }
@@ -157,6 +159,7 @@ const ProductDetail = () => {
             // Ensure the quantity doesn't drop below 0
             if (quantity > 0) {
                 setQuantity((prevQuantity) => prevQuantity - 1);
+                console.log('Quantity decreased to:', quantity - 1);
             } else {
                 alert('You cannot have less than 0 items in the cart.');
             }
@@ -177,15 +180,35 @@ const ProductDetail = () => {
         }
     };    
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
         if (quantity > 0 && quantity <= product.quantity) {
-            console.log(`Added ${quantity} of ${product.name} to the cart.`);
-            setQuantity(0);
-            setSnackbarOpen(true);
+        try {
+            const userId = auth?.user?._id || auth?.user?.id;
+
+            if (!userId) {
+            alert('Vous devez être connecté pour ajouter des produits au panier.');
+            return;
+            }
+
+            console.log('Quantity from state:', quantity);
+
+            // Effectuer une requête POST pour ajouter le produit au panier
+            const response = await axiosInstance.post(`/cart/${userId}/productDetails`, {
+                productId: productId,
+                quantity: quantity, // Use the latest quantity from state
+            });
+
+            console.log('Product successfully added to the cart:', response.data);
+            setSnackbarOpen(true); // Afficher une notification de succès
+            setQuantity(0); // Réinitialiser la quantité après l'ajout
+        } catch (error) {
+            console.error('Error adding product to the cart:', error);
+            alert('Une erreur est survenue lors de l\'ajout du produit au panier.');
+        }
         } else if (quantity > product.quantity) {
-            alert('You cannot add more items than available in stock.');
+        alert('Vous ne pouvez pas ajouter plus d\'articles que le stock disponible.');
         } else {
-            alert('Please select a quantity greater than 0.');
+        alert('Veuillez sélectionner une quantité supérieure à 0.');
         }
     };
 
