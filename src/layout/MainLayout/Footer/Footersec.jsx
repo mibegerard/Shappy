@@ -12,8 +12,9 @@ const Footersec = () => {
   const theme = useTheme();
 
   // Déterminer l'image du logo en fonction de la page et du statut d'authentification
-  let logoImage = logorange; // Image par défaut
-
+  let logoImage = logorange; 
+  console.log('Auth auth:', auth);
+  
   if (!auth || !auth.isAuthenticated) {
     if (location.pathname === '/') {
       logoImage = logored;
@@ -23,7 +24,8 @@ const Footersec = () => {
       logoImage = logorange;
     }
   } else {
-    logoImage = auth.role === 'restaurateur' ? logorange : logored;
+    // If the user is authenticated, set the logo to logorange
+    logoImage = logorange;
   }
 
   return (

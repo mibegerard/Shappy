@@ -74,6 +74,7 @@ Accédez à [https://localhost:3000](https://localhost:3000) pour voir l'applica
 
 - React, Vite, Redux Toolkit, MUI, Emotion, Framer Motion, Stripe, Axios, Formik, React Router, Toastify...
 
+
 ## 🔒 HTTPS local
 
 Le projet utilise des certificats locaux (`localhost-key.pem`, `localhost.pem`) pour le développement sécurisé.
