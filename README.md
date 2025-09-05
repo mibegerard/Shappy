@@ -74,6 +74,7 @@ Accédez à [https://localhost:3000](https://localhost:3000) pour voir l'applica
 
 - React, Vite, Redux Toolkit, MUI, Emotion, Framer Motion, Stripe, Axios, Formik, React Router, Toastify...
 
+
 ## 🔒 HTTPS local
 
 Le projet utilise des certificats locaux (`localhost-key.pem`, `localhost.pem`) pour le développement sécurisé.
@@ -106,30 +107,6 @@ git push origin feature/ma-nouvelle-fonctionnalite
 
 Ouvre une Pull Request sur GitHub.
 
-## 📄 Licence
 
-Ce projet est sous licence MIT.
-
----
 
 > Pour toute question ou suggestion, ouvre une issue sur GitHub.
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
