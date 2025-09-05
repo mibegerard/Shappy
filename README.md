@@ -1,70 +1,111 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Shappy
 
-## Available Scripts
+![GitHub repo](https://img.shields.io/github/repo-size/mibegerard/shappy_api)
+![GitHub last commit](https://img.shields.io/github/last-commit/mibegerard/shappy_api)
+![GitHub issues](https://img.shields.io/github/issues/mibegerard/shappy_api)
 
-In the project directory, you can run:
 
-### `npm start`
+## 🚀 Présentation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Shappy est une application web moderne développée avec React et Vite. Elle vise à connecter des producteurs locaux, restaurateurs et consommateurs autour d’un marché digital collaboratif.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Fonctionnalités principales
 
-### `npm test`
+- **Inscription et gestion de compte** : chaque utilisateur peut créer un compte, personnaliser son profil, ajouter une photo et une description.
+- **Marketplace** : les producteurs publient leurs offres, les restaurateurs et particuliers peuvent consulter, filtrer et commander des produits locaux.
+- **Gestion des commandes** : suivi des commandes, historique, notifications.
+- **Paiement sécurisé** : intégration Stripe pour les transactions.
+- **Tableau de bord** : statistiques, gestion des produits, visualisation des ventes et achats.
+- **Interface responsive** : adaptée à tous les écrans, expérience fluide sur mobile et desktop.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Comment ça fonctionne ?
 
-### `npm run build`
+1. **Installation** : clone le repo, installe les dépendances, lance le serveur local.
+2. **Authentification** : chaque utilisateur s’inscrit et se connecte pour accéder à ses fonctionnalités.
+3. **Navigation** : l’interface propose des menus pour accéder au marché, à son profil, à la gestion des produits et commandes.
+4. **Ajout et gestion de produits** : les producteurs peuvent ajouter, modifier ou supprimer leurs offres.
+5. **Commande et paiement** : les restaurateurs/particuliers passent commande et paient en ligne.
+6. **Suivi** : chaque utilisateur peut suivre ses commandes, ses ventes ou ses achats.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+L’application est conçue pour être extensible, sécurisée et facile à prendre en main.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📦 Structure du projet
 
-### `npm run eject`
+```
+shappy/
+├── public/           # Fichiers statiques (favicon, manifest, index.html...)
+├── src/              # Code source principal (composants, hooks, context, store...)
+├── build/            # Fichiers générés lors du build
+├── dist/             # Dossier de distribution Vite
+├── node_modules/     # Dépendances
+├── package.json      # Dépendances et scripts
+├── vite.config.mjs   # Configuration Vite
+├── jsconfig.json     # Configuration JS
+├── README.md         # Ce fichier
+└── ...
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🛠️ Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone https://github.com/mibegerard/shappy_api.git
+cd shappy
+npm install # ou yarn install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🏃‍♂️ Démarrer le projet
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm start # ou yarn start
+```
 
-## Learn More
+Accédez à [https://localhost:3000](https://localhost:3000) pour voir l'application.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ⚙️ Scripts utiles
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `npm start` : Lancer le serveur de développement
+- `npm run build` : Générer la version production
+- `npm test` : Lancer les tests
 
-### Code Splitting
+## 🧩 Principales dépendances
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- React, Vite, Redux Toolkit, MUI, Emotion, Framer Motion, Stripe, Axios, Formik, React Router, Toastify...
 
-### Analyzing the Bundle Size
+## 🔒 HTTPS local
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Le projet utilise des certificats locaux (`localhost-key.pem`, `localhost.pem`) pour le développement sécurisé.
 
-### Making a Progressive Web App
+## 📁 Organisation du code
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **src/** :
+	- `api/` : Requêtes API
+	- `assets/` : Images, polices, SCSS
+	- `context/` : Context React
+	- `hooks/` : Hooks personnalisés
+	- `layout/` : Layouts principaux
+	- `routes/` : Définition des routes
+	- `store/` : Redux slices et actions
+	- `themes/` : Thèmes et styles
+	- `ui-component/` : Composants UI réutilisables
+	- `utils/` : Fonctions utilitaires
+	- `views/` : Pages principales
+	- `yup/` : Schémas de validation
 
-### Advanced Configuration
+## 📝 Contribuer
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Les contributions sont les bienvenues !
 
-### Deployment
+```bash
+git checkout -b feature/ma-nouvelle-fonctionnalite
+git commit -m "Ajout de ma fonctionnalité"
+git push origin feature/ma-nouvelle-fonctionnalite
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Ouvre une Pull Request sur GitHub.
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+> Pour toute question ou suggestion, ouvre une issue sur GitHub.
